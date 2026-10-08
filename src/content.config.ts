@@ -112,7 +112,7 @@ const articles = defineCollection({
         /** Devices and app versions a person actually tried. Empty until that happens. */
         testedOn: z.array(z.string()).default([]),
         /** Official pages the article relies on. */
-        sources: z.array(z.string().url()).default([]),
+        sources: z.array(z.url()).default([]),
       })
       .refine((d) => !d.imageAlt || d.image, {
         error: 'imageAlt requires image',
