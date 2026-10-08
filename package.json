@@ -1,0 +1,69 @@
+{
+  "name": "iptvblogue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Informational IPTV blog (en-GB / en-US). Static Astro site, SEO-first.",
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@10.15.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "@resvg/resvg-js"
+    ]
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build && pnpm run postbuild:pagefind && pnpm run postbuild:indexnow",
+    "build:prod": "pnpm run build && pnpm run seo-check:strict",
+    "postbuild:pagefind": "pagefind --site dist",
+    "postbuild:indexnow": "tsx scripts/indexnow.ts --post-build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "seo-check": "tsx scripts/seo-check.ts",
+    "seo-check:strict": "tsx scripts/seo-check.ts --strict",
+    "trends": "python scripts/trends.py",
+    "plan:build": "tsx scripts/plan.ts",
+    "plan": "tsx scripts/stubs.ts",
+    "indexnow": "tsx scripts/indexnow.ts",
+    "verify": "pnpm run lint && pnpm run check && pnpm run build && pnpm run seo-check"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/inter": "^5.3.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.8",
+    "satori": "^0.15.1",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.4",
+    "eslint": "^10.12.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "globals": "^17.13.0",
+    "node-html-parser": "^9.0.4",
+    "pagefind": "^1.5.2",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.1.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.71.1",
+    "yaml": "^2.9.1"
+  }
+}

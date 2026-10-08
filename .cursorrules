@@ -1,0 +1,25 @@
+# PROJECT
+SEO-first INFORMATIONAL IPTV blog (UK en-GB, US en-US). No sales, no product pages.
+Stack: Astro 4+, TypeScript strict, Tailwind, MDX. Static generation only.
+
+# NON-NEGOTIABLES
+- All indexable content is statically rendered. No client-side rendering for content.
+- Copy and articles live in /content (MDX/JSON), never hardcoded in components.
+- Never link to playlists, resellers or unlicensed services.
+- Never invent stats, reviews, prices, quotes or channel counts. Use TODO placeholders.
+- No AggregateRating/Review schema without real reviews.
+
+# SEO RULES (every page)
+- Unique title (<=60 chars, keyword first), description (<=155), canonical, OG, Twitter.
+- One H1, logical H2/H3, breadcrumbs, TOC, published + updated dates, author box.
+- JSON-LD via /lib/seo.ts only: Article, FAQPage, HowTo, BreadcrumbList, Person.
+- 3+ contextual internal links per article, descriptive anchors, max 3 clicks from home.
+- Images: AVIF/WebP, width/height, alt text, lazy except LCP. Fonts: self-hosted, swap.
+
+# PERFORMANCE
+LCP < 2.0s, CLS < 0.05, INP < 200ms, < 100KB JS per page. Reserved ad slots, no layout shift.
+
+# WORKFLOW
+- Small steps. After each change run lint, typecheck and `npm run seo-check`.
+- Explain decisions briefly and list files changed.
+- Articles under 800 words (pillars under 1800) must fail seo-check.

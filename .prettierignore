@@ -1,0 +1,7 @@
+dist
+node_modules
+.astro
+pnpm-lock.yaml
+public/pagefind
+data/keywords_trends.csv
+content/plan.json
