@@ -1,0 +1,6 @@
+# Pagefind config (https://pagefind.app/docs/config-options/). Run after `astro build`.
+site: dist
+# Pages carry lang="en-GB" / "en-US" / "en"; index them together so one search covers all.
+force_language: en
+# Keep the generated bundle out of the content root during dev (dist/ is build-only anyway).
+output_subdir: pagefind

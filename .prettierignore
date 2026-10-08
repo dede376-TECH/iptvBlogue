@@ -4,4 +4,7 @@ node_modules
 pnpm-lock.yaml
 public/pagefind
 data/keywords_trends.csv
+data/*.csv
 content/plan.json
+# Prettier's markdown parser mangles MDX JSX comments ({/* */} -> {/_ _/}); authors format MDX by hand.
+*.mdx
