@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  SITE_URL: https://example.com # TODO(human): set the real domain (or a repo variable)
+
+jobs:
+  quality:
+    name: Lint, types, build, SEO gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm check
+
+      - name: Build (astro + pagefind)
+        run: pnpm build
+
+      # Pull requests: structural checks fail, content-readiness issues (TODO, word count) warn.
+      - name: SEO check
+        if: github.event_name == 'pull_request'
+        run: pnpm seo-check
+
+      # main: production gate – TODOs, short articles and drafts in the build all fail.
+      - name: SEO check (strict)
+        if: github.ref == 'refs/heads/main'
+        run: pnpm seo-check:strict
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
+
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Lighthouse CI (fail < 90 perf, < 95 SEO)
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
