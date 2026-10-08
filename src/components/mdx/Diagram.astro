@@ -1,0 +1,15 @@
+---
+interface Props {
+  caption: string;
+  alt: string;
+}
+
+const { caption, alt } = Astro.props;
+---
+
+<figure class="diagram not-prose">
+  <div class="diagram-svg" role="img" aria-label={alt}>
+    <slot />
+  </div>
+  <figcaption>{caption}</figcaption>
+</figure>
