@@ -17,15 +17,17 @@ const Sub = `h${headingLevel + 1}` as 'h3' | 'h4';
 ---
 
 {items.length > 0 && (
-  <section id="faq" aria-labelledby="faq-title" class="my-10">
-    <Heading id="faq-title">{title}</Heading>
-    <dl class="not-prose divide-y divide-slate-200 rounded-lg border border-slate-200">
+  <section id="faq" aria-labelledby="faq-title" class="faq">
+    <Heading id="faq-title" class="section-title">
+      {title}
+    </Heading>
+    <dl class="faq-list not-prose">
       {items.map((f) => (
-        <div class="p-4">
+        <div class="faq-item">
           <dt>
-            <Sub class="font-semibold text-slate-900">{f.question}</Sub>
+            <Sub>{f.question}</Sub>
           </dt>
-          <dd class="mt-2 text-slate-700">{f.answer}</dd>
+          <dd>{f.answer}</dd>
         </div>
       ))}
     </dl>

@@ -3,28 +3,79 @@ import type { MarkdownHeading } from 'astro';
 
 interface Props {
   headings: MarkdownHeading[];
-  /** Depths to include. Default: h2 and h3. */
+  variant: 'mobile' | 'desktop';
   depths?: number[];
   title?: string;
 }
 
-const { headings, depths = [2, 3], title = 'In this article' } = Astro.props;
+const { headings, variant, depths = [2, 3], title = 'In this article' } = Astro.props;
 const items = headings.filter((h) => depths.includes(h.depth));
+
+interface Group {
+  slug: string;
+  text: string;
+  children: { slug: string; text: string }[];
+}
+
+const groups: Group[] = [];
+for (const heading of items) {
+  if (heading.depth === 2) {
+    groups.push({ slug: heading.slug, text: heading.text, children: [] });
+  } else if (heading.depth === 3 && groups.length > 0) {
+    const parent = groups[groups.length - 1];
+    if (parent) parent.children.push({ slug: heading.slug, text: heading.text });
+  }
+}
+
+const linkCount = groups.reduce((count, group) => count + 1 + group.children.length, 0);
+const labelId = variant === 'mobile' ? 'toc-title' : 'toc-desktop-title';
 ---
 
-{items.length > 1 && (
-  <nav aria-labelledby="toc-title" class="card not-prose my-6 text-sm">
-    <p id="toc-title" class="mb-2 font-semibold text-slate-900">
-      {title}
-    </p>
-    <ol class="space-y-1">
-      {items.map((h) => (
-        <li class:list={[h.depth === 3 && 'ml-4']}>
-          <a href={`#${h.slug}`} class="text-slate-700 hover:text-brand-700 hover:underline">
-            {h.text}
-          </a>
+{linkCount > 1 && variant === 'mobile' && (
+  <div class="toc-mobile">
+    <details>
+      <summary id={labelId}>{title}</summary>
+      <nav class="toc" aria-labelledby={labelId}>
+        <ol class="toc-list">
+          {groups.map((group) => (
+            <li class="toc-h2" data-slug={group.slug}>
+              <a href={`#${group.slug}`}>{group.text}</a>
+              {group.children.length > 0 && (
+                <ol class="toc-h3">
+                  {group.children.map((child) => (
+                    <li>
+                      <a href={`#${child.slug}`}>{child.text}</a>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </details>
+  </div>
+)}
+
+{linkCount > 1 && variant === 'desktop' && (
+  <nav class="toc toc-desktop" aria-labelledby={labelId}>
+    <p id={labelId}>{title}</p>
+    <ol class="toc-list">
+      {groups.map((group) => (
+        <li class="toc-h2" data-slug={group.slug}>
+          <a href={`#${group.slug}`}>{group.text}</a>
+          {group.children.length > 0 && (
+            <ol class="toc-h3">
+              {group.children.map((child) => (
+                <li>
+                  <a href={`#${child.slug}`}>{child.text}</a>
+                </li>
+              ))}
+            </ol>
+          )}
         </li>
       ))}
     </ol>
+    <script src="../scripts/toc.ts"></script>
   </nav>
 )}

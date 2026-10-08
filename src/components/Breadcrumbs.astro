@@ -9,20 +9,16 @@ interface Props {
 const { items, class: className = '' } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumb" class:list={['text-sm text-slate-500', className]}>
-  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+<nav aria-label="Breadcrumb" class:list={['crumbs', className]}>
+  <ol>
     {items.map((item, i) => {
       const last = i === items.length - 1;
       return (
-        <li class="flex items-center gap-x-2">
+        <li>
           {last ? (
-            <span aria-current="page" class="text-slate-700">
-              {item.name}
-            </span>
+            <span aria-current="page">{item.name}</span>
           ) : (
-            <a href={item.path} class="hover:text-brand-700 hover:underline">
-              {item.name}
-            </a>
+            <a href={item.path}>{item.name}</a>
           )}
           {!last && <span aria-hidden="true">/</span>}
         </li>
