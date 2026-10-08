@@ -1,0 +1,66 @@
+# Blocklist – one lowercase phrase per line. Whole-word match, case-insensitive
+# ("crack" does not match "crackdown"; list inflections explicitly).
+#
+# Used by:
+#   scripts/plan.ts   -> drops keyword candidates that contain any phrase
+#   scripts/seo-check -> fails if any phrase appears in the visible text of a built page
+#
+# Scope: queries seeking free/cracked/pirate playlists, credentials, unlicensed channels or
+# resellers. Keep neutral vocabulary ("iptv subscription", "piracy") OUT of this list so that
+# legality explainers can still discuss it; transactional modifiers are handled in plan.ts.
+
+# Free / pirate playlist seeking
+free iptv
+iptv free
+free m3u
+m3u free
+free playlist
+free playlists
+free channels list
+free iptv links
+iptv links
+m3u links
+iptv url list
+iptv github
+cracked
+crack
+pirated
+pirate iptv
+warez
+
+# Credentials / accounts / portals
+iptv login
+iptv username
+iptv password
+xtream codes
+xtream code
+xtream login
+mac address iptv
+stalker portal
+iptv codes
+iptv code
+iptv activation
+
+# Resellers / unlicensed sellers
+iptv reseller
+iptv resellers
+reseller panel
+credits panel
+iptv panel
+best iptv provider
+best iptv providers
+best iptv service
+best iptv services
+top iptv providers
+iptv trial
+free trial iptv
+24h test
+24 hour test
+iptv test line
+test line
+
+# Premium content "for free" patterns
+premium channels free
+sky free
+bein free
+ppv free

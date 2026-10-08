@@ -1,0 +1,22 @@
+{
+  "$comment": "Seed keywords for scripts/trends.py. `cluster` is the default cluster used by scripts/plan.ts when no topic rule matches a related query.",
+  "geos": ["GB", "US"],
+  "timeframe": "today 5-y",
+  "seeds": [
+    { "seed": "m3u playlist", "cluster": "technical" },
+    { "seed": "iptv epg", "cluster": "technical" },
+    { "seed": "xmltv", "cluster": "technical" },
+    { "seed": "iptv buffering", "cluster": "troubleshooting" },
+    { "seed": "iptv not working", "cluster": "troubleshooting" },
+    { "seed": "epg not showing", "cluster": "troubleshooting" },
+    { "seed": "iptv firestick", "cluster": "setup" },
+    { "seed": "iptv smart tv", "cluster": "setup" },
+    { "seed": "iptv apple tv", "cluster": "setup" },
+    { "seed": "tivimate", "cluster": "players" },
+    { "seed": "iptv player", "cluster": "players" },
+    { "seed": "kodi iptv", "cluster": "players" },
+    { "seed": "is iptv legal", "cluster": "legal-streaming" },
+    { "seed": "iptv vs cable", "cluster": "cord-cutting" },
+    { "seed": "international tv channels", "cluster": "languages" }
+  ]
+}
