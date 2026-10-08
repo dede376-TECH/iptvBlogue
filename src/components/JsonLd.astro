@@ -1,0 +1,14 @@
+---
+/**
+ * Renders a JSON-LD document. Always pass the result of `graph(...)` from `@/lib/seo`.
+ * `</script>` sequences are escaped to prevent breaking out of the script tag.
+ */
+interface Props {
+  data: Record<string, unknown>;
+}
+
+const { data } = Astro.props;
+const json = JSON.stringify(data).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" set:html={json} is:inline />

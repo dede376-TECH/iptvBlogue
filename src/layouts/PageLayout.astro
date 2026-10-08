@@ -1,0 +1,49 @@
+---
+/**
+ * Layout for static informational pages from the `pages` collection (about, privacy, …).
+ */
+import { render } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import type { Page } from '@/lib/content';
+import { pageUrl } from '@/lib/links';
+import { breadcrumbSchema, buildSeo, formatDate, webPageSchema } from '@/lib/seo';
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const path = pageUrl(page.id);
+const { Content } = await render(page);
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: page.data.navLabel ?? page.data.h1, path },
+];
+const meta = buildSeo({
+  title: page.data.title,
+  description: page.data.description,
+  path,
+  updatedAt: page.data.updatedAt,
+  noindex: !page.data.index,
+});
+const schema = [
+  webPageSchema({ path, name: page.data.h1, description: page.data.description }),
+  breadcrumbSchema(breadcrumbs),
+];
+---
+
+<BaseLayout meta={meta} schema={schema}>
+  <article class="container-prose py-8" data-area="page">
+    <Breadcrumbs items={breadcrumbs} class="mb-4" />
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900">{page.data.h1}</h1>
+    <p class="mt-2 text-sm text-slate-500">
+      Last updated{' '}
+      <time datetime={page.data.updatedAt.toISOString()}>{formatDate(page.data.updatedAt)}</time>
+    </p>
+    <div class="prose prose-slate mt-6 max-w-none">
+      <Content />
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

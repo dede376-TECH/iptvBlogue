@@ -1,0 +1,18 @@
+---
+import HubLayout from '@/layouts/HubLayout.astro';
+import { getArticlesByCluster, getClusters } from '@/lib/content';
+
+export async function getStaticPaths() {
+  const clusters = await getClusters();
+  return Promise.all(
+    clusters.map(async (cluster) => ({
+      params: { cluster: cluster.id },
+      props: { cluster, articles: await getArticlesByCluster(cluster.id) },
+    })),
+  );
+}
+
+const { cluster, articles } = Astro.props;
+---
+
+<HubLayout cluster={cluster} articles={articles} />

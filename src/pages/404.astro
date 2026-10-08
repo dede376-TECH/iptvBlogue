@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getClusters } from '@/lib/content';
+import { clusterUrl } from '@/lib/links';
+import { buildSeo } from '@/lib/seo';
+
+const clusters = await getClusters();
+const meta = buildSeo({
+  title: 'Page Not Found',
+  description:
+    'The page you were looking for does not exist. Browse IPTV guides by topic or use the search.',
+  path: '/404/',
+  noindex: true,
+});
+---
+
+<BaseLayout meta={meta}>
+  <div class="container-prose py-16">
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Page not found</h1>
+    <p class="mt-4 text-slate-700">
+      That page does not exist or has moved. Try the{' '}
+      <a href="/search/" class="underline">
+        search
+      </a>{' '}
+      or browse a topic:
+    </p>
+    <ul class="mt-6 grid gap-2 sm:grid-cols-2">
+      {clusters.map((c) => (
+        <li>
+          <a href={clusterUrl(c.id)} class="text-brand-700 underline">
+            {c.data.h1}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

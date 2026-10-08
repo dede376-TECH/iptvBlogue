@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { getPublishedArticles } from '@/lib/content';
+import { articleUrl, authorUrl } from '@/lib/links';
+import { breadcrumbSchema, buildSeo, formatDate, personSchema, truncate } from '@/lib/seo';
+
+export async function getStaticPaths() {
+  const authors = await getCollection('authors');
+  return authors.map((author) => ({ params: { slug: author.id }, props: { author } }));
+}
+
+const { author } = Astro.props;
+const path = authorUrl(author.id);
+const { Content } = await render(author);
+const articles = (await getPublishedArticles()).filter((a) => a.data.author.id === author.id);
+const { name, role, shortBio, avatar, links, credentials } = author.data;
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: `${name}`, path },
+];
+const meta = buildSeo({
+  title: truncate(`${name}: ${role}`, 60),
+  description: shortBio,
+  path,
+  image: avatar?.src,
+  imageAlt: `Photo of ${name}`,
+});
+const schema = [
+  personSchema({
+    slug: author.id,
+    name,
+    role,
+    description: shortBio,
+    image: avatar?.src,
+    sameAs: Object.values(links).filter((v): v is string => Boolean(v)),
+  }),
+  breadcrumbSchema(breadcrumbs),
+];
+---
+
+<BaseLayout meta={meta} schema={schema}>
+  <div class="container-prose py-8" data-area="author">
+    <Breadcrumbs items={breadcrumbs} class="mb-4" />
+    <header class="flex items-start gap-5">
+      {avatar && (
+        <Image
+          src={avatar}
+          alt={`Photo of ${name}`}
+          width={96}
+          height={96}
+          class="h-24 w-24 rounded-full"
+          loading="eager"
+        />
+      )}
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900">{name}</h1>
+        <p class="mt-1 text-slate-600">{role}</p>
+        {credentials.length > 0 && (
+          <ul class="mt-2 flex flex-wrap gap-2 text-xs text-slate-600">
+            {credentials.map((c) => (
+              <li class="rounded bg-slate-100 px-2 py-0.5">{c}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </header>
+
+    <div class="prose prose-slate mt-6 max-w-none">
+      <Content />
+    </div>
+
+    {articles.length > 0 && (
+      <section aria-labelledby="author-articles" class="mt-10">
+        <h2 id="author-articles" class="text-xl font-semibold text-slate-900">
+          Articles by {name}
+        </h2>
+        <ul class="mt-4 space-y-3">
+          {articles.map((a) => (
+            <li>
+              <a
+                href={articleUrl(a.id)}
+                class="font-medium text-slate-900 hover:text-brand-700 hover:underline"
+              >
+                {a.data.title}
+              </a>
+              <span class="ml-2 text-xs text-slate-500">
+                {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>

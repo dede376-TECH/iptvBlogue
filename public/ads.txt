@@ -1,0 +1,5 @@
+# ads.txt – authorised digital sellers (https://iabtechlab.com/ads-txt/)
+# TODO(human): after AdSense approval, replace the line below with the exact entry shown in your
+# AdSense account, e.g.:
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+# Add Ezoic / Mediavine lines here if you later move to those networks.

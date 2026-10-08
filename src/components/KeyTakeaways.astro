@@ -1,0 +1,27 @@
+---
+interface Props {
+  items: string[];
+  title?: string;
+}
+
+const { items, title = 'Key takeaways' } = Astro.props;
+---
+
+{items.length > 0 && (
+  <aside
+    aria-labelledby="key-takeaways-title"
+    class="not-prose my-6 rounded-lg border border-brand-100 bg-brand-50 p-5"
+  >
+    <p
+      id="key-takeaways-title"
+      class="mb-2 text-sm font-semibold tracking-wide text-brand-800 uppercase"
+    >
+      {title}
+    </p>
+    <ul class="list-disc space-y-1 pl-5 text-slate-800">
+      {items.map((item) => (
+        <li>{item}</li>
+      ))}
+    </ul>
+  </aside>
+)}

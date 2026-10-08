@@ -1,0 +1,9 @@
+---
+import { getEntry } from 'astro:content';
+import PageLayout from '@/layouts/PageLayout.astro';
+
+const page = await getEntry('pages', 'privacy');
+if (!page) throw new Error('Missing src/content/pages/privacy.mdx');
+---
+
+<PageLayout page={page} />

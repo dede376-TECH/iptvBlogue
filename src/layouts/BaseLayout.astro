@@ -1,0 +1,179 @@
+---
+/**
+ * HTML shell shared by every page: head (SEO, JSON-LD, fonts), header, footer, consent banner.
+ * Navigation labels come from the content collections – nothing is hardcoded here.
+ */
+import '@/styles/global.css';
+import SEO from '@/components/SEO.astro';
+import JsonLd from '@/components/JsonLd.astro';
+import ConsentBanner from '@/components/ConsentBanner.astro';
+import { getClusters } from '@/lib/content';
+import { getCollection } from 'astro:content';
+import { clusterUrl, pageUrl, FOOTER_PAGE_ORDER } from '@/lib/links';
+import { graph, organizationSchema, websiteSchema, type SeoMeta } from '@/lib/seo';
+import { ADS, ANALYTICS, SITE } from '@/lib/site';
+
+interface Props {
+  meta: SeoMeta;
+  /** Extra JSON-LD nodes merged into the page @graph. */
+  schema?: Record<string, unknown>[];
+  /** `minimal` hides navigation for distraction-free paid-test pages. */
+  template?: 'default' | 'minimal';
+  bodyClass?: string;
+}
+
+const { meta, schema = [], template = 'default', bodyClass = '' } = Astro.props;
+
+const clusters = await getClusters();
+const pages = await getCollection('pages');
+const footerPages = FOOTER_PAGE_ORDER.map((slug) => pages.find((p) => p.id === slug)).filter(
+  (p): p is NonNullable<typeof p> => Boolean(p),
+);
+
+const jsonLd = graph(organizationSchema(), websiteSchema(), ...schema);
+const clientConfig = {
+  ga4Id: ANALYTICS.ga4Id,
+  adsenseClient: ADS.adsenseClient,
+  npaWithoutConsent: ADS.npaWithoutConsent,
+};
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang={meta.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SEO meta={meta} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} RSS`} href="/rss.xml" />
+    <meta name="theme-color" content="#0f766e" />
+    <meta name="generator" content={Astro.generator} />
+    <JsonLd data={jsonLd} />
+    {/* Consent Mode v2 defaults: everything denied until the visitor chooses. Inline so it runs before any tag. */}
+    <script is:inline define:vars={{ clientConfig }}>
+      window.__iptvbConfig = clientConfig;
+      window.dataLayer = window.dataLayer || [];
+      // Equivalent to Google's snippet: gtag.js reads array-like entries from dataLayer.
+      window.gtag = function gtag(...args) {
+        window.dataLayer.push(args);
+      };
+      window.gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 500,
+      });
+    </script>
+  </head>
+  <body class:list={['flex min-h-screen flex-col', `template-${template}`, bodyClass]}>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2"
+    >
+      Skip to content
+    </a>
+
+    <header class="border-b border-slate-200 bg-white">
+      <div class="container-wide flex h-14 items-center justify-between gap-4">
+        <a href="/" class="flex items-center gap-2 font-bold text-slate-900" data-area="header">
+          <img src="/logo.svg" alt="" width="28" height="28" class="h-7 w-7" />
+          <span>{SITE.name}</span>
+        </a>
+        <nav
+          aria-label="Primary"
+          class="site-nav hidden items-center gap-5 text-sm md:flex"
+          data-area="nav"
+        >
+          {clusters.map((c) => (
+            <a href={clusterUrl(c.id)} class="text-slate-700 hover:text-brand-700">
+              {c.data.navLabel}
+            </a>
+          ))}
+        </nav>
+        <a href="/search/" class="text-sm text-slate-700 hover:text-brand-700" aria-label="Search">
+          Search
+        </a>
+      </div>
+      <!-- Mobile cluster nav (horizontal scroll, no JS) -->
+      <nav aria-label="Topics" class="site-nav border-t border-slate-100 md:hidden" data-area="nav">
+        <div class="container-wide flex gap-4 overflow-x-auto py-2 text-sm whitespace-nowrap">
+          {clusters.map((c) => (
+            <a href={clusterUrl(c.id)} class="text-slate-700 hover:text-brand-700">
+              {c.data.navLabel}
+            </a>
+          ))}
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="mt-16 border-t border-slate-200 bg-slate-50 text-sm text-slate-600">
+      <div class="container-wide grid gap-8 py-10 md:grid-cols-3" data-area="footer">
+        <div>
+          <p class="font-semibold text-slate-900">{SITE.name}</p>
+          <p class="mt-2">{SITE.tagline}</p>
+          <p class="mt-2 text-xs">
+            Informational only. We do not sell subscriptions or link to playlists or unlicensed
+            services.
+          </p>
+        </div>
+        <nav aria-label="Topics" class="site-footer-nav">
+          <p class="font-semibold text-slate-900">Topics</p>
+          <ul class="mt-2 space-y-1">
+            {clusters.map((c) => (
+              <li>
+                <a href={clusterUrl(c.id)} class="hover:text-brand-700 hover:underline">
+                  {c.data.navLabel}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <nav aria-label="Site">
+          <p class="font-semibold text-slate-900">Site</p>
+          <ul class="mt-2 space-y-1">
+            {footerPages.map((p) => (
+              <li>
+                <a href={pageUrl(p.id)} class="hover:text-brand-700 hover:underline">
+                  {p.data.navLabel ?? p.data.h1}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a
+                href={`${pageUrl('cookies')}#preferences`}
+                class="hover:text-brand-700 hover:underline"
+              >
+                Do Not Sell or Share My Personal Information
+              </a>
+            </li>
+            <li>
+              <a href="/rss.xml" class="hover:text-brand-700 hover:underline">
+                RSS feed
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="border-t border-slate-200">
+        <p class="container-wide py-4 text-xs">
+          © {SITE.foundedYear}
+          {year > SITE.foundedYear ? `–${year}` : ''} {SITE.name}. All trademarks belong to their
+          respective owners.
+        </p>
+      </div>
+    </footer>
+
+    <ConsentBanner />
+    <script src="@/scripts/consent.ts"></script>
+  </body>
+</html>

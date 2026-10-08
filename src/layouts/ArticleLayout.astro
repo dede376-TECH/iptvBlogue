@@ -1,0 +1,200 @@
+---
+/**
+ * Article template. Receives a content entry and renders: breadcrumbs, H1, byline (author,
+ * dates, reading time), key takeaways, TOC, body, FAQ, author box, related posts and reserved
+ * ad slots (max 3 per 1000 words, none above the fold on mobile).
+ */
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import TOC from '@/components/TOC.astro';
+import KeyTakeaways from '@/components/KeyTakeaways.astro';
+import FAQ from '@/components/FAQ.astro';
+import AuthorBox from '@/components/AuthorBox.astro';
+import RelatedPosts from '@/components/RelatedPosts.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import type { Article, Cluster } from '@/lib/content';
+import { getAuthor, resolveRelated, getPublishedArticles } from '@/lib/content';
+import { articleUrl, clusterUrl } from '@/lib/links';
+import {
+  articleSchema,
+  breadcrumbSchema,
+  buildHreflang,
+  buildSeo,
+  countWords,
+  faqSchema,
+  formatDate,
+  howToSchema,
+  langForGeo,
+  maxAdSlots,
+  personSchema,
+  readingTimeMinutes,
+} from '@/lib/seo';
+
+interface Props {
+  article: Article;
+  cluster: Cluster;
+}
+
+const { article, cluster } = Astro.props;
+const { data } = article;
+const path = articleUrl(article.id);
+
+const { Content, headings } = await render(article);
+const author = await getAuthor(data.author);
+const related = data.template === 'minimal' ? [] : await resolveRelated(article);
+
+const wordCount = countWords(article.body ?? '');
+const readingTime = readingTimeMinutes(wordCount);
+const lang = langForGeo(data.geo);
+const publishedAt = data.publishedAt;
+const updatedAt = data.updatedAt ?? data.publishedAt;
+
+// hreflang: only when real variants are declared.
+const all = data.alternates.length ? await getPublishedArticles() : [];
+const alternates = data.alternates
+  .map((alt) => {
+    const target = all.find((a) => a.id === alt.id);
+    return target ? { lang: alt.lang, path: articleUrl(target.id) } : null;
+  })
+  .filter((a): a is { lang: 'en-GB' | 'en-US'; path: string } => Boolean(a));
+const hreflang = buildHreflang({ path, geo: data.geo }, alternates);
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: cluster.data.navLabel, path: clusterUrl(cluster.id) },
+  { name: data.title, path },
+];
+
+const meta = buildSeo({
+  title: data.title,
+  description: data.description,
+  path,
+  type: 'article',
+  image: data.image?.src,
+  imageAlt: data.imageAlt,
+  publishedAt,
+  updatedAt,
+  authorName: author.data.name,
+  geo: data.geo,
+  hreflang,
+  noindex: !data.index,
+});
+
+const schema = [
+  articleSchema({
+    path,
+    headline: data.title,
+    description: data.description,
+    image: meta.image,
+    publishedAt,
+    updatedAt: data.updatedAt,
+    authorSlug: author.id,
+    authorName: author.data.name,
+    wordCount,
+    keywords: [data.targetKeyword, ...data.secondaryKeywords],
+    section: cluster.data.navLabel,
+    lang,
+  }),
+  breadcrumbSchema(breadcrumbs),
+  personSchema({
+    slug: author.id,
+    name: author.data.name,
+    role: author.data.role,
+    description: author.data.shortBio,
+    image: author.data.avatar?.src,
+    sameAs: Object.values(author.data.links).filter((v): v is string => Boolean(v)),
+  }),
+  faqSchema(data.faq),
+  data.howTo
+    ? howToSchema({
+        name: data.howTo.name ?? data.title,
+        description: data.description,
+        path,
+        totalTime: data.howTo.totalTime,
+        tools: data.howTo.tools,
+        supplies: data.howTo.supplies,
+        steps: data.howTo.steps,
+      })
+    : undefined,
+].filter((s): s is Record<string, unknown> => Boolean(s));
+
+// Ad placement: never above the fold on mobile (first slot only after the TOC), and at most
+// floor(words/1000*3) slots in total. The minimal template carries no ads at all.
+const adBudget = data.template === 'minimal' ? 0 : maxAdSlots(wordCount);
+const showMidAd = adBudget >= 1;
+const showEndAd = adBudget >= 2;
+---
+
+<BaseLayout meta={meta} schema={schema} template={data.template}>
+  <article class="container-prose py-8" data-pagefind-body data-area="article">
+    <Breadcrumbs items={breadcrumbs} class="mb-4" />
+
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{data.title}</h1>
+      <p class="mt-3 text-lg text-slate-600">{data.description}</p>
+      <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-500">
+        <AuthorBox author={author} variant="compact" />
+        <span>
+          Published{' '}
+          <time datetime={publishedAt.toISOString()}>{formatDate(publishedAt, lang)}</time>
+        </span>
+        {data.updatedAt && (
+          <span>
+            Updated <time datetime={updatedAt.toISOString()}>{formatDate(updatedAt, lang)}</time>
+          </span>
+        )}
+        <span>{readingTime} min read</span>
+        {data.geo !== 'GLOBAL' && (
+          <span class="rounded bg-slate-100 px-2 py-0.5 text-xs">
+            {data.geo === 'GB' ? 'UK guide' : 'US guide'}
+          </span>
+        )}
+      </div>
+    </header>
+
+    {data.image && (
+      <Image
+        src={data.image}
+        alt={data.imageAlt ?? data.title}
+        width={1200}
+        height={630}
+        widths={[640, 960, 1200]}
+        sizes="(max-width: 768px) 100vw, 768px"
+        format="avif"
+        loading="eager"
+        fetchpriority="high"
+        class="mb-6 w-full rounded-lg"
+      />
+    )}
+
+    <KeyTakeaways items={data.keyTakeaways} />
+    <TOC headings={headings} />
+
+    {showMidAd && <AdSlot id="article-mid-1" format="rectangle" />}
+
+    <div class="prose prose-slate max-w-none">
+      <Content />
+    </div>
+
+    <FAQ items={data.faq} />
+
+    {showEndAd && <AdSlot id="article-end-1" format="leaderboard" />}
+
+    <AuthorBox author={author} variant="full" />
+    <RelatedPosts articles={related} />
+
+    <p class="mt-8 text-sm text-slate-500">
+      Part of{' '}
+      <a href={clusterUrl(cluster.id)} class="underline hover:text-brand-700">
+        {cluster.data.h1}
+      </a>
+      . This article is informational only; read our{' '}
+      <a href="/disclaimer/" class="underline hover:text-brand-700">
+        disclaimer
+      </a>
+      .
+    </p>
+  </article>
+</BaseLayout>

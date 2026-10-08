@@ -1,0 +1,36 @@
+---
+/**
+ * Reserved advertising container.
+ *
+ * - Fixed dimensions per format (CSS in global.css) so ads never cause layout shift.
+ * - Renders only a placeholder box until the consent script (src/scripts/consent.ts) has
+ *   advertising consent AND `PUBLIC_ADSENSE_CLIENT` is configured. The script then lazily
+ *   fills slots as they approach the viewport (IntersectionObserver).
+ * - Never place a slot above the fold on mobile; layouts enforce this by position.
+ */
+import { ADS } from '@/lib/site';
+
+interface Props {
+  /** Stable identifier for reporting, e.g. "article-mid-1". */
+  id: string;
+  format?: 'leaderboard' | 'rectangle';
+  /** AdSense ad unit slot id. Optional until units are created in AdSense. */
+  slot?: string;
+  class?: string;
+}
+
+const { id, format = 'rectangle', slot = '', class: className = '' } = Astro.props;
+const enabled = Boolean(ADS.adsenseClient);
+---
+
+<div
+  class:list={['ad-slot not-prose', className]}
+  data-ad-slot-id={id}
+  data-format={format}
+  data-ad-client={enabled ? ADS.adsenseClient : undefined}
+  data-ad-unit={slot || undefined}
+  aria-label="Advertisement"
+  role="complementary"
+>
+  <span class="ad-slot__label select-none">Advertisement</span>
+</div>

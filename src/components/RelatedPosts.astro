@@ -1,0 +1,39 @@
+---
+import type { Article } from '@/lib/content';
+import { articleUrl } from '@/lib/links';
+import { formatDate } from '@/lib/seo';
+
+interface Props {
+  articles: Article[];
+  title?: string;
+}
+
+const { articles, title = 'Related guides' } = Astro.props;
+---
+
+{articles.length > 0 && (
+  <section aria-labelledby="related-title" class="not-prose my-10">
+    <h2 id="related-title" class="mb-4 text-xl font-semibold text-slate-900">
+      {title}
+    </h2>
+    <ul class="grid gap-4 sm:grid-cols-2">
+      {articles.map((a) => (
+        <li class="card">
+          <a
+            href={articleUrl(a.id)}
+            class="font-semibold text-slate-900 hover:text-brand-700 hover:underline"
+          >
+            {a.data.title}
+          </a>
+          <p class="mt-1 line-clamp-3 text-sm text-slate-600">{a.data.description}</p>
+          <p class="mt-2 text-xs text-slate-500">
+            Updated{' '}
+            <time datetime={(a.data.updatedAt ?? a.data.publishedAt).toISOString()}>
+              {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
+            </time>
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

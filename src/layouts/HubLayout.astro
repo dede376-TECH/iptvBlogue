@@ -1,0 +1,130 @@
+---
+/**
+ * Cluster hub (pillar) page: H1, intro, featured pillar article, all articles grouped by intent,
+ * cluster FAQ. Hubs are 1 click from home and link to every article (and back).
+ */
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import FAQ from '@/components/FAQ.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import type { Article, Cluster } from '@/lib/content';
+import { articleUrl, clusterUrl } from '@/lib/links';
+import { breadcrumbSchema, buildSeo, collectionPageSchema, faqSchema, formatDate } from '@/lib/seo';
+
+interface Props {
+  cluster: Cluster;
+  articles: Article[];
+}
+
+const { cluster, articles } = Astro.props;
+const path = clusterUrl(cluster.id);
+const pillar = articles.find((a) => a.id === cluster.data.pillar || a.data.pillar);
+const rest = articles.filter((a) => a.id !== pillar?.id);
+
+const INTENT_LABELS: Record<Article['data']['intent'], string> = {
+  'what-is': 'Explainers',
+  'how-to': 'How-to guides',
+  troubleshooting: 'Troubleshooting',
+  comparison: 'Comparisons',
+  legal: 'Legal and licensing',
+};
+const groups = (Object.keys(INTENT_LABELS) as Article['data']['intent'][])
+  .map((intent) => ({
+    intent,
+    label: INTENT_LABELS[intent],
+    items: rest.filter((a) => a.data.intent === intent),
+  }))
+  .filter((g) => g.items.length > 0);
+
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: cluster.data.navLabel, path },
+];
+
+const latest = articles[0]
+  ? (articles[0].data.updatedAt ?? articles[0].data.publishedAt)
+  : cluster.data.updatedAt;
+
+const meta = buildSeo({
+  title: cluster.data.title,
+  description: cluster.data.description,
+  path,
+  updatedAt: latest,
+});
+
+const schema = [
+  collectionPageSchema({
+    path,
+    name: cluster.data.h1,
+    description: cluster.data.description,
+    items: articles.map((a) => ({ name: a.data.title, path: articleUrl(a.id) })),
+  }),
+  breadcrumbSchema(breadcrumbs),
+  faqSchema(cluster.data.faq),
+].filter((s): s is Record<string, unknown> => Boolean(s));
+---
+
+<BaseLayout meta={meta} schema={schema}>
+  <div class="container-wide py-8" data-pagefind-body data-area="hub">
+    <Breadcrumbs items={breadcrumbs} class="mb-4" />
+    <header class="max-w-3xl">
+      <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+        {cluster.data.h1}
+      </h1>
+      <p class="mt-4 text-lg text-slate-700">{cluster.data.intro}</p>
+    </header>
+
+    {pillar && (
+      <section aria-labelledby="pillar-title" class="mt-8">
+        <h2 id="pillar-title" class="text-sm font-semibold tracking-wide text-brand-800 uppercase">
+          Start here
+        </h2>
+        <a
+          href={articleUrl(pillar.id)}
+          class="card mt-2 block border-brand-100 bg-brand-50 hover:border-brand-600"
+        >
+          <p class="text-xl font-semibold text-slate-900">{pillar.data.title}</p>
+          <p class="mt-2 text-slate-700">{pillar.data.description}</p>
+        </a>
+      </section>
+    )}
+
+    {groups.map((g, i) => (
+      <section aria-labelledby={`group-${g.intent}`} class="mt-10">
+        <h2 id={`group-${g.intent}`} class="text-xl font-semibold text-slate-900">
+          {g.label}
+        </h2>
+        <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {g.items.map((a) => (
+            <li class="card">
+              <a
+                href={articleUrl(a.id)}
+                class="font-semibold text-slate-900 hover:text-brand-700 hover:underline"
+              >
+                {a.data.title}
+              </a>
+              <p class="mt-1 line-clamp-3 text-sm text-slate-600">{a.data.description}</p>
+              <p class="mt-2 text-xs text-slate-500">
+                Updated{' '}
+                <time datetime={(a.data.updatedAt ?? a.data.publishedAt).toISOString()}>
+                  {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
+                </time>
+              </p>
+            </li>
+          ))}
+        </ul>
+        {i === 0 && articles.length >= 6 && (
+          <AdSlot id={`hub-${cluster.id}-1`} format="leaderboard" />
+        )}
+      </section>
+    ))}
+
+    {articles.length === 0 && (
+      <p class="mt-8 text-slate-600">Guides for this topic are being prepared. Check back soon.</p>
+    )}
+
+    <div class="prose prose-slate mt-6 max-w-3xl">
+      <FAQ items={cluster.data.faq} title={`${cluster.data.navLabel}: common questions`} />
+    </div>
+  </div>
+</BaseLayout>

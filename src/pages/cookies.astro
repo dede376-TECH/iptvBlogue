@@ -1,0 +1,59 @@
+---
+/**
+ * Cookie policy + preferences. The form is plain HTML; src/scripts/consent.ts (loaded on every
+ * page) wires the checkboxes and buttons via data attributes.
+ */
+import { getEntry } from 'astro:content';
+import PageLayout from '@/layouts/PageLayout.astro';
+
+const page = await getEntry('pages', 'cookies');
+if (!page) throw new Error('Missing src/content/pages/cookies.mdx');
+---
+
+<PageLayout page={page}>
+  <section id="preferences" aria-labelledby="preferences-title" class="not-prose card mt-8">
+    <h2 id="preferences-title" class="text-xl font-semibold text-slate-900">
+      Your preferences
+    </h2>
+    <p class="mt-1 text-sm text-slate-600" data-consent-status>
+      No choice saved yet.
+    </p>
+    <form class="mt-4 space-y-3" onsubmit="return false">
+      <label class="flex items-start gap-3">
+        <input type="checkbox" checked disabled class="mt-1" />
+        <span>
+          <span class="font-medium text-slate-900">Strictly necessary</span>
+          <span class="block text-sm text-slate-600">Always on. Stores your cookie choice.</span>
+        </span>
+      </label>
+      <label class="flex items-start gap-3">
+        <input type="checkbox" data-consent-pref="analytics" class="mt-1" />
+        <span>
+          <span class="font-medium text-slate-900">Analytics</span>
+          <span class="block text-sm text-slate-600">Google Analytics 4 usage statistics.</span>
+        </span>
+      </label>
+      <label class="flex items-start gap-3">
+        <input type="checkbox" data-consent-pref="ads" class="mt-1" />
+        <span>
+          <span class="font-medium text-slate-900">Advertising</span>
+          <span class="block text-sm text-slate-600">
+            Personalised ads and measurement. Unticking this also acts as your "Do Not Sell or Share
+            My Personal Information" opt-out (CCPA/CPRA).
+          </span>
+        </span>
+      </label>
+      <div class="flex flex-wrap gap-2 pt-2">
+        <button type="button" class="btn-primary" data-consent="save">
+          Save preferences
+        </button>
+        <button type="button" class="btn-secondary" data-consent="accept">
+          Accept all
+        </button>
+        <button type="button" class="btn-secondary" data-consent="reject">
+          Reject non-essential
+        </button>
+      </div>
+    </form>
+  </section>
+</PageLayout>

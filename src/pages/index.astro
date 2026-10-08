@@ -1,0 +1,85 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getClusters, getPublishedArticles } from '@/lib/content';
+import { articleUrl, clusterUrl } from '@/lib/links';
+import { buildSeo, formatDate, webPageSchema } from '@/lib/seo';
+import { SITE } from '@/lib/site';
+
+const clusters = await getClusters();
+const articles = await getPublishedArticles();
+const latest = articles.slice(0, 6);
+const home = await getEntry('pages', 'home');
+if (!home) throw new Error('Missing src/content/pages/home.mdx');
+const { Content: HomeIntro } = await render(home);
+
+const meta = buildSeo({
+  title: home.data.title,
+  description: home.data.description,
+  path: '/',
+  updatedAt: home.data.updatedAt,
+});
+const schema = [webPageSchema({ path: '/', name: SITE.name, description: meta.description })];
+---
+
+<BaseLayout meta={meta} schema={schema}>
+  <section class="border-b border-slate-200 bg-brand-50">
+    <div class="container-wide py-14">
+      <h1 class="max-w-3xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+        {home.data.h1}
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg text-slate-700">{SITE.tagline}</p>
+      <div class="prose prose-slate mt-2 max-w-2xl text-sm text-slate-600">
+        <HomeIntro />
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="topics-title" class="container-wide py-12" data-area="home-topics">
+    <h2 id="topics-title" class="text-2xl font-semibold text-slate-900">
+      Browse by topic
+    </h2>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {clusters.map((c) => (
+        <li class="card">
+          <a
+            href={clusterUrl(c.id)}
+            class="text-lg font-semibold text-slate-900 hover:text-brand-700 hover:underline"
+          >
+            {c.data.h1}
+          </a>
+          <p class="mt-2 text-sm text-slate-600">{c.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {latest.length > 0 && (
+    <section aria-labelledby="latest-title" class="container-wide pb-12" data-area="home-latest">
+      <h2 id="latest-title" class="text-2xl font-semibold text-slate-900">
+        Latest guides
+      </h2>
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {latest.map((a) => (
+          <li class="card">
+            <p class="text-xs font-semibold tracking-wide text-brand-800 uppercase">
+              {clusters.find((c) => c.id === a.data.cluster)?.data.navLabel}
+            </p>
+            <a
+              href={articleUrl(a.id)}
+              class="mt-1 block font-semibold text-slate-900 hover:text-brand-700 hover:underline"
+            >
+              {a.data.title}
+            </a>
+            <p class="mt-1 line-clamp-3 text-sm text-slate-600">{a.data.description}</p>
+            <p class="mt-2 text-xs text-slate-500">
+              <time datetime={(a.data.updatedAt ?? a.data.publishedAt).toISOString()}>
+                {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
+              </time>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</BaseLayout>

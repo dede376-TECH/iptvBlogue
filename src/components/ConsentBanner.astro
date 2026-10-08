@@ -1,0 +1,44 @@
+---
+/**
+ * Cookie consent banner (UK GDPR + CCPA). Hidden by default; the consent script shows it when
+ * no choice is stored. Buttons are plain HTML; all behaviour lives in src/scripts/consent.ts.
+ * The banner is position: fixed so it never shifts page content.
+ */
+import { pageUrl } from '@/lib/links';
+---
+
+<div
+  id="consent-banner"
+  class="consent-banner"
+  role="dialog"
+  aria-labelledby="consent-title"
+  aria-describedby="consent-desc"
+  hidden
+>
+  <div class="container-wide flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div class="text-sm text-slate-700">
+      <p id="consent-title" class="font-semibold text-slate-900">
+        Cookies on this site
+      </p>
+      <p id="consent-desc">
+        We use optional cookies for analytics and advertising. Nothing optional runs until you
+        choose. Read the{' '}
+        <a href={pageUrl('cookies')} class="underline">
+          cookie policy
+        </a>
+        .
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" class="btn-secondary" data-consent="reject">
+        Reject non-essential
+      </button>
+      <a href={pageUrl('cookies')} class="btn-secondary">
+        Manage
+      </a>
+      <button type="button" class="btn-primary" data-consent="accept">
+        Accept all
+      </button>
+    </div>
+  </div>
+</div>

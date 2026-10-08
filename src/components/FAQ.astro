@@ -1,0 +1,33 @@
+---
+/**
+ * Visible FAQ block. The matching FAQPage JSON-LD is emitted by the layout via `faqSchema()`
+ * so that the structured data always mirrors visible content.
+ */
+import type { FaqItem } from '@/lib/seo';
+
+interface Props {
+  items: FaqItem[];
+  title?: string;
+  headingLevel?: 2 | 3;
+}
+
+const { items, title = 'Frequently asked questions', headingLevel = 2 } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+const Sub = `h${headingLevel + 1}` as 'h3' | 'h4';
+---
+
+{items.length > 0 && (
+  <section id="faq" aria-labelledby="faq-title" class="my-10">
+    <Heading id="faq-title">{title}</Heading>
+    <dl class="not-prose divide-y divide-slate-200 rounded-lg border border-slate-200">
+      {items.map((f) => (
+        <div class="p-4">
+          <dt>
+            <Sub class="font-semibold text-slate-900">{f.question}</Sub>
+          </dt>
+          <dd class="mt-2 text-slate-700">{f.answer}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+)}

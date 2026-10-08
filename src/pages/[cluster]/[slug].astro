@@ -1,0 +1,33 @@
+---
+import { getEntry } from 'astro:content';
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { articleSlug, getPublishedArticles } from '@/lib/content';
+
+export async function getStaticPaths() {
+  const articles = await getPublishedArticles();
+  return Promise.all(
+    articles.map(async (article) => {
+      const cluster = await getEntry('clusters', article.data.cluster);
+      if (!cluster) {
+        throw new Error(
+          `Article "${article.id}" references unknown cluster "${article.data.cluster}"`,
+        );
+      }
+      const [dirCluster] = article.id.split('/');
+      if (dirCluster !== article.data.cluster) {
+        throw new Error(
+          `Article "${article.id}" is in folder "${dirCluster}" but frontmatter cluster is "${article.data.cluster}"`,
+        );
+      }
+      return {
+        params: { cluster: cluster.id, slug: articleSlug(article) },
+        props: { article, cluster },
+      };
+    }),
+  );
+}
+
+const { article, cluster } = Astro.props;
+---
+
+<ArticleLayout article={article} cluster={cluster} />

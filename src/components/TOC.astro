@@ -1,0 +1,30 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+  /** Depths to include. Default: h2 and h3. */
+  depths?: number[];
+  title?: string;
+}
+
+const { headings, depths = [2, 3], title = 'In this article' } = Astro.props;
+const items = headings.filter((h) => depths.includes(h.depth));
+---
+
+{items.length > 1 && (
+  <nav aria-labelledby="toc-title" class="card not-prose my-6 text-sm">
+    <p id="toc-title" class="mb-2 font-semibold text-slate-900">
+      {title}
+    </p>
+    <ol class="space-y-1">
+      {items.map((h) => (
+        <li class:list={[h.depth === 3 && 'ml-4']}>
+          <a href={`#${h.slug}`} class="text-slate-700 hover:text-brand-700 hover:underline">
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}

@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import type { Author } from '@/lib/content';
+import { authorUrl } from '@/lib/links';
+
+interface Props {
+  author: Author;
+  /** Compact = byline under the title; full = box at the end of the article. */
+  variant?: 'compact' | 'full';
+}
+
+const { author, variant = 'full' } = Astro.props;
+const href = authorUrl(author.id);
+const { name, role, shortBio, avatar, credentials, links } = author.data;
+const linkEntries = Object.entries(links).filter(([, v]) => Boolean(v)) as [string, string][];
+---
+
+{variant === 'compact' ? (
+  <a
+    href={href}
+    rel="author"
+    class="inline-flex items-center gap-2 text-sm text-slate-700 hover:text-brand-700"
+  >
+    {avatar && (
+      <Image
+        src={avatar}
+        alt=""
+        width={32}
+        height={32}
+        class="h-8 w-8 rounded-full"
+        loading="eager"
+      />
+    )}
+    <span class="font-medium">{name}</span>
+  </a>
+) : (
+  <aside aria-label="About the author" class="not-prose card my-10 flex gap-4">
+    {avatar && (
+      <Image
+        src={avatar}
+        alt={`Photo of ${name}`}
+        width={64}
+        height={64}
+        class="h-16 w-16 shrink-0 rounded-full"
+        loading="lazy"
+      />
+    )}
+    <div class="min-w-0">
+      <p class="text-xs font-semibold tracking-wide text-slate-500 uppercase">Written by</p>
+      <p class="text-lg font-semibold text-slate-900">
+        <a href={href} rel="author" class="hover:text-brand-700 hover:underline">
+          {name}
+        </a>
+      </p>
+      <p class="text-sm text-slate-600">{role}</p>
+      <p class="mt-2 text-sm text-slate-700">{shortBio}</p>
+      {credentials.length > 0 && (
+        <ul class="mt-2 flex flex-wrap gap-2 text-xs text-slate-600">
+          {credentials.map((c) => (
+            <li class="rounded bg-slate-100 px-2 py-0.5">{c}</li>
+          ))}
+        </ul>
+      )}
+      {linkEntries.length > 0 && (
+        <ul class="mt-2 flex flex-wrap gap-3 text-sm">
+          {linkEntries.map(([key, url]) => (
+            <li>
+              <a
+                href={url}
+                rel="me noopener"
+                target="_blank"
+                class="text-brand-700 hover:underline"
+              >
+                {key}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </aside>
+)}
