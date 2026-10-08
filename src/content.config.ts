@@ -105,6 +105,14 @@ const articles = defineCollection({
           .default([]),
         /** Set to false to keep a page out of the index (still built). */
         index: z.boolean().default(true),
+        /** True when a model drafted the body and a person still needs to review it. */
+        aiAssisted: z.boolean().default(false),
+        /** `needs-human` blocks a real launch until someone checks the VERIFY notes. */
+        reviewStatus: z.enum(['needs-human', 'reviewed']).default('needs-human'),
+        /** Devices and app versions a person actually tried. Empty until that happens. */
+        testedOn: z.array(z.string()).default([]),
+        /** Official pages the article relies on. */
+        sources: z.array(z.string().url()).default([]),
       })
       .refine((d) => !d.imageAlt || d.image, {
         error: 'imageAlt requires image',

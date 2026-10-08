@@ -188,6 +188,29 @@ function main() {
     );
   }
 
+  const articleFiles: string[] = [];
+  walk(join(ROOT, 'src', 'content', 'articles'), articleFiles);
+  const reviewHits: { file: string; line: number; text: string }[] = [];
+  for (const file of articleFiles) {
+    if (!file.endsWith('.mdx') && !file.endsWith('.md')) continue;
+    const lines = readFileSync(file, 'utf8').split(/\r?\n/);
+    lines.forEach((line, i) => {
+      if (/\bneeds-human\b/.test(line) || /\bVERIFY\b/.test(line)) {
+        reviewHits.push({
+          file: relative(ROOT, file),
+          line: i + 1,
+          text: line.trim().slice(0, 140),
+        });
+      }
+    });
+  }
+  check(
+    reviewHits.length === 0,
+    reviewHits.length === 0
+      ? 'no article still needs a human review'
+      : `${reviewHits.length} needs-human or VERIFY marker(s) in articles`,
+  );
+
   if (temporary && indexnow) {
     check(false, 'INDEXNOW_ENABLED is true on a *.vercel.app host');
   } else if (indexnow && !indexnowKey) {
@@ -209,6 +232,14 @@ function main() {
       console.log(`  ${hit.rule}  ${hit.file}:${hit.line}  ${hit.text}`);
     }
     if (hits.length > 40) console.log(`  … ${hits.length - 40} more`);
+  }
+  if (reviewHits.length) {
+    console.log('');
+    console.log('Review markers (first 40):');
+    for (const hit of reviewHits.slice(0, 40)) {
+      console.log(`  ${hit.file}:${hit.line}  ${hit.text}`);
+    }
+    if (reviewHits.length > 40) console.log(`  … ${reviewHits.length - 40} more`);
   }
 
   const failed = checks.filter((c) => !c.ok).length;
