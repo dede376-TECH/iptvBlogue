@@ -53,105 +53,105 @@ if (__SCREENWISE_CONSENT__) {
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {!SITE.temporaryHost && <link rel="sitemap" href="/sitemap-index.xml" />}
     <link rel="alternate" type="application/rss+xml" title={`${SITE.name} RSS`} href="/rss.xml" />
-    <meta name="theme-color" content="#0f766e" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)" />
     <meta name="generator" content={Astro.generator} />
     <JsonLd data={jsonLd} />
   </head>
   <body class:list={['flex min-h-screen flex-col', `template-${template}`, bodyClass]}>
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2"
-    >
+    <a href="#main" class="skip-link">
       Skip to content
     </a>
 
-    <header class="border-b border-slate-200 bg-white">
-      <div class="container-wide flex h-14 items-center justify-between gap-4">
-        <a href="/" class="flex items-center gap-2 font-bold text-slate-900" data-area="header">
-          <img src="/logo.svg" alt="" width="28" height="28" class="h-7 w-7" />
+    <header class="site-header">
+      <div class="container header-bar">
+        <a href="/" class="brand" data-area="header">
+          <img src="/logo.svg" alt="" width="28" height="28" />
           <span>{SITE.name}</span>
         </a>
-        <nav
-          aria-label="Primary"
-          class="site-nav hidden items-center gap-5 text-sm md:flex"
-          data-area="nav"
-        >
+        <nav aria-label="Primary" class="site-nav" data-area="nav">
           {clusters.map((c) => (
-            <a href={clusterUrl(c.id)} class="text-slate-700 hover:text-brand-700">
-              {c.data.navLabel}
-            </a>
+            <a href={clusterUrl(c.id)}>{c.data.navLabel}</a>
           ))}
         </nav>
-        <a href="/search/" class="text-sm text-slate-700 hover:text-brand-700" aria-label="Search">
-          Search
-        </a>
-      </div>
-      <!-- Mobile cluster nav (horizontal scroll, no JS) -->
-      <nav aria-label="Topics" class="site-nav border-t border-slate-100 md:hidden" data-area="nav">
-        <div class="container-wide flex gap-4 overflow-x-auto py-2 text-sm whitespace-nowrap">
-          {clusters.map((c) => (
-            <a href={clusterUrl(c.id)} class="text-slate-700 hover:text-brand-700">
-              {c.data.navLabel}
-            </a>
-          ))}
+        <div class="header-tools">
+          <a href="/search/" class="icon-button" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.75"></circle>
+              <path
+                d="M16 16.5 20 20.5"
+                stroke="currentColor"
+                stroke-width="1.75"
+                stroke-linecap="round"
+              ></path>
+            </svg>
+          </a>
+          <details class="site-menu">
+            <summary aria-label="Menu">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M4 7h16M4 12h16M4 17h16"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                ></path>
+              </svg>
+            </summary>
+            <nav class="site-menu-panel" aria-label="Topics">
+              {clusters.map((c) => (
+                <a href={clusterUrl(c.id)}>{c.data.navLabel}</a>
+              ))}
+            </nav>
+          </details>
         </div>
-      </nav>
+      </div>
     </header>
 
     <main id="main" class="flex-1">
       <slot />
     </main>
 
-    <footer class="mt-16 border-t border-slate-200 bg-slate-50 text-sm text-slate-600">
-      <div class="container-wide grid gap-8 py-10 md:grid-cols-3" data-area="footer">
+    <footer class="site-footer">
+      <div class="container footer-grid" data-area="footer">
         <div>
-          <p class="font-semibold text-slate-900">{SITE.name}</p>
-          <p class="mt-2">{SITE.tagline}</p>
-          <p class="mt-2 text-xs">
+          <p class="footer-title">{SITE.name}</p>
+          <p class="footer-note">{SITE.tagline}</p>
+          <p class="footer-note">
             Informational only. We do not sell subscriptions or link to playlists or unlicensed
             services.
           </p>
         </div>
         <nav aria-label="Topics" class="site-footer-nav">
-          <p class="font-semibold text-slate-900">Topics</p>
-          <ul class="mt-2 space-y-1">
+          <p class="footer-title">Topics</p>
+          <ul class="footer-list">
             {clusters.map((c) => (
               <li>
-                <a href={clusterUrl(c.id)} class="hover:text-brand-700 hover:underline">
-                  {c.data.navLabel}
-                </a>
+                <a href={clusterUrl(c.id)}>{c.data.navLabel}</a>
               </li>
             ))}
           </ul>
         </nav>
         <nav aria-label="Site">
-          <p class="font-semibold text-slate-900">Site</p>
-          <ul class="mt-2 space-y-1">
+          <p class="footer-title">Site</p>
+          <ul class="footer-list">
             {footerPages.map((p) => (
               <li>
-                <a href={pageUrl(p.id)} class="hover:text-brand-700 hover:underline">
-                  {p.data.navLabel ?? p.data.h1}
-                </a>
+                <a href={pageUrl(p.id)}>{p.data.navLabel ?? p.data.h1}</a>
               </li>
             ))}
             <li>
-              <a
-                href={`${pageUrl('cookies')}#preferences`}
-                class="hover:text-brand-700 hover:underline"
-              >
+              <a href={`${pageUrl('cookies')}#preferences`}>
                 Do Not Sell or Share My Personal Information
               </a>
             </li>
             <li>
-              <a href="/rss.xml" class="hover:text-brand-700 hover:underline">
-                RSS feed
-              </a>
+              <a href="/rss.xml">RSS feed</a>
             </li>
           </ul>
         </nav>
       </div>
-      <div class="border-t border-slate-200">
-        <p class="container-wide py-4 text-xs">
+      <div class="footer-legal">
+        <p class="container">
           © {SITE.foundedYear}
           {year > SITE.foundedYear ? `–${year}` : ''} {SITE.name}. All trademarks belong to their
           respective owners.
