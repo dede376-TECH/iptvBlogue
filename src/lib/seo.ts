@@ -145,7 +145,10 @@ export function countWords(body: string): number {
 }
 
 export function formatDate(date: Date, lang: string = SITE.defaultLang): string {
-  return new Intl.DateTimeFormat(lang, { year: 'numeric', month: 'long', day: 'numeric' }).format(
+  // Generic "en" (GLOBAL articles) uses the site default so dates read "8 October 2026" everywhere
+  // except on explicitly US-targeted pages.
+  const locale = lang === 'en' ? SITE.defaultLang : lang;
+  return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(
     date,
   );
 }

@@ -34,9 +34,9 @@ export default defineConfig({
   site: SITE_URL,
   output: 'static',
   trailingSlash: 'always',
-  // Astro 7 defaults to JSX-style whitespace stripping; keep HTML-aware compression so
-  // inline elements in prose keep their spaces.
-  compressHTML: true,
+  // Astro 7 default: JSX-style whitespace handling. Prettier (prettier-plugin-astro) formats
+  // templates for exactly these rules (explicit {' '} between inline elements), so keep them in sync.
+  compressHTML: 'jsx',
   prefetch: false,
   build: {
     format: 'directory',
