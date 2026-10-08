@@ -11,13 +11,19 @@ secondaryKeywords:
 intent: troubleshooting
 geo: GLOBAL
 publishedAt: 2026-10-08
+updatedAt: 2026-10-08
 author: screenwise
 pillar: true
+aiAssisted: true
+reviewStatus: needs-human
+testedOn: []
+sources:
+  - https://www.rfc-editor.org/rfc/rfc8216
 keyTakeaways:
-  - 'Buffering is rarely caused by headline broadband speed; Wi-Fi, DNS, the player buffer and the source server are the usual suspects.'
-  - 'Diagnose in order: wired test, other apps, other streams, then player settings. Changing everything at once hides the real cause.'
-  - 'A larger player buffer trades a few seconds of start delay for smoother playback and fixes most short, repeating stalls.'
-  - 'If a single channel or a single source buffers while everything else is fine, the problem is upstream and no local setting will fix it.'
+  - 'A stall means the player has run out of video it already downloaded. A speed-test score does not describe that steady flow.'
+  - 'Change one thing at a time: wired test, another app, another channel, then player settings.'
+  - 'A larger buffer can hide short gaps. It cannot repair a source that keeps failing.'
+  - 'If only some channels stall, the fault is likely upstream of the television.'
 howTo:
   name: 'How to fix IPTV buffering'
   totalTime: 'PT30M'
@@ -37,11 +43,15 @@ howTo:
       text: 'If only some channels buffer, note which ones and when. Problems at peak hours on specific channels point to the source server, not your setup.'
 faq:
   - question: 'Why does IPTV buffer when my internet speed test is fast?'
-    answer: 'A speed test measures a short burst to a nearby server. Live streams need a steady, uninterrupted rate for hours, often from a distant server. Wi-Fi retries, DNS detours and a small player buffer cause stalls even on fast lines.'
+    answer: 'A speed test is a short burst to a nearby server. A live picture needs a steady series of pieces from the server that is actually sending the channel. Wi-Fi retries or a small player buffer can empty that queue even when a speed test looks fine.'
   - question: 'Does a VPN stop IPTV buffering?'
-    answer: 'Sometimes, if your ISP routes badly to the streaming server, and sometimes it makes things worse by adding another hop. Test with and without, using the same stream at the same time of day.'
+    answer: 'It can change the path to the server, which sometimes helps and sometimes adds delay. Compare the same channel at the same time with the VPN off and on. Do not assume either result will hold for every channel.'
   - question: 'What buffer size should I use?'
-    answer: 'There is no universal number because players label it differently. Start one step above the default; if stalls continue, increase again. Very large buffers only add start-up delay.'
+    answer: 'Players do not share one label or one number. Move one step above the current setting and watch the same channel. If stalls remain, try one more step. A very large buffer only delays the start.'
+  - question: 'Why does one channel freeze when the others are fine?'
+    answer: 'The shared parts of the setup are working. The failing channel is the thing that changed. No local buffer setting can repair a stream the server is not sending cleanly.'
+  - question: 'Should I change the decoder when the picture stalls?'
+    answer: 'Only after the network test. Hardware and software decoding are player options, and the labels differ. Try the other mode on one channel, then put it back if the picture gets worse.'
 related:
   - technical/what-is-an-m3u-playlist
   - setup/iptv-on-firestick
@@ -49,57 +59,166 @@ related:
 draft: false
 ---
 
-{/* TODO(human): write the full article (pillar, >= 1800 words). Include screenshots of the
-player buffer settings you actually tested, the device used, and your measured before/after
-behaviour. Do not invent percentages or speeds. Remove all TODO markers before publishing. */}
+IPTV buffering means the player has nothing left to show for a moment. The usual cause is a gap in the data already stored on the device, not a single speed-test number.
+
+Treat the picture as a short queue. The player fills that queue from the network, then plays from the front of it. When new data arrives slower than the picture uses it, the queue runs dry and the image stalls or freezes. Filling the queue again is what the spinning icon is waiting for.
+
+Three layers can empty that queue. The network may be dropping or delaying packets. The device or the player may be decoding too slowly, or storing too little ahead of the play point. The source may be sending the channel unevenly. Fixing a later layer first hides which one actually failed.
+
+HTTP Live Streaming, described in [RFC 8216](https://www.rfc-editor.org/rfc/rfc8216), is one common way a live channel is sent: the player fetches a playlist and then a sequence of media segments. If the next segment is late, playback has to wait. Other deliveries, such as a continuous MPEG transport stream, fail in the same plain way when the bytes stop arriving in time. The label on the file does not change the test order below.
+
+<Diagram caption="Playback stalls when the queue of downloaded video runs out." alt="A horizontal queue. Data enters on the left. The play point is on the right. A gap means the picture stops.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" aria-hidden="true">
+  <rect x="40" y="48" width="560" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <rect x="52" y="60" width="360" height="40" rx="4" fill="currentColor" opacity="0.2"></rect>
+  <text x="60" y="86" fill="currentColor" font-size="16">Downloaded, waiting to play</text>
+  <text x="430" y="86" fill="currentColor" font-size="16">Gap</text>
+  <text x="40" y="140" fill="currentColor" font-size="14">New data arrives here</text>
+  <text x="430" y="140" fill="currentColor" font-size="14">Play point</text>
+</svg>
+</Diagram>
 
 ## First, understand what buffering is telling you
 
-TODO: Explain the buffer as a reservoir; stalls happen when it empties. Separate the three
-layers: network, device/player, source.
+A freeze and a long spinner are the same message: the play point caught up with the end of what has been downloaded. A glitch that heals in a second is a short gap. A spinner that never clears means the next piece is not arriving at all.
+
+Write down three facts before changing settings. Which channel, what time of day, and whether any other app on the same screen is also stuttering. Those notes decide which step matters. Changing Wi-Fi, DNS, buffer and decoder together makes the next test useless, because you cannot tell which change helped.
+
+<Callout type="note">
+This page does not name or link to any television service. A stall is a technical symptom. It is not a reason to hunt for a different playlist.
+</Callout>
 
 ## Step 1: Run a wired baseline test
 
-TODO: Describe the Ethernet or near-router test and how to interpret the result.
+The wired test answers one question: does the same channel behave when Wi-Fi is out of the path?
+
+{/* VERIFY: how this device joins Ethernet, including any official USB adapter, on the exact model */}
+
+<Steps>
+<Step title="Play the failing channel on Wi-Fi first">
+Note how often it stalls over two or three minutes. Use the same channel you care about, not a different one that happens to be fine.
+</Step>
+<Step title="Repeat it on a cable">
+Connect the player to the router with Ethernet where the device allows it, or move a Wi-Fi-only stick next to the router for a weaker version of the same test.
+<Result>
+If the stalls stop on the cable, the wireless hop is involved. If they continue at the same rate, Wi-Fi is not the whole story. Move on to the next step instead of buying another aerial or extender.
+</Result>
+</Step>
+</Steps>
+
+A near-router test is not as clean as a cable. Walls, cordless phones and neighbouring networks can still affect a stick that is only a short distance from the router. Treat a "better beside the router" result as a hint, and a cable result as the clearer one.
+
+| What you see | What to do next |
+| --- | --- |
+| Stable on a cable, poor on Wi-Fi | Stay with the network. Look at band, distance and interference. |
+| Poor on both | Leave the aerial alone for now. Compare apps, then the player, then the source. |
+| Fine everywhere except one channel | Skip to isolating the source. |
+
+More on the Fire TV Stick path sits in [how to set up an IPTV player on Fire TV Stick](/setup/iptv-on-firestick/).
 
 ## Step 2: Compare with other apps and streams
 
-TODO: Describe the comparison test and what each outcome means.
+This step splits "the household connection is struggling" from "this one channel is struggling".
+
+<Steps>
+<Step title="Play a normal on-demand programme in another app">
+Use a mainstream broadcaster or film app that is already installed. Pick a title that is not a tiny low-detail clip.
+<Result>
+If that app also stutters on the same screen, fix the network or the device before touching player menus. If that app is smooth and the live channel is not, the shared connection can carry a normal picture.
+</Result>
+</Step>
+<Step title="Try a second channel in the same player">
+Keep the player, the device and the time of day the same. Only the channel changes.
+<Result>
+If every channel stalls, the player or the path to that source is the suspect. If one channel stalls, the source for that channel is the suspect.
+</Result>
+</Step>
+</Steps>
+
+A second device on the same network is useful. Play the same channel on a phone and on the television. If the phone is smooth and the television is not, the television's Wi-Fi, decoder or player settings are in play. If both stall together, look upstream.
 
 ## Step 3: Check DNS and routing
 
-TODO: Explain in plain words why DNS can matter, how to change it on common devices (link to the
-relevant setup guides, e.g. [IPTV on Firestick](/setup/iptv-on-firestick/)), and how to retest.
+DNS is the lookup from a name, such as the host in a stream address, to a numeric address. A slow or odd answer can send the player to a poor path, or delay the start while the name is resolved. It does not change the picture format. It only changes how the device finds the server.
+
+{/* VERIFY: where DNS is set on this device and router, and the exact menu labels in the current software */}
+
+<Steps>
+<Step title="Note the current behaviour">
+Count stalls on one channel for a few minutes before any DNS change.
+</Step>
+<Step title="Point the device at a public resolver">
+Use the resolver settings the device actually offers. Some televisions only inherit DNS from the router, so the change has to happen there.
+<Result>
+If the same channel improves and nothing else got worse, keep the change. If nothing changes, put the old setting back. DNS was not the cause.
+</Result>
+</Step>
+</Steps>
+
+A VPN is a bigger path change than DNS. It can avoid one route and add delay on another. Test it the same way: one channel, same time of day, off then on. Do not leave it on because a forum said it always helps. The [troubleshooting guides](/troubleshooting/) are the place for follow-up when a single test is unclear.
 
 ## Step 4: Adjust player buffer and decoder settings
 
-TODO: Cover buffer size and hardware vs software decoding in the most common players. Link to the
-players hub at [/players/](/players/) for app-specific guides.
+The buffer is how much video the player is willing to hold before and during playback. A larger buffer rides out a short gap. It also makes the channel slower to start and slower to catch up after a channel change. A smaller buffer starts faster and falls over sooner when the network hiccups.
+
+There is no universal size. Players use seconds, milliseconds, "small / medium / large", or a bare number. Raise whatever control you have by one step only.
+
+{/* VERIFY: the buffer control's name, units and default on the player and version in front of you */}
+
+Decoding is separate. Hardware decoding uses a chip on the device and usually costs less effort. Software decoding uses the main processor and can succeed on a stream the chip rejects, at the cost of heat and load. If the picture is green, blocky, or stuck on a black frame while the audio continues, the decoder is a more likely suspect than the buffer. If the image is fine until it pauses, the buffer or the network is more likely.
+
+{/* VERIFY: hardware and software decoder labels in this player; do not assume a menu path */}
+
+App-by-app notes belong in the [player guides](/players/), once a person has checked that player's current screens. This article stays with the order of tests, not a catalogue of menus.
+
+<Callout type="tip">
+After each player change, watch the same channel for a few minutes. Then decide. A second change on top of an untested first change wastes the trial.
+</Callout>
 
 ## Step 5: Isolate the source
 
-TODO: Explain per-channel and peak-hour patterns. Make clear that an unreliable source cannot be
-fixed locally and that this site does not recommend or link to services.
+When one channel, or one group of channels, stalls while others in the same player are steady, the local network and the player have already shown they can work. The failing stream is the remaining variable.
+
+Note the clock. A channel that only falls over in the evening, on several devices at once, is behaving like a busy or weak source. A channel that fails all day, on every device, is a bad address or a stream the player cannot decode. Neither case is fixed by another Wi-Fi extender.
+
+<Callout type="warning">
+Do not swap in a random playlist to "see if it is better". This site does not recommend services, and an unreliable source cannot be repaired from the television's settings.
+</Callout>
+
+If the address itself looks wrong, check the file format in [what an M3U playlist is](/technical/what-is-an-m3u-playlist/) before blaming the network again.
 
 ## Device-specific notes
 
 ### Fire TV Stick
 
-TODO: Memory limits, background apps, Wi-Fi band selection.
+These sticks are small computers with limited memory. A player that is also downloading guide data can leave little room for a smooth buffer. Close other apps, then retry one channel.
+
+{/* VERIFY: how to close background apps, and how the Wi-Fi band is labelled, on this Fire TV model and software version */}
+
+Many sticks are Wi-Fi only unless an official Ethernet adapter is fitted. Use the wired test from step 1 if an adapter is available. If it is not, the beside-the-router test is the substitute, with the limits already described. Prefer the less crowded radio band when the stick lists more than one, then retest. Do not assume a band name until you see it on that stick.
 
 ### Android TV and Google TV
 
-TODO: Decoder options, Ethernet adapters.
+These devices often expose decoder choice inside the player rather than in the system settings. The system may also offer an Ethernet port or a USB adapter, which makes the wired test straightforward.
+
+{/* VERIFY: decoder menu and Ethernet options on this Android TV or Google TV model */}
+
+If the television is smooth in a built-in broadcaster app and only stalls in the IPTV player, compare buffer and decoder in that player before factory-resetting the television.
 
 ### Smart TVs (Samsung, LG)
 
-TODO: Limited player choice and buffer settings.
+A television's built-in player is often less adjustable than a separate box. Buffer and decoder controls may be missing. If the only test you can run is Wi-Fi versus cable, do that, and compare with a phone on the same network.
+
+{/* VERIFY: whether this Samsung or LG model can install a player and whether it offers buffer controls */}
+
+If the set cannot change buffer size, a stall that survives the wired test and the other-app test is unlikely to be fixed on that television. The useful conclusion is "this screen cannot hold a deeper queue", not another round of picture-mode tweaks.
 
 ## When buffering is actually a playlist problem
 
-TODO: Explain how a malformed playlist or wrong stream format can look like buffering, and link
-to [what an M3U playlist is](/technical/what-is-an-m3u-playlist/).
+A bad playlist can look like buffering. A blank line between a channel's metadata and its address, a cut-off URL, or a file saved in the wrong encoding can make the player wait forever for a segment that will never start. That wait is a spinner, which is easy to mistake for a weak Wi-Fi signal.
+
+Open the playlist in a text editor and check the failing channel's two lines: the information line, then the address, with nothing between them. The format rules are in [what an M3U playlist is](/technical/what-is-an-m3u-playlist/). If the address is intact and the same channel fails on a second device, you are back to the source, not the file layout.
 
 ## Legal note
 
-TODO: Short paragraph pointing to [Is IPTV legal?](/legal-streaming/is-iptv-legal/).
+A technical fix does not change whether you have permission to watch a channel. Buffering advice applies to a stream you are allowed to receive. For the legal distinction, read [is IPTV legal?](/legal-streaming/is-iptv-legal/).
