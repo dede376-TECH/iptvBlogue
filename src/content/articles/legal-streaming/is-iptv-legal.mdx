@@ -11,20 +11,34 @@ secondaryKeywords:
 intent: legal
 geo: GLOBAL
 publishedAt: 2026-10-08
+updatedAt: 2026-10-08
 author: screenwise
 pillar: true
+aiAssisted: true
+reviewStatus: needs-human
+testedOn: []
+sources:
+  - https://www.gov.uk/copyright
+  - https://www.legislation.gov.uk/ukpga/1988/48/contents
+  - https://www.gov.uk/government/organisations/intellectual-property-office
+  - https://www.copyright.gov/what-is-copyright/
+  - https://www.copyright.gov/title17/
 keyTakeaways:
-  - 'IPTV means television delivered over the internet. The technology is legal and used by major broadcasters and streaming platforms.'
-  - 'A service is legal when it holds the rights to the channels it carries. Unlicensed services infringe copyright regardless of how they are packaged.'
-  - 'Both the UK and the US treat operating or reselling an unlicensed service far more seriously than watching one, but viewers are not exempt from the law.'
-  - 'Warning signs of an unlicensed service: thousands of premium channels for a very low price, no company details, payment by crypto or gift card, and no terms of service.'
+  - 'IPTV is a way of sending television over the internet. The delivery method is not, by itself, an offence.'
+  - 'UK and US copyright pages say you need permission to copy a work, share copies, or put it on the internet.'
+  - 'A player app is general-purpose software. The source you add is the part that has to be allowed.'
+  - 'This page is general information, not advice about your own situation.'
 faq:
   - question: 'Is IPTV illegal in the UK?'
-    answer: 'No. IPTV is simply a delivery method. Licensed broadcaster and streaming apps use it. Accessing streams from a service that does not hold the rights can however infringe copyright law.'
+    answer: 'The technology is not banned. GOV.UK says copyright protects television recordings and broadcasts, and that putting a work on the internet without permission is one of the acts copyright restricts. Whether a particular service has that permission is a separate fact. This is not a ruling on any named service.'
   - question: 'Is IPTV illegal in the United States?'
-    answer: 'No. IPTV as a technology is legal and widely used by licensed services. Distributing or knowingly accessing unlicensed streams can breach US copyright law.'
+    answer: 'The U.S. Copyright Office describes exclusive rights that include reproducing a work, distributing copies, and performing a motion picture publicly. A service needs a lawful basis for those acts. The office page is the place to read the list. This article does not decide a case.'
   - question: 'How can I tell whether an IPTV service is licensed?'
-    answer: 'Look for a registered company, published terms, the channels it carries being consistent with publicly known rights, and normal payment methods. If a deal looks too good to be true for the channels offered, it almost certainly is.'
+    answer: 'Look for a real company name, terms you can read, and a way to contact them. Be wary of a service that will not say who operates it. This site does not score or list services.'
+  - question: 'Is installing a player app illegal?'
+    answer: 'A player is a tool that opens addresses you give it. Installing one from a store is not the same act as sharing a television broadcast. What you then play still has to be something you are allowed to receive.'
+  - question: 'Is this legal advice?'
+    answer: 'No. It is a plain-language summary of public copyright pages, with links. For a decision about your own setup, read those pages and speak to a qualified adviser.'
 related:
   - technical/what-is-an-m3u-playlist
   - setup/iptv-on-firestick
@@ -32,64 +46,108 @@ related:
 draft: false
 ---
 
-{/* TODO(human): write the full explainer (pillar, >= 1800 words). Every legal statement must
-cite its source (legislation, regulator guidance, court decisions). Do not quote statistics
-or enforcement numbers without a citation. Have the final text reviewed before publishing. */}
+IPTV means television carried over an internet connection. That method is lawful to use; what needs permission is the programmes, films and broadcasts themselves.
+
+{/* VERIFY: legal review of this whole article against the cited GOV.UK and copyright.gov pages, on the date of publication. Not legal advice. */}
+
+Nothing here is legal advice, and nothing here tells you that a particular service is or is not licensed. The pages linked below are the official starting points. Laws change, and a short guide cannot apply them to your household.
 
 ## The short answer
 
-TODO: IPTV is a technology; legality depends on the licence held by the service. Two or three
-plain sentences.
+{/* VERIFY: GOV.UK copyright overview states that copyright stops others using a work without permission, including putting it on the internet. https://www.gov.uk/copyright */}
+
+Copyright, not the letters IPTV, is the rule that matters. [GOV.UK's copyright overview](https://www.gov.uk/copyright) says protection covers film and television recordings and broadcasts, and that copyright prevents copying a work, distributing copies, showing or playing it in public, and putting it on the internet, unless you have permission. A company that sends you channels it is allowed to send is using the internet in an ordinary way. A company that sends channels it is not allowed to send is doing something those words describe as needing permission.
+
+{/* VERIFY: this paragraph only restates that permission, not the delivery method, is the legal question. Keep it free of penalties and product names. */}
+
+Calling something IPTV does not grant permission, and refusing to use the word does not remove an obligation. A catch-up app from a broadcaster and a no-name grid of the same programmes can both travel as internet video. Only the permission differs. The rest of this page stays at that level on purpose. It names the public pages that describe copyright. It does not apply them to a named product, and it does not tell you what to buy.
+
+The same split applies in the United States. The [U.S. Copyright Office explanation of copyright](https://www.copyright.gov/what-is-copyright/) lists exclusive rights of the copyright owner, including the rights to reproduce the work, to distribute copies, and to perform a motion picture or other audiovisual work publicly. Those are rights to authorise, not a slogan about one kind of app.
+
+<Callout type="warning">
+This is general information. It is not a prediction of what would happen in a particular case, and it quotes no fines, case names or enforcement totals.
+</Callout>
 
 ## What "IPTV" covers
 
-TODO: Broadcaster apps, pay-TV over broadband, licensed international services, free
-ad-supported (FAST) channels, and unlicensed services that merely use the same formats. Link to
-[what an M3U playlist is](/technical/what-is-an-m3u-playlist/) to show the format is neutral.
+The word is used for several ordinary products and for services that only borrow the same file formats.
+
+Broadcaster apps and pay-TV over broadband send live and catch-up programmes to a logged-in customer. The customer relationship and the rights sit with that broadcaster or platform. Free ad-supported channels, often called FAST, are another licensed pattern: you watch with adverts instead of a subscription, inside an app that has arranged the rights. None of these become unlawful because the picture travelled as internet packets.
+
+Unlicensed services use the same kinds of addresses and the same playlist files. The file format is not a clue. [What an M3U playlist is](/technical/what-is-an-m3u-playlist/) shows that the file is only a list of addresses. It can point at a stream the rights holder authorised, or at one they did not.
+
+{/* VERIFY: do not add product names or imply that any unnamed service is licensed or unlicensed */}
 
 ## United Kingdom
 
 ### The law for providers and resellers
 
-TODO: Summarise the relevant copyright and fraud legislation with citations; explain why selling
-or advertising access to unlicensed streams is treated as a serious offence.
+{/* VERIFY: the statute title Copyright, Designs and Patents Act 1988 on legislation.gov.uk. Do not add section numbers unless a solicitor checks them. https://www.legislation.gov.uk/ukpga/1988/48/contents */}
+
+The main UK copyright statute is the Copyright, Designs and Patents Act 1988. Its text is published on [legislation.gov.uk](https://www.legislation.gov.uk/ukpga/1988/48/contents). This guide does not pick out sections or paraphrase the Act line by line. The plain-language account on GOV.UK is the safer public summary: people need permission before they copy a protected work, hand out copies, or put it on the internet.
+
+{/* VERIFY: GOV.UK list of restricted acts (copying, distributing, showing or playing in public, putting on the internet) still matches the live page */}
+
+Someone who sells access to streams they have no permission to sell is in the territory that page describes. So is advertising that access. This article does not rank how courts treat selling compared with other acts, and it does not describe penalties. Those details belong in the statute, the case law, and advice from a qualified person, not in a blog table.
+
+The [Intellectual Property Office](https://www.gov.uk/government/organisations/intellectual-property-office) is the official body behind the GOV.UK copyright guidance. Start there if you need the government explanation rather than a forum thread.
 
 ### The law for viewers
 
-TODO: Explain the position of viewers with citations to legislation and regulator guidance. No
-scare statistics; stick to what the law says.
+{/* VERIFY: GOV.UK does not, on the overview page fetched for this draft, give a separate viewer-only rule for watching a stream. Do not invent one. */}
+
+The GOV.UK overview speaks about using a work without permission. It does not, on that page, set out a special rule titled "watching IPTV". It would be wrong for this site to invent a viewer test the page does not contain. If you need to know how the law treats receiving a particular stream, read the official guidance and take advice. Do not rely on a social-media claim that viewers are "always fine" or "always prosecuted". Neither claim is made here, because neither claim is on the pages cited.
 
 ### Enforcement bodies
 
-TODO: Name the bodies involved and what they publish, with links to their official pages.
+{/* VERIFY: IPO is the correct body to name for copyright guidance on GOV.UK. Do not add police unit names or statistics without a fresh official page. */}
+
+For a member of the public, the practical official source is the Intellectual Property Office guidance on GOV.UK, linked above. This article does not describe raids, warning letters, or how often anyone is contacted. Those would be facts that need their own official source and a date. If a page does not publish them, they do not belong here.
 
 ## United States
 
 ### The law for providers and resellers
 
-TODO: Summarise the relevant federal copyright provisions with citations.
+{/* VERIFY: exclusive rights list on https://www.copyright.gov/what-is-copyright/ and the statute at https://www.copyright.gov/title17/ */}
+
+Federal copyright law is Title 17 of the United States Code. The Copyright Office publishes it from [copyright.gov/title17](https://www.copyright.gov/title17/) and explains the exclusive rights in everyday language on its "what is copyright" page. Those rights include making copies, preparing derivative works, distributing copies to the public, and performing a motion picture or other audiovisual work publicly. The owner can authorise other people to do those things.
+
+A service that transmits programmes to the public needs a lawful basis for the rights it is exercising. A contract with the copyright owner is one basis the Copyright Office page itself points at, alongside exceptions and limitations in the statute. This guide will not tell you that a given app qualifies for an exception. That is a legal conclusion, and it is not one a general article can make.
 
 ### The law for viewers
 
-TODO: Explain the position of viewers with citations.
+{/* VERIFY: copyright.gov page describes exclusive rights and says users may use works they license or that fall under exceptions. Do not add a claim about household viewing that the page does not make. */}
+
+The Copyright Office notes that people use copyrighted works all the time when they watch films or listen to music, and that use can be lawful when you have a licence, when an exception applies, or when the work is in the public domain. It does not give a one-line answer for every way a live picture might arrive over the internet. Read the office page. If your question is "does my setup fit an exception", that is advice, and this site does not give it.
 
 ### Enforcement bodies
 
-TODO: Name the bodies involved, with links to official pages.
+{/* VERIFY: name only the U.S. Copyright Office as the public information source. Do not add agencies or fines. */}
+
+The U.S. Copyright Office is the public office for copyright information. Its site says it is the place for that information and publishes the statute and the plain-language guides linked here. This article does not describe lawsuits, statutory damages, or how a copyright owner chooses to enforce rights. The office page mentions that registration affects some enforcement options for copyright owners. That is a point for owners, not a number for viewers, and it should be read on the office site rather than shortened into a threat.
 
 ## How to recognise a licensed service
 
-TODO: Checklist of positive signals and warning signs. Make clear this site does not list,
-recommend or link to IPTV services. Point readers to the
-[legal streaming hub](/legal-streaming/) for guides to broadcaster apps and FAST channels.
+{/* VERIFY: this checklist is practical caution, not a legal test. A human editor should confirm it does not accuse a class of businesses. */}
+
+You cannot see a licence inside a playlist file. You can see whether the operator behaves like a company that expects to be identified.
+
+Positive signs are ordinary ones. The service publishes a company name and a country of registration you can look up in that country's public register. It has terms and a contact route that is not only a chat handle. The channels it talks about are ones that company could plausibly have agreed to carry, and it is willing to say so. Payment goes to a named business. None of these signs is proof. Together they are what a careful person can check without special tools.
+
+Warning signs are the mirror image. No company name. No terms. Pressure to pay in a way that leaves no record of who you paid. A refusal to explain where the channels come from. A very large grid of premium channels offered as if rights were free. This page deliberately gives no price, because a price without a source would be an invention. "Cheap" is not a legal element. Secrecy about the operator is the useful warning.
+
+<Callout type="note">
+Screenwise does not list, rank, or link to IPTV services. The [legal streaming guides](/legal-streaming/) are for broadcaster apps and other licensed viewing, not for a directory of playlists.
+</Callout>
 
 ## Player apps vs services
 
-TODO: Explain that players (covered in the [players hub](/players/)) are legal general-purpose
-software and that setting one up (for example on a
-[Fire TV Stick](/setup/iptv-on-firestick/)) is lawful; the content source is what matters.
+A player opens a file or an address. It is general-purpose software, in the same broad sense as a web browser. Installing one, including on a [Fire TV Stick](/setup/iptv-on-firestick/), does not by itself put a broadcast on the internet. The source you type in is the part that has to be allowed. Player comparisons, when they are written, belong in the [player guides](/players/). They are not recommendations of television services.
+
+If a player ships with addresses already filled in, treat those addresses with the same caution as any other source. Preloaded addresses are still addresses. The app store listing does not answer the copyright question for you.
+
+{/* VERIFY: do not imply that any store listing approves the content a user later adds */}
 
 ## Disclaimer
 
-TODO: One paragraph: general information, not legal advice; link to the site
-[disclaimer](/disclaimer/).
+This page summarises public pages from GOV.UK, legislation.gov.uk, and the U.S. Copyright Office. It is not legal advice, it is not a complete statement of either country's law, and it is not a substitute for reading those sources or for speaking to a qualified adviser. The site-wide [disclaimer](/disclaimer/) says the same thing for the rest of Screenwise. If a sentence here ever disagrees with the official page it cites, the official page wins, and the sentence should be corrected.
