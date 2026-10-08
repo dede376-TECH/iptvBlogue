@@ -1,0 +1,183 @@
+---
+title: 'XMLTV and the EPG: How the Guide File Works'
+description: 'What an XMLTV guide file contains, how its channel id lines up with tvg-id, and why a programme grid stays empty.'
+cluster: technical
+targetKeyword: 'xmltv epg'
+secondaryKeywords:
+  - 'xmltv format'
+  - 'epg file'
+  - 'tvg-id xmltv'
+  - 'iptv guide data'
+intent: what-is
+geo: GLOBAL
+publishedAt: 2026-10-08
+updatedAt: 2026-10-08
+author: screenwise
+pillar: false
+aiAssisted: true
+reviewStatus: needs-human
+testedOn: []
+sources:
+  - https://wiki.xmltv.org/index.php/XMLTVFormat
+  - https://www.rfc-editor.org/rfc/rfc8216
+keyTakeaways:
+  - 'The EPG is the on-screen list of programmes. XMLTV is a common text format for that list.'
+  - 'A guide file has channel records and programme records. Programmes point at a channel id.'
+  - 'Players usually join the guide to a playlist by matching that id to tvg-id. A mismatch leaves a blank grid.'
+  - 'The guide is not the video. A channel can play with an empty guide, and a full guide cannot fix a dead address.'
+faq:
+  - question: 'What does EPG mean?'
+    answer: 'Electronic programme guide. It is the grid of what is on, and what is on next. The picture is a separate stream.'
+  - question: 'Is XMLTV the same as an M3U playlist?'
+    answer: 'No. An M3U playlist lists addresses to play. An XMLTV file lists channels and programmes. Players use both, joined by an id.'
+  - question: 'Why is the guide empty when the channel plays?'
+    answer: 'The player found the video address and failed to match a programme to it. Check the guide address, then check that tvg-id and the XMLTV channel id are the same string.'
+  - question: 'What do the start times look like?'
+    answer: 'The XMLTV project describes a start attribute such as a compact date and time plus a numeric timezone offset. If the offset is wrong, programmes land in the wrong hour even when the titles are right.'
+  - question: 'Where is the guide on EPG not showing?'
+    answer: 'There is not a separate article with that title yet. Use the id checks on this page, then the troubleshooting section if the picture itself is the problem.'
+related:
+  - technical/what-is-an-m3u-playlist
+draft: false
+---
+
+An EPG is the on-screen guide: programme titles against a clock. XMLTV is a widely used text format for that guide, kept as XML rather than as part of the video.
+
+The guide and the picture are different downloads. A player can show a moving image and an empty grid at the same time. Fixing one does not automatically fix the other.
+
+## What an EPG is
+
+Before internet boxes, a guide was pages in a magazine or a strip on a set-top box. The job is unchanged. You want the channel name, the current title, the next title, and the times. "EPG" is the name of that job. It is not a brand and not a stream type.
+
+Players fill the grid from data they fetch, often on a schedule of their own. Until that fetch finishes, the grid can be blank even though you can already change channels. Wait for the player's own "guide updated" state before you call the file broken.
+
+{/* VERIFY: the wording this player uses when a guide fetch finishes */}
+
+## What an XMLTV file contains
+
+The [XMLTV format description](https://wiki.xmltv.org/index.php/XMLTVFormat) is maintained by the XMLTV project. It is written from the viewer's side: one file can hold many channels, mixed together, rather than one file per broadcaster. Most fields are optional. A useful file still needs enough for a grid: which channel, which title, when it starts, when it stops.
+
+The project describes two record types. A channel record identifies a station and can include one or more display names and an icon. A programme record is one broadcast. It carries a start time, usually a stop time, a channel attribute, and a title. Descriptions, categories and credits can be there too. If they are missing, the grid can still show the title and the clock.
+
+Here is a made-up fragment, not a real listing and not a file you should publish as if it were official:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<tv>
+  <channel id="example.news">
+    <display-name>Example News</display-name>
+  </channel>
+  <programme start="20261008180000 +0000" stop="20261008190000 +0000" channel="example.news">
+    <title>Evening bulletin</title>
+  </programme>
+</tv>
+```
+
+The channel id is `example.news`. The programme repeats that same id in its channel attribute. That repetition is the join inside the guide file. If the programme pointed at `example.sport` and no channel used that id, the title would have nowhere to sit.
+
+The start value in the project's own description is a compact timestamp plus an offset, like the `+0000` above for UTC. `20261008180000` is 8 October 2026 at 18:00 in that offset. A wrong offset shifts every title by a fixed number of hours. The titles are not "missing". They are in the wrong column of the day.
+
+Display names are allowed to repeat. The format description shows channels with several `<display-name>` lines, for a short name, a long name, and a channel number. A player may pick the first, or the one it thinks fits the screen. That choice is the player's. It does not change the channel id, which remains the value programmes must cite.
+
+Icons are optional addresses. A missing icon leaves a blank logo and a working title. Do not spend time on icons while the grid is empty. Titles and times tell you whether the file is doing its job.
+
+Encoding matters. Save the file as the encoding declared on the first line. A title in a language the encoding cannot store will turn into garbage or drop the programme. UTF-8 is the practical choice when the first line says UTF-8.
+
+<Callout type="note">
+The sample uses a made-up channel id and a fictional title. Do not copy a guide from a broadcaster's site into a file and republish it. Listings are someone else's data.
+</Callout>
+
+## How tvg-id lines up with a channel id
+
+The playlist that plays the picture is usually an M3U file. That format is explained in [what an M3U playlist is](/technical/what-is-an-m3u-playlist/). On the information line, `tvg-id` is a string the player can compare with the XMLTV channel id.
+
+<Diagram caption="The player joins a playlist line to a guide channel when the two ids match." alt="Two boxes. The left box is an M3U tvg-id set to example.news. The right box is an XMLTV channel id set to example.news. A line connects them.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" aria-hidden="true">
+  <rect x="24" y="40" width="250" height="72" rx="8" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <text x="40" y="72" fill="currentColor" font-size="16">Playlist tvg-id</text>
+  <text x="40" y="94" fill="currentColor" font-size="16">example.news</text>
+  <rect x="366" y="40" width="250" height="72" rx="8" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <text x="382" y="72" fill="currentColor" font-size="16">XMLTV channel id</text>
+  <text x="382" y="94" fill="currentColor" font-size="16">example.news</text>
+  <path d="M274 76 H366" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</Diagram>
+
+If the playlist says `ExampleNews` and the guide says `example.news`, a player that compares the full string will not attach those programmes. The channel can still appear, because the playlist address is intact. Only the grid stays empty. Changing the on-screen name does not change the id. You edit `tvg-id`, or you edit the guide id, until they are the same.
+
+{/* VERIFY: whether this player compares ids case-sensitively and whether it falls back to the display name */}
+
+Some playlist headers also carry a guide address, often `url-tvg` or a similar attribute. That tells the player which XMLTV file to fetch. A perfect id match does nothing if the player was never given the file. Check the address first, then the ids.
+
+## Time zones and the programme grid
+
+People notice a bad offset faster than a bad id, because the titles exist and look wrong. A programme that the file schedules at 18:00 UTC will show at 19:00 on a device set to British Summer Time if the player honours the offset, which is what you want. It will show at 18:00 on the device clock if the file claimed `+0000` but the programme was actually filmed for a different zone. The file is then "correct" about a false offset.
+
+{/* VERIFY: how this player displays offsets, on the device timezone you use */}
+
+Fix the offset in the file, or pick a guide that was built for your zone. Do not "correct" it by shifting the television's clock. That breaks every other app on the device.
+
+Daylight-saving changes are a file problem and a clock problem. Twice a year, a guide generated for the wrong season is one hour out even though the ids match. If everything slipped by the same hour on the same night, suspect the offset before you suspect the playlist.
+
+## Why the guide stays empty
+
+Work down this list. Stop at the first failure.
+
+<Steps>
+<Step title="Confirm a guide address is set">
+The player needs a URL or a local file. An empty field means it was never asked to load XMLTV.
+<Result>
+If the field is empty, fill it and update the guide once. Do not edit channel ids yet.
+</Result>
+</Step>
+<Step title="Confirm the file downloads">
+Open the guide address in a browser or a text editor on a computer. You should see XML, with channel and programme tags, not an error page or a playlist of video addresses.
+<Result>
+A video playlist in the guide field will not produce titles. Put the M3U address back in the playlist field.
+</Result>
+</Step>
+<Step title="Compare one id">
+Pick a channel that plays. Copy its tvg-id. Search the XMLTV file for that exact string in a channel id.
+<Result>
+No match means the grid cannot attach. Make the two strings identical. A match with titles still in the wrong hour is an offset problem, not an id problem.
+</Result>
+</Step>
+</Steps>
+
+There is not yet a separate Screenwise article titled "EPG not showing". The steps above are the guide-shaped version of that fault. If the picture itself stalls, that is a different fault, covered in [IPTV buffering: how to diagnose it](/troubleshooting/iptv-buffering-fix/) and the rest of the [troubleshooting guides](/troubleshooting/).
+
+A player can also delay the first full grid until it has parsed a large file. On a small streaming stick that wait is noticeable. Give one update time to finish before you reload, clear data, and update again. Repeated updates do not repair a mismatched id.
+
+## How this relates to an M3U playlist
+
+Think of three pieces, even when a header tries to bundle two of them:
+
+| Piece | Job |
+| --- | --- |
+| M3U channel list | Names and addresses to play |
+| XMLTV file | Channel ids and programme times |
+| Player | Downloads both and matches ids |
+
+[What an M3U playlist is](/technical/what-is-an-m3u-playlist/) is the piece that holds `tvg-id` and `group-title`. This page is the piece that holds `<channel id>` and `<programme>`. Neither file is the video. HTTP Live Streaming, specified in [RFC 8216](https://www.rfc-editor.org/rfc/rfc8216), is one way the address in the playlist might deliver pictures, and it has its own playlists of segments. Those segment lists are not a substitute for XMLTV. They do not contain next-hour titles for a whole channel grid.
+
+If you are about to set this up on a television stick, the install order is in [how to set up an IPTV player on Fire TV Stick](/setup/iptv-on-firestick/). Put the playlist address and the guide address in the fields the player labels for each. Swapping them is the shortest route to "no channels" or "no titles".
+
+## A practical check before you blame the player
+
+<Steps>
+<Step title="Prove the video first">
+Select a channel and wait for a picture. If there is no picture, stop working on the guide. The address or the network is the earlier fault.
+</Step>
+<Step title="Prove the file second">
+Open the XMLTV document and find one programme whose channel id equals that channel's tvg-id, with a start time that covers "now".
+<Result>
+If that programme exists in the file and not on screen, the player is failing to load or match. If it does not exist in the file, the guide never contained "now" for that channel. Reinstalling the app will not invent the missing programme.
+</Result>
+</Step>
+</Steps>
+
+<Callout type="tip">
+Keep a single channel as your test case. A grid with thousands of rows hides the one id you needed to compare.
+</Callout>
+
+Player-specific screens for the guide button belong in the [player guides](/players/) after someone has checked that version. Until then, the file itself is enough to tell a bad id from a player bug.
