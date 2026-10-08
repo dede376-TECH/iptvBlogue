@@ -14,7 +14,7 @@ import { ARTICLES_DIR, ROOT } from './lib/content-index';
 import type { PlanItem } from './plan';
 
 const PLAN = join(ROOT, 'content', 'plan.json');
-const DEFAULT_AUTHOR = 'editorial-team';
+const DEFAULT_AUTHOR = 'screenwise';
 
 function arg(name: string): string | undefined {
   const i = process.argv.indexOf(name);

@@ -3,17 +3,19 @@
  *
  *   pnpm indexnow                        # submit every URL from dist/sitemap-*.xml
  *   pnpm indexnow -- --since 2026-10-01  # only URLs with lastmod >= date
- *   pnpm indexnow -- --url https://example.com/a/ --url https://example.com/b/
+ *   pnpm indexnow -- --url <absolute-url> --url <absolute-url>
  *   pnpm indexnow -- --dry-run
  *
  * `--post-build` is used by `pnpm build`: it exits silently unless INDEXNOW_ENABLED=true and
  * INDEXNOW_KEY is set (so local and preview builds never ping search engines).
  *
- * The key file is served from /indexnow-key.txt (see src/pages/indexnow-key.txt.ts).
+ * The key file is written to dist/indexnow-key.txt only when a key is set, IndexNow is enabled
+ * and SITE_URL is not a *.vercel.app host. Otherwise the file is not published.
  */
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { walk } from './lib/content-index';
+import { env, isTemporaryHost } from './lib/env';
 
 const DIST = join(process.cwd(), 'dist');
 const ENDPOINT = 'https://api.indexnow.org/indexnow';
@@ -25,22 +27,34 @@ const vals = (f: string) => argv.flatMap((a, i) => (a === f && argv[i + 1] ? [ar
 
 async function main() {
   const postBuild = has('--post-build');
-  const key = process.env.INDEXNOW_KEY ?? '';
-  const site = (process.env.SITE_URL ?? 'https://example.com').replace(/\/$/, '');
-  const enabled = (process.env.INDEXNOW_ENABLED ?? '').toLowerCase() === 'true';
+  const key = env('INDEXNOW_KEY');
+  const site = env('SITE_URL').replace(/\/$/, '');
+  const enabled = env('INDEXNOW_ENABLED').toLowerCase() === 'true';
+  const publishKey = Boolean(key) && enabled && Boolean(site) && !isTemporaryHost(site);
+
+  if (postBuild && existsSync(DIST)) {
+    const keyFile = join(DIST, 'indexnow-key.txt');
+    if (publishKey) writeFileSync(keyFile, key);
+    else if (existsSync(keyFile)) unlinkSync(keyFile);
+  }
 
   if (postBuild && (!enabled || !key)) {
-    console.log(
-      '[indexnow] skipped (set INDEXNOW_ENABLED=true and INDEXNOW_KEY to ping after builds).',
-    );
+    console.log('[indexnow] skipped (INDEXNOW_ENABLED is not true, or INDEXNOW_KEY is empty).');
     return;
   }
   if (!key) {
-    console.error('[indexnow] INDEXNOW_KEY is not set.');
+    console.error('[indexnow] INDEXNOW_KEY is empty. Nothing was submitted.');
     process.exit(1);
   }
-  if (site.includes('example.com')) {
-    console.error('[indexnow] SITE_URL is still the placeholder; refusing to submit.');
+  if (!site) {
+    console.error('[indexnow] SITE_URL is empty. Nothing was submitted.');
+    process.exit(1);
+  }
+  if (isTemporaryHost(site)) {
+    console.log(
+      '[indexnow] skipped (SITE_URL is a *.vercel.app host; temporary URLs are not submitted).',
+    );
+    if (postBuild) return;
     process.exit(1);
   }
 

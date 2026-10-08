@@ -35,8 +35,7 @@ export function organizationSchema(): JsonLd {
       '@type': 'ImageObject',
       url: absolute(SITE.organization.logoPath),
     },
-    email: SITE.organization.email,
-    sameAs: SITE.organization.sameAs,
+    ...(SITE.organization.sameAs.length ? { sameAs: SITE.organization.sameAs } : {}),
   };
 }
 

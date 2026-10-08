@@ -1,0 +1,37 @@
+---
+/**
+ * Loaded only when analytics or advertising is switched on. Kept out of BaseLayout so the
+ * consent bundle is not emitted while both are off.
+ */
+import ConsentBanner from '@/components/ConsentBanner.astro';
+
+interface Props {
+  clientConfig: {
+    ga4Id: string;
+    adsenseClient: string;
+    npaWithoutConsent: boolean;
+  };
+}
+
+const { clientConfig } = Astro.props;
+---
+
+<script is:inline define:vars={{ clientConfig }}>
+  window.__screenwiseConfig = clientConfig;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag(...args) {
+    window.dataLayer.push(args);
+  };
+  window.gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'denied',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    wait_for_update: 500,
+  });
+</script>
+<ConsentBanner />
+<script src="@/scripts/consent.ts"></script>

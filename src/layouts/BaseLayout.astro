@@ -6,7 +6,6 @@
 import '@/styles/global.css';
 import SEO from '@/components/SEO.astro';
 import JsonLd from '@/components/JsonLd.astro';
-import ConsentBanner from '@/components/ConsentBanner.astro';
 import { getClusters } from '@/lib/content';
 import { getCollection } from 'astro:content';
 import { clusterUrl, pageUrl, FOOTER_PAGE_ORDER } from '@/lib/links';
@@ -37,6 +36,12 @@ const clientConfig = {
   npaWithoutConsent: ADS.npaWithoutConsent,
 };
 const year = new Date().getFullYear();
+// __SCREENWISE_CONSENT__ is the literal false/true from the build, so the import below
+// is dropped from the bundle while analytics and advertising are both off.
+let ConsentRuntime: (typeof import('@/components/ConsentRuntime.astro'))['default'] | null = null;
+if (__SCREENWISE_CONSENT__) {
+  ConsentRuntime = (await import('@/components/ConsentRuntime.astro')).default;
+}
 ---
 
 <!doctype html>
@@ -46,30 +51,11 @@ const year = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <SEO meta={meta} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    {!SITE.temporaryHost && <link rel="sitemap" href="/sitemap-index.xml" />}
     <link rel="alternate" type="application/rss+xml" title={`${SITE.name} RSS`} href="/rss.xml" />
     <meta name="theme-color" content="#0f766e" />
     <meta name="generator" content={Astro.generator} />
     <JsonLd data={jsonLd} />
-    {/* Consent Mode v2 defaults: everything denied until the visitor chooses. Inline so it runs before any tag. */}
-    <script is:inline define:vars={{ clientConfig }}>
-      window.__iptvbConfig = clientConfig;
-      window.dataLayer = window.dataLayer || [];
-      // Equivalent to Google's snippet: gtag.js reads array-like entries from dataLayer.
-      window.gtag = function gtag(...args) {
-        window.dataLayer.push(args);
-      };
-      window.gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-        functionality_storage: 'denied',
-        personalization_storage: 'denied',
-        security_storage: 'granted',
-        wait_for_update: 500,
-      });
-    </script>
   </head>
   <body class:list={['flex min-h-screen flex-col', `template-${template}`, bodyClass]}>
     <a
@@ -173,7 +159,6 @@ const year = new Date().getFullYear();
       </div>
     </footer>
 
-    <ConsentBanner />
-    <script src="@/scripts/consent.ts"></script>
+    {ConsentRuntime && <ConsentRuntime clientConfig={clientConfig} />}
   </body>
 </html>

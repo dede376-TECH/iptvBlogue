@@ -10,7 +10,11 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SITE_URL: https://example.com # TODO(human): set the real domain (or a repo variable)
+  # Repository variables. No domain is stored in this file.
+  # SITE_URL: the *.vercel.app URL until a domain is bought, then the real origin.
+  # PUBLIC_HOSTING_COMMERCIAL: leave unset or "false" on Vercel Hobby (no ads, no affiliate links).
+  SITE_URL: ${{ vars.SITE_URL }}
+  PUBLIC_HOSTING_COMMERCIAL: ${{ vars.PUBLIC_HOSTING_COMMERCIAL || 'false' }}
 
 jobs:
   quality:
@@ -28,6 +32,13 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Require SITE_URL
+        run: |
+          if [ -z "$SITE_URL" ]; then
+            echo "::error::Set the SITE_URL repository variable. Until a domain is bought, use the *.vercel.app URL."
+            exit 1
+          fi
+
       - run: pnpm lint
       - run: pnpm format:check
       - run: pnpm check
@@ -35,12 +46,12 @@ jobs:
       - name: Build (astro + pagefind)
         run: pnpm build
 
-      # Pull requests: structural checks fail, content-readiness issues (TODO, word count) warn.
+      # Pull requests: structural checks fail; unfinished articles only warn.
       - name: SEO check
         if: github.event_name == 'pull_request'
         run: pnpm seo-check
 
-      # main: production gate – TODOs, short articles and drafts in the build all fail.
+      # main: production gate. Unfinished articles, short pages and drafts fail.
       - name: SEO check (strict)
         if: github.ref == 'refs/heads/main'
         run: pnpm seo-check:strict

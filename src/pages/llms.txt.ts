@@ -16,7 +16,7 @@ export const GET: APIRoute = async () => {
     '',
     `> ${SITE.tagline}`,
     '',
-    'This site is informational and educational only. It does not sell IPTV subscriptions and never links to playlists, resellers or unlicensed services. Content is written for UK (en-GB) and US (en-US) readers.',
+    'This site is informational and educational only. It does not sell IPTV subscriptions and never links to playlists, resellers or unlicensed services. Guides are written in plain English for everyday viewers.',
     '',
     '## Policies',
     '',
@@ -40,13 +40,9 @@ export const GET: APIRoute = async () => {
     lines.push('');
   }
 
-  lines.push(
-    '## Optional',
-    '',
-    `- [RSS feed](${absoluteUrl('/rss.xml')})`,
-    `- [Sitemap](${absoluteUrl('/sitemap-index.xml')})`,
-    '',
-  );
+  lines.push('## Optional', '', `- [RSS feed](${absoluteUrl('/rss.xml')})`);
+  if (!SITE.temporaryHost) lines.push(`- [Sitemap](${absoluteUrl('/sitemap-index.xml')})`);
+  lines.push('');
 
   return new Response(lines.join('\n'), {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },

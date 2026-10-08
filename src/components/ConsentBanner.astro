@@ -5,6 +5,13 @@
  * The banner is position: fixed so it never shifts page content.
  */
 import { pageUrl } from '@/lib/links';
+import { CONSENT } from '@/lib/site';
+
+const categories = [CONSENT.analytics && 'analytics', CONSENT.ads && 'advertising'].filter(
+  (item): item is string => Boolean(item),
+);
+const categoryText =
+  categories.length === 2 ? 'analytics and advertising' : (categories[0] ?? 'optional features');
 ---
 
 <div
@@ -21,8 +28,7 @@ import { pageUrl } from '@/lib/links';
         Cookies on this site
       </p>
       <p id="consent-desc">
-        We use optional cookies for analytics and advertising. Nothing optional runs until you
-        choose. Read the{' '}
+        We use optional cookies for {categoryText}. Nothing optional runs until you choose. Read the{' '}
         <a href={pageUrl('cookies')} class="underline">
           cookie policy
         </a>

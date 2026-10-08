@@ -3,8 +3,16 @@ import mdx from '@astrojs/mdx';
 import sitemap, { ChangeFreqEnum, type SitemapItem } from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { indexClusters, lastmodMap } from './scripts/lib/content-index';
+import { env, isTemporaryHost, requireSiteUrl } from './scripts/lib/env';
 
-const SITE_URL = (process.env.SITE_URL ?? 'https://example.com').replace(/\/$/, '');
+const SITE_URL = requireSiteUrl();
+/** Temporary *.vercel.app hosts are noindexed and kept out of the sitemap. */
+const TEMPORARY_HOST = isTemporaryHost(SITE_URL);
+/** Literal false/true so Vite can drop the consent bundle when both tools are off. */
+const NEEDS_CONSENT = Boolean(
+  env('PUBLIC_GA4_ID') ||
+  (env('PUBLIC_HOSTING_COMMERCIAL') === 'true' && env('PUBLIC_ADSENSE_CLIENT')),
+);
 
 /**
  * Build-time index of content for accurate <lastmod> values and one sitemap chunk per
@@ -49,7 +57,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/search/') && !page.includes('/404'),
+      filter: (page) => !TEMPORARY_HOST && !page.includes('/search/') && !page.includes('/404'),
       serialize: withLastmod,
       chunks,
       namespaces: { news: false, image: false, video: false },
@@ -57,5 +65,8 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      __SCREENWISE_CONSENT__: JSON.stringify(NEEDS_CONSENT),
+    },
   },
 });

@@ -3,14 +3,16 @@ import { SITE } from '@/lib/site';
 
 export const GET: APIRoute = ({ site }) => {
   const base = (site?.href ?? `${SITE.url}/`).replace(/\/$/, '');
-  const body = [
-    'User-agent: *',
-    'Allow: /',
-    'Disallow: /search/',
-    'Disallow: /og/',
-    '',
-    `Sitemap: ${base}/sitemap-index.xml`,
-    '',
-  ].join('\n');
-  return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+  const lines = ['User-agent: *', 'Allow: /', 'Disallow: /search/', 'Disallow: /og/', ''];
+  if (SITE.temporaryHost) {
+    lines.push(
+      '# Temporary host. Every page is noindex; do not submit this site to Search Console.',
+      '',
+    );
+  } else {
+    lines.push(`Sitemap: ${base}/sitemap-index.xml`, '');
+  }
+  return new Response(lines.join('\n'), {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  });
 };

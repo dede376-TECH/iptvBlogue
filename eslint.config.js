@@ -27,6 +27,9 @@ export default defineConfig(
   },
   {
     files: ['**/*.astro'],
+    languageOptions: {
+      globals: { __SCREENWISE_CONSENT__: 'readonly' },
+    },
     rules: {
       // Astro components commonly declare props that are only used in the template.
       '@typescript-eslint/no-unused-vars': 'off',

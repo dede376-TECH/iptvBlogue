@@ -86,9 +86,12 @@ export function ogImagePath(path: string): string {
 export function buildSeo(input: SeoInput): SeoMeta {
   const path = withTrailingSlash(input.path);
   const lang = langForGeo(input.geo);
-  const robots = input.noindex
-    ? 'noindex, nofollow'
-    : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+  // A *.vercel.app canonical URL is always noindex, so the temporary host cannot compete
+  // with the domain once one is bought.
+  const robots =
+    input.noindex || SITE.temporaryHost
+      ? 'noindex, nofollow'
+      : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
   return {
     title: truncate(input.title, CONTENT_RULES.maxTitleLength),
     description: truncate(input.description, CONTENT_RULES.maxDescriptionLength),

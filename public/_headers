@@ -1,4 +1,6 @@
-# Cloudflare Pages headers. Order matters: later, more specific rules add to earlier ones.
+# Cloudflare Pages headers (used when the site moves off Vercel). Vercel ignores this file;
+# the equivalent rules, plus the temporary noindex header, live in vercel.json.
+# Order matters: later, more specific rules add to earlier ones.
 # CSP allows GA4 + AdSense only. 'unsafe-inline' for scripts is needed by the inline Consent Mode
 # default snippet (static hosting cannot issue nonces). Tighten frame-src/img-src if you drop ads.
 

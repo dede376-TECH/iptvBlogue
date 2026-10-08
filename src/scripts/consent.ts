@@ -4,7 +4,7 @@
  * This is the only script shipped on every page. It is dependency-free and small.
  * Nothing optional (GA4, AdSense) is loaded until the visitor has made a choice.
  *
- * Storage: localStorage["iptvb_consent"] = { v, analytics, ads, ts }
+ * Storage: localStorage["screenwise_consent"] = { v, analytics, ads, ts }
  * Markup hooks:
  *   #consent-banner [data-consent="accept"|"reject"]
  *   [data-consent-pref="analytics"|"ads"] checkboxes + [data-consent="save"] (cookies page)
@@ -18,12 +18,12 @@ declare global {
     dataLayer: unknown[];
     gtag: (...args: unknown[]) => void;
     adsbygoogle: unknown[] & { requestNonPersonalizedAds?: number };
-    __iptvbConfig?: { ga4Id?: string; adsenseClient?: string; npaWithoutConsent?: boolean };
+    __screenwiseConfig?: { ga4Id?: string; adsenseClient?: string; npaWithoutConsent?: boolean };
   }
 }
 
-const KEY = 'iptvb_consent';
-const config = window.__iptvbConfig ?? {};
+const KEY = 'screenwise_consent';
+const config = window.__screenwiseConfig ?? {};
 
 function readConsent(): ConsentState | null {
   try {
@@ -53,6 +53,7 @@ function gtag(...args: unknown[]) {
 window.gtag = window.gtag || gtag;
 
 function updateConsentMode(state: ConsentState) {
+  if (typeof window.gtag !== 'function') return;
   const g = state.ads ? 'granted' : 'denied';
   window.gtag('consent', 'update', {
     ad_storage: g,

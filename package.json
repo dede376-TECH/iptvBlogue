@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Informational IPTV blog (en-GB / en-US). Static Astro site, SEO-first.",
+  "description": "Screenwise — plain-English informational IPTV guides. Static Astro site, SEO-first.",
   "engines": {
     "node": ">=22.12.0",
     "pnpm": ">=9"
@@ -19,9 +19,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && pnpm run postbuild:pagefind && pnpm run postbuild:indexnow",
-    "build:prod": "pnpm run build && pnpm run seo-check:strict",
+    "build": "astro build && pnpm run postbuild:pagefind && pnpm run postbuild:ads && pnpm run postbuild:indexnow",
+    "build:prod": "pnpm run build && pnpm run seo-check:strict && pnpm run launch-check",
     "postbuild:pagefind": "pagefind --site dist",
+    "postbuild:ads": "tsx scripts/ads-txt.ts",
     "postbuild:indexnow": "tsx scripts/indexnow.ts --post-build",
     "preview": "astro preview",
     "check": "astro check",
@@ -35,6 +36,7 @@
     "plan:build": "tsx scripts/plan.ts",
     "plan": "tsx scripts/stubs.ts",
     "indexnow": "tsx scripts/indexnow.ts",
+    "launch-check": "tsx scripts/launch-check.ts",
     "verify": "pnpm run lint && pnpm run check && pnpm run build && pnpm run seo-check"
   },
   "dependencies": {

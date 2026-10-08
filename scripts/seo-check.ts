@@ -18,11 +18,12 @@ import {
   walk,
   type IndexedArticle,
 } from './lib/content-index';
+import { isTemporaryHost, requireSiteUrl } from './lib/env';
 import { phraseMatcher } from './lib/text';
 
 const STRICT = process.argv.includes('--strict');
 const DIST = join(process.cwd(), 'dist');
-const SITE_URL = (process.env.SITE_URL ?? 'https://example.com').replace(/\/$/, '');
+const SITE_URL = requireSiteUrl();
 
 const LIMITS = {
   title: 60,
@@ -336,9 +337,12 @@ function main() {
     for (const m of readFileSync(f, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g))
       sitemapUrls.add(m[1]!);
   }
-  if (!existsSync(join(DIST, 'sitemap-index.xml')))
+  const temporaryHost = isTemporaryHost(SITE_URL);
+  if (!temporaryHost && !existsSync(join(DIST, 'sitemap-index.xml')))
     err('/', 'sitemap', 'sitemap-index.xml missing');
   if (!existsSync(join(DIST, 'robots.txt'))) err('/', 'robots', 'robots.txt missing');
+  if (temporaryHost && sitemapUrls.size > 0)
+    err('/', 'sitemap', 'temporary *.vercel.app host must not list URLs in the sitemap');
   for (const p of indexable) {
     const url = `${SITE_URL}${p.path}`;
     if (!sitemapUrls.has(url)) err(p.path, 'sitemap', 'Indexable page missing from sitemap');
