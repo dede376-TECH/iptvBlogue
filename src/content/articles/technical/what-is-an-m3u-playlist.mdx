@@ -11,20 +11,31 @@ secondaryKeywords:
 intent: what-is
 geo: GLOBAL
 publishedAt: 2026-10-08
+updatedAt: 2026-10-08
 author: screenwise
 pillar: true
+aiAssisted: true
+reviewStatus: needs-human
+testedOn: []
+sources:
+  - https://www.rfc-editor.org/rfc/rfc8216
+  - https://wiki.xmltv.org/index.php/XMLTVFormat
 keyTakeaways:
-  - 'An M3U file is plain text: a header line followed by pairs of #EXTINF metadata and stream URLs.'
-  - 'M3U8 is the same format saved as UTF-8; HLS streams also use the .m3u8 extension for their manifests.'
-  - 'tvg-id, tvg-logo and group-title are the attributes that let players match channels to an EPG and organise them.'
-  - 'Most "playlist not loading" problems are encoding, line-ending or malformed-attribute issues you can check with a text editor.'
+  - 'An M3U file is text. It lists addresses. It does not contain the picture or the sound.'
+  - 'Each channel is usually two lines: an #EXTINF line, then the address on the next line.'
+  - 'tvg-id is how many players line a channel up with an XMLTV guide. The id has to match.'
+  - 'M3U8 can mean UTF-8 text, or an HLS playlist of segments. Read the contents, not just the extension.'
 faq:
   - question: 'Can I open an M3U file in a text editor?'
-    answer: 'Yes. M3U is plain text, so Notepad, TextEdit or VS Code will show the header, the #EXTINF lines and the URLs. This is the fastest way to spot formatting problems.'
+    answer: 'Yes. It is plain text. A text editor shows the header, the #EXTINF lines and the addresses. That is the fastest way to see a broken line.'
   - question: 'What is the difference between M3U and M3U8?'
-    answer: 'M3U8 means the file is encoded as UTF-8, which is needed for non-Latin channel names. The .m3u8 extension is also used by HLS stream manifests, which follow the same basic syntax but describe segments of a single stream.'
+    answer: 'M3U8 often means the playlist text is UTF-8, which matters for channel names outside basic English letters. The same extension is also used by HTTP Live Streaming for a playlist of media segments. Open the file: a channel list and a segment list do different jobs.'
   - question: 'Do I need tvg-id for the EPG to work?'
-    answer: 'Players match channels to guide data using tvg-id first, then sometimes the channel name. Without a tvg-id that matches the XMLTV channel id, the guide will usually stay empty for that channel.'
+    answer: 'A player that uses XMLTV typically matches tvg-id to the guide channel id. If those strings differ, that channel stays empty in the guide even when the picture plays. Some players also try the display name. Do not rely on the name unless you have checked that player.'
+  - question: 'Does the playlist include the television channels?'
+    answer: 'No. It only points at addresses. Permission to watch what is at those addresses is a separate question, covered in the legality guide.'
+  - question: 'Why does a blank line break a channel?'
+    answer: 'Players expect the address on the line immediately after #EXTINF. A blank line can make the player treat the address as a new, invalid entry, so that channel never starts.'
 related:
   - troubleshooting/iptv-buffering-fix
   - setup/iptv-on-firestick
@@ -32,19 +43,23 @@ related:
 draft: false
 ---
 
-{/* TODO(human): write the full article (pillar, >= 1800 words). Add original screenshots of a
-real M3U file in a text editor and in a player, and cite the sources used. Remove every TODO
-before publishing: `pnpm seo-check --strict` fails on leftover TODOs. */}
+An M3U playlist is a text file that lists media addresses, one after another. The file itself has no video in it: a player reads an address, then fetches the picture from there.
+
+People use the same simple layout for music files and for live channels. IPTV players adopted it because a channel list can be opened, edited and saved without a special database. The catch is that a tiny text mistake stops a channel, and the mistake is invisible until you open the file.
 
 ## What an M3U playlist actually is
 
-TODO: Define M3U as a plain-text playlist format originally created for MP3 players and later
-adopted by media players for streams. Explain why it became the de-facto container for IPTV
-channel lists and note that the file itself contains no video, only references.
+The format began as a playlist for audio players. A later "extended" form added a line of information before each address, which is why live channel lists look the way they do. Nothing in that history makes the file a video format. Copy the file to another computer and it is still just text. The picture stays on the server named in each address.
+
+That is also why the format spread. A service, a broadcaster app, or a person maintaining a local list can hand over one file instead of clicking through a grid of channels. The player does the fetching. If you are deciding whether you are allowed to fetch a given stream, the filename will not tell you. Read [is IPTV legal?](/legal-streaming/is-iptv-legal/) for that distinction.
+
+<Callout type="note">
+Examples on this page use made-up hosts ending in .invalid. They are there to show the shape of the file. They are not addresses you should try to open.
+</Callout>
 
 ## The anatomy of an M3U file
 
-TODO: Walk through a minimal example line by line.
+A typical channel list has a header, then pairs of lines. Here is a minimal example:
 
 ```text
 #EXTM3U
@@ -52,40 +67,127 @@ TODO: Walk through a minimal example line by line.
 https://stream.invalid/live/news/index.m3u8
 ```
 
+Read it from the top. `#EXTM3U` says "this is an extended playlist". The next line is metadata for one channel. The line after that is the address the player should open. Then the pattern repeats: information, address, information, address.
+
+<Diagram caption="A channel entry is an information line followed immediately by an address." alt="Three stacked rows: a header, an information line named EXTINF, and a stream address. An arrow shows the player reading top to bottom.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" aria-hidden="true">
+  <rect x="32" y="16" width="576" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <text x="48" y="42" fill="currentColor" font-size="16">1. Header: EXTM3U</text>
+  <rect x="32" y="72" width="576" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <text x="48" y="98" fill="currentColor" font-size="16">2. EXTINF: id, group, display name</text>
+  <rect x="32" y="128" width="576" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <text x="48" y="154" fill="currentColor" font-size="16">3. Address the player opens</text>
+</svg>
+</Diagram>
+
 ### The #EXTM3U header
 
-TODO: Explain that the header must be the first line, and the optional `url-tvg` / `x-tvg-url`
-attributes that point players to an XMLTV guide.
+The header should be the first line. Players use it to decide that the following lines are an extended playlist rather than a bare list of paths. If the header is missing, some players still try to read addresses, and others refuse the file. Putting the header on line 1 removes that gamble.
+
+The header can also carry a guide address. You will see attributes such as `url-tvg` or `x-tvg-url` pointing at an XMLTV file. Those names are player conventions, not a single official standard with one spelling. The idea is the same: "here is a guide to download". How a guide file is built is covered in [XMLTV and the EPG](/technical/xmltv-and-epg-explained/).
+
+{/* VERIFY: which header attribute your player actually reads for the guide address */}
+
+```text
+#EXTM3U url-tvg="https://cdn.invalid/guide.xml"
+```
+
+If the guide address is wrong, the channels can still play. Only the programme grid fails. That split is useful. Picture without a guide means the stream addresses are fine and the guide link, or the ids inside it, is not.
 
 ### #EXTINF lines and their attributes
 
-TODO: Cover duration (`-1` for live), `tvg-id`, `tvg-name`, `tvg-logo`, `group-title`, and the
-display name after the comma. Mention common vendor-specific attributes without endorsing any
-service.
+`#EXTINF` is the information line. A common shape is:
+
+```text
+#EXTINF:-1 tvg-id="ExampleNews" tvg-name="Example News" tvg-logo="https://cdn.invalid/logos/news.png" group-title="News",Example News
+```
+
+The `-1` is a duration in seconds. For a music track it would be the length of the song. For a live channel there is no fixed length, so lists use `-1` to mean "keep going". A positive number does not turn a live channel into a recording. It is only a hint some players ignore.
+
+Attributes sit between the duration and the comma. They are usually written as `name="value"`.
+
+| Attribute | Role |
+| --- | --- |
+| tvg-id | String the player matches to a guide channel. Spelling and case matter. |
+| tvg-name | Optional name some players prefer over the text after the comma. |
+| tvg-logo | Address of an icon. A broken icon does not stop playback. |
+| group-title | Folder or group name in the channel list. |
+
+The display name is the text after the comma. In the example, the viewer sees "Example News". The comma is not decoration. If it is missing, the player can swallow the attributes into the name, or drop the name entirely.
+
+Quote the values. A group called News and Sport needs quotes so the space does not end the attribute early: `group-title="News and Sport"`. An unquoted space is a classic reason a whole group disappears or merges into the next field.
+
+Other attributes show up in real files: catch-up hints, language tags, and names only one vendor's player understands. Treat unknown attributes as optional. A player that does not recognise one should still play the address on the following line. Do not add attributes from a forum post unless you know that your player documents them.
 
 ### Stream URLs and formats
 
-TODO: Explain HLS (`.m3u8`), MPEG-TS (`.ts`) and DASH (`.mpd`) URLs at a high level, and link to
-the dedicated formats guide once it exists.
+The address line is whatever the player should open. Three patterns are common, and they are not interchangeable just because they all appear in a playlist.
+
+HLS addresses often end in `.m3u8`. [RFC 8216](https://www.rfc-editor.org/rfc/rfc8216) specifies that kind of playlist: it lists media segments, or points at variant playlists of different quality. The player downloads segments in order. That is different from a channel list, even when both files use the same extension.
+
+MPEG transport stream addresses often end in `.ts` or have no familiar ending and are opened as a continuous stream. The player reads a flow of packets rather than a list of segments.
+
+DASH manifests often end in `.mpd`. They describe representations and segments in XML. A player that only understands HLS will not play a DASH address, and the failure can look like a dead channel rather than a format mismatch.
+
+The playlist does not convert between these. It only stores the address. If one channel plays and the next shows a black screen, compare the address endings before you reinstall the player.
 
 ## M3U vs M3U8
 
-TODO: Clarify encoding vs the HLS manifest use of the same extension, with an example of each.
+The extra "8" is doing two jobs in the wild, and mixing them up causes bad advice.
+
+First, encoding. A file named `.m3u` is sometimes saved in an older encoding that cannot represent every channel name. `.m3u8` signals UTF-8, so names in Arabic, Cyrillic, or accented Latin survive. If names look like random symbols, reopen the file as UTF-8 and save it as UTF-8 without adding a byte-order mark at the start. A BOM is invisible in some editors and is enough to make the header look wrong to a strict player.
+
+Second, HLS. A segment playlist is also called a media playlist and commonly uses `.m3u8`. Open it and you will see tags such as `#EXTINF` with a short duration, then a segment file, repeated many times, often with `#EXT-X-TARGETDURATION` nearby. That file describes one stream chopped into pieces. It is not a list of television channels. Pointing a "load playlist" button at a single HLS media playlist can load one stream, or nothing, depending on the player. Pointing it at a channel list loads many channels.
+
+<Callout type="tip">
+If the file has hundreds of short segment names, it is an HLS media playlist. If it has channel names and long-lived addresses, it is a channel list. The extension alone is not the test.
+</Callout>
 
 ## How players use tvg-id to match an EPG
 
-TODO: Explain the matching logic and link to the EPG / XMLTV guide in this cluster. This is the
-root cause of most "EPG not showing" issues, which we cover in the
-[troubleshooting hub](/troubleshooting/).
+The guide, or EPG, is a separate file. XMLTV is the format most of these players expect. In that format a channel has an id, and each programme points at that same id. The picture playlist is a third thing. The player joins them by string match: the `tvg-id` value should be the same string as the guide's channel id.
+
+If the guide says `example.news` and the playlist says `ExampleNews`, a player that compares those strings exactly will leave the guide blank for a channel that otherwise plays. Renaming the on-screen title does not fix that. The id does.
+
+Some players fall back to the display name when the id is empty. That fallback is a feature of the player, not of the file format. Check it on the player you use before you delete ids to "simplify" a file.
+
+{/* VERIFY: whether this player matches tvg-id exactly, ignores case, or falls back to the channel name */}
+
+A missing guide is a different fault from a stalling picture. Work through ids and the guide address first. The wider set of playback stalls is in [IPTV buffering: how to diagnose it](/troubleshooting/iptv-buffering-fix/). There is not yet a separate page for "EPG not showing"; the checks that belong to a missing guide are the ones on this page and in [XMLTV and the EPG](/technical/xmltv-and-epg-explained/).
 
 ## Validating a playlist
 
-TODO: Give a checklist: UTF-8 without BOM, Unix or Windows line endings consistently, no blank
-lines between `#EXTINF` and URL, quoted attribute values, no trailing spaces. Show how to test in
-VLC on desktop before moving to a TV device such as a Fire TV Stick (see
-[how to set up an IPTV player on Firestick](/setup/iptv-on-firestick/)).
+You can check a file with a text editor. You do not need the television for the first pass.
+
+<Steps>
+<Step title="Confirm the encoding">
+Save as UTF-8 without a BOM. If an editor offers "UTF-8 with BOM", choose the one without it and save again.
+</Step>
+<Step title="Check line endings once">
+Use either Unix line endings or Windows line endings for the whole file. Mixing them is a rare but real way for a blank-looking line to appear.
+</Step>
+<Step title="Pair every information line with an address">
+The address is the next line. No blank line between them. No second address before the next `#EXTINF`.
+<Result>
+If a channel is missing in the player but present in the file, this pairing is the first place to look. A visual gap in the editor is the usual find.
+</Result>
+</Step>
+<Step title="Check quotes and the comma">
+Every attribute value that contains a space is quoted. Exactly one comma separates the attributes from the display name.
+</Step>
+<Step title="Remove trailing spaces">
+A space at the end of an address can make the request fail. It will not show up in a casual glance.
+</Step>
+</Steps>
+
+{/* VERIFY: open the same file in a desktop player such as VLC and confirm the channel list loads, on the version you have */}
+
+A desktop player is a convenient second opinion because you can edit, save, and reload quickly. Pass that test before you copy the file to a television stick. Loading the same file on a Fire TV Stick is covered in [how to set up an IPTV player on Fire TV Stick](/setup/iptv-on-firestick/). If it loads on the desktop and not on the stick, suspect memory, a trimmed copy, or a different guide address, not the basic syntax you already checked.
+
+Also scan for addresses that are clearly cut off: a line that stops at `https://` or a quote that never closes. Those entries will sit in the list and fail when selected, which feels like buffering. It is a broken line.
+
+One last structural check is worth doing before you leave the editor. Count `#EXTINF` lines and count address lines. The two counts should match, and the header should not be part of either count. If you have more information lines than addresses, a channel was left unfinished. If you have more addresses than information lines, a bare path is sitting in the file and some players will show it as a nameless entry or skip it. That count takes a minute and catches the mistakes a visual skim misses, especially in a long list where one broken pair hides among hundreds of healthy ones.
 
 ## Legal note
 
-TODO: One short paragraph: the format is neutral; what matters is whether the streams it points
-to are licensed. Link to [Is IPTV legal?](/legal-streaming/is-iptv-legal/).
+The format is neutral. A text file can point at a broadcast you are allowed to watch, or at a stream nobody licensed. The extension does not make either one lawful. Keep the technical checks here, and keep the permission question in [is IPTV legal?](/legal-streaming/is-iptv-legal/). This site does not host channel lists and does not link to services that do.
