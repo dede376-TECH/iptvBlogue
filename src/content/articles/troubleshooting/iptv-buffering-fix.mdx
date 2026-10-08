@@ -1,0 +1,105 @@
+---
+title: 'IPTV Buffering: How to Diagnose and Fix It Step by Step'
+description: 'Fix IPTV buffering and freezing in the right order: test the network, rule out Wi-Fi, adjust player buffer and decoder settings, then isolate the source.'
+cluster: troubleshooting
+targetKeyword: 'iptv buffering fix'
+secondaryKeywords:
+  - 'iptv keeps buffering'
+  - 'iptv freezing'
+  - 'iptv buffer size'
+  - 'iptv buffering on firestick'
+intent: troubleshooting
+geo: GLOBAL
+publishedAt: 2026-10-08
+author: editorial-team
+pillar: true
+keyTakeaways:
+  - 'Buffering is rarely caused by headline broadband speed; Wi-Fi, DNS, the player buffer and the source server are the usual suspects.'
+  - 'Diagnose in order: wired test, other apps, other streams, then player settings. Changing everything at once hides the real cause.'
+  - 'A larger player buffer trades a few seconds of start delay for smoother playback and fixes most short, repeating stalls.'
+  - 'If a single channel or a single source buffers while everything else is fine, the problem is upstream and no local setting will fix it.'
+howTo:
+  name: 'How to fix IPTV buffering'
+  totalTime: 'PT30M'
+  tools:
+    - 'Ethernet cable or powerline adapter (for the wired test)'
+    - 'A second device to compare'
+  steps:
+    - name: 'Run a wired baseline test'
+      text: 'Connect the player device by Ethernet (or move it next to the router) and play the same stream. If buffering stops, the problem is Wi-Fi, not the service.'
+    - name: 'Compare with other apps and streams'
+      text: 'Play a high-bitrate video in a mainstream streaming app on the same device. If that also stutters, fix the network or the device first.'
+    - name: 'Check DNS and routing'
+      text: 'Switch the device to a public DNS resolver and retest. Some ISP resolvers route poorly to certain CDNs.'
+    - name: 'Increase the player buffer'
+      text: 'In the player settings raise the buffer size (for example from the default to a mid or large value) and switch between hardware and software decoding.'
+    - name: 'Isolate the source'
+      text: 'If only some channels buffer, note which ones and when. Problems at peak hours on specific channels point to the source server, not your setup.'
+faq:
+  - question: 'Why does IPTV buffer when my internet speed test is fast?'
+    answer: 'A speed test measures a short burst to a nearby server. Live streams need a steady, uninterrupted rate for hours, often from a distant server. Wi-Fi retries, DNS detours and a small player buffer cause stalls even on fast lines.'
+  - question: 'Does a VPN stop IPTV buffering?'
+    answer: 'Sometimes, if your ISP routes badly to the streaming server, and sometimes it makes things worse by adding another hop. Test with and without, using the same stream at the same time of day.'
+  - question: 'What buffer size should I use?'
+    answer: 'There is no universal number because players label it differently. Start one step above the default; if stalls continue, increase again. Very large buffers only add start-up delay.'
+related:
+  - technical/what-is-an-m3u-playlist
+  - setup/iptv-on-firestick
+  - legal-streaming/is-iptv-legal
+draft: false
+---
+
+{/_ TODO(human): write the full article (pillar, >= 1800 words). Include screenshots of the
+player buffer settings you actually tested, the device used, and your measured before/after
+behaviour. Do not invent percentages or speeds. Remove all TODO markers before publishing. _/}
+
+## First, understand what buffering is telling you
+
+TODO: Explain the buffer as a reservoir; stalls happen when it empties. Separate the three
+layers: network, device/player, source.
+
+## Step 1: Run a wired baseline test
+
+TODO: Describe the Ethernet or near-router test and how to interpret the result.
+
+## Step 2: Compare with other apps and streams
+
+TODO: Describe the comparison test and what each outcome means.
+
+## Step 3: Check DNS and routing
+
+TODO: Explain in plain words why DNS can matter, how to change it on common devices (link to the
+relevant setup guides, e.g. [IPTV on Firestick](/setup/iptv-on-firestick/)), and how to retest.
+
+## Step 4: Adjust player buffer and decoder settings
+
+TODO: Cover buffer size and hardware vs software decoding in the most common players. Link to the
+players hub at [/players/](/players/) for app-specific guides.
+
+## Step 5: Isolate the source
+
+TODO: Explain per-channel and peak-hour patterns. Make clear that an unreliable source cannot be
+fixed locally and that this site does not recommend or link to services.
+
+## Device-specific notes
+
+### Fire TV Stick
+
+TODO: Memory limits, background apps, Wi-Fi band selection.
+
+### Android TV and Google TV
+
+TODO: Decoder options, Ethernet adapters.
+
+### Smart TVs (Samsung, LG)
+
+TODO: Limited player choice and buffer settings.
+
+## When buffering is actually a playlist problem
+
+TODO: Explain how a malformed playlist or wrong stream format can look like buffering, and link
+to [what an M3U playlist is](/technical/what-is-an-m3u-playlist/).
+
+## Legal note
+
+TODO: Short paragraph pointing to [Is IPTV legal?](/legal-streaming/is-iptv-legal/).

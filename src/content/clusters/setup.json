@@ -1,0 +1,15 @@
+{
+  "title": "IPTV Setup Guides: Firestick, Android TV, Smart TV & More",
+  "h1": "IPTV setup guides by device",
+  "navLabel": "Setup",
+  "description": "How to set up an IPTV player on Fire TV Stick, Android TV, Samsung and LG Smart TVs, Apple TV, iPhone, iPad and Android, using legal sources.",
+  "intro": "Every device has its own quirks: sideloading on Fire TV, the Google Play catalogue on Android TV, the limited app stores on Samsung Tizen and LG webOS, and the strict rules of Apple's App Store. These guides show the supported route for each platform.",
+  "order": 3,
+  "pillar": "setup/iptv-on-firestick",
+  "faq": [
+    {
+      "question": "Which device is easiest for IPTV?",
+      "answer": "Android TV and Google TV devices (including many Fire TV models) have the widest choice of IPTV players. Apple TV and Smart TVs work too but with a smaller selection of apps."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+---
+title: 'What Is an M3U Playlist? Format, Tags and Examples'
+description: 'An M3U playlist is a plain-text list of stream URLs. Learn the #EXTM3U and #EXTINF syntax, tvg-id and group-title tags, and how to validate a file.'
+cluster: technical
+targetKeyword: 'what is an m3u playlist'
+secondaryKeywords:
+  - 'm3u file format'
+  - 'extinf tags'
+  - 'm3u vs m3u8'
+  - 'tvg-id'
+intent: what-is
+geo: GLOBAL
+publishedAt: 2026-10-08
+author: editorial-team
+pillar: true
+keyTakeaways:
+  - 'An M3U file is plain text: a header line followed by pairs of #EXTINF metadata and stream URLs.'
+  - 'M3U8 is the same format saved as UTF-8; HLS streams also use the .m3u8 extension for their manifests.'
+  - 'tvg-id, tvg-logo and group-title are the attributes that let players match channels to an EPG and organise them.'
+  - 'Most "playlist not loading" problems are encoding, line-ending or malformed-attribute issues you can check with a text editor.'
+faq:
+  - question: 'Can I open an M3U file in a text editor?'
+    answer: 'Yes. M3U is plain text, so Notepad, TextEdit or VS Code will show the header, the #EXTINF lines and the URLs. This is the fastest way to spot formatting problems.'
+  - question: 'What is the difference between M3U and M3U8?'
+    answer: 'M3U8 means the file is encoded as UTF-8, which is needed for non-Latin channel names. The .m3u8 extension is also used by HLS stream manifests, which follow the same basic syntax but describe segments of a single stream.'
+  - question: 'Do I need tvg-id for the EPG to work?'
+    answer: 'Players match channels to guide data using tvg-id first, then sometimes the channel name. Without a tvg-id that matches the XMLTV channel id, the guide will usually stay empty for that channel.'
+related:
+  - troubleshooting/iptv-buffering-fix
+  - setup/iptv-on-firestick
+  - legal-streaming/is-iptv-legal
+draft: false
+---
+
+{/_ TODO(human): write the full article (pillar, >= 1800 words). Add original screenshots of a
+real M3U file in a text editor and in a player, and cite the sources used. Remove every TODO
+before publishing: `pnpm seo-check --strict` fails on leftover TODOs. _/}
+
+## What an M3U playlist actually is
+
+TODO: Define M3U as a plain-text playlist format originally created for MP3 players and later
+adopted by media players for streams. Explain why it became the de-facto container for IPTV
+channel lists and note that the file itself contains no video, only references.
+
+## The anatomy of an M3U file
+
+TODO: Walk through a minimal example line by line.
+
+```text
+#EXTM3U
+#EXTINF:-1 tvg-id="ExampleNews.uk" tvg-logo="https://example.com/logos/news.png" group-title="News",Example News
+https://example.com/live/news/index.m3u8
+```
+
+### The #EXTM3U header
+
+TODO: Explain that the header must be the first line, and the optional `url-tvg` / `x-tvg-url`
+attributes that point players to an XMLTV guide.
+
+### #EXTINF lines and their attributes
+
+TODO: Cover duration (`-1` for live), `tvg-id`, `tvg-name`, `tvg-logo`, `group-title`, and the
+display name after the comma. Mention common vendor-specific attributes without endorsing any
+service.
+
+### Stream URLs and formats
+
+TODO: Explain HLS (`.m3u8`), MPEG-TS (`.ts`) and DASH (`.mpd`) URLs at a high level, and link to
+the dedicated formats guide once it exists.
+
+## M3U vs M3U8
+
+TODO: Clarify encoding vs the HLS manifest use of the same extension, with an example of each.
+
+## How players use tvg-id to match an EPG
+
+TODO: Explain the matching logic and link to the EPG / XMLTV guide in this cluster. This is the
+root cause of most "EPG not showing" issues, which we cover in the
+[troubleshooting hub](/troubleshooting/).
+
+## Validating a playlist
+
+TODO: Give a checklist: UTF-8 without BOM, Unix or Windows line endings consistently, no blank
+lines between `#EXTINF` and URL, quoted attribute values, no trailing spaces. Show how to test in
+VLC on desktop before moving to a TV device such as a Fire TV Stick (see
+[how to set up an IPTV player on Firestick](/setup/iptv-on-firestick/)).
+
+## Legal note
+
+TODO: One short paragraph: the format is neutral; what matters is whether the streams it points
+to are licensed. Link to [Is IPTV legal?](/legal-streaming/is-iptv-legal/).

@@ -1,0 +1,14 @@
+{
+  "title": "International & Diaspora TV: Legal Channels by Language",
+  "h1": "International TV by language",
+  "navLabel": "Languages",
+  "description": "Legal ways for diaspora viewers in the UK and US to watch TV from home: official broadcaster apps, licensed international services and FAST channels.",
+  "intro": "Many broadcasters now stream their channels officially outside their home country, and several licensed services specialise in international packages. These guides list the legitimate options by language and region and explain how to add them to your player.",
+  "order": 7,
+  "faq": [
+    {
+      "question": "Can I watch my home country's TV legally abroad?",
+      "answer": "Often yes. Many public broadcasters offer official international streams or apps, and licensed international services carry foreign-language packages. Availability varies by country and rights."
+    }
+  ]
+}

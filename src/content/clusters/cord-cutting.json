@@ -1,0 +1,14 @@
+{
+  "title": "Cord-Cutting Guides: IPTV vs Cable vs Satellite Costs",
+  "h1": "Cord-cutting and TV cost comparisons",
+  "navLabel": "Cord-cutting",
+  "description": "Honest comparisons of IPTV, cable and satellite for UK and US households: what you really pay, what you give up, and how to build a legal setup.",
+  "intro": "Cutting the cord is less about one magic service and more about matching what you actually watch to the cheapest legal combination of broadcast, streaming and on-demand. These guides lay out the trade-offs without hype.",
+  "order": 6,
+  "faq": [
+    {
+      "question": "Is IPTV cheaper than cable?",
+      "answer": "It depends on which licensed services you need. Broadcaster apps and FAST channels are free; premium sport and film packages are not. Our comparisons break down typical bundles for the UK and US."
+    }
+  ]
+}

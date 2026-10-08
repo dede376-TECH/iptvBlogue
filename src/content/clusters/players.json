@@ -1,0 +1,14 @@
+{
+  "title": "IPTV Players Compared: TiviMate, OTT Navigator, Kodi, VLC",
+  "h1": "IPTV players and apps",
+  "navLabel": "Players",
+  "description": "Independent guides to IPTV player apps: TiviMate, OTT Navigator, Kodi, VLC and others. Features, EPG support, device compatibility and honest comparisons.",
+  "intro": "A player app is what turns a playlist and a guide into something that feels like television. We cover the major players on every platform, explain what each does well and compare them on the features that matter: EPG handling, catch-up, recording, multi-view and stability.",
+  "order": 4,
+  "faq": [
+    {
+      "question": "Are IPTV player apps legal?",
+      "answer": "Yes. Players like VLC, Kodi or TiviMate are general-purpose media apps. Legality depends on the content you load into them, not on the app itself."
+    }
+  ]
+}

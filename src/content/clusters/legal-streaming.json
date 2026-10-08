@@ -1,0 +1,15 @@
+{
+  "title": "Is IPTV Legal? Licensed Services & FAST Channels Explained",
+  "h1": "Legal IPTV and streaming",
+  "navLabel": "Legal streaming",
+  "description": "Clear answers on IPTV legality in the UK and US, how to recognise licensed services, and guides to free ad-supported (FAST) channels you can watch legally.",
+  "intro": "IPTV as a technology is perfectly legal; what matters is whether the service holds the rights to the channels it carries. This section explains the law in plain terms for UK and US viewers, how to tell a licensed service from an unlicensed one, and which legitimate free options exist.",
+  "order": 5,
+  "pillar": "legal-streaming/is-iptv-legal",
+  "faq": [
+    {
+      "question": "Is IPTV illegal in the UK?",
+      "answer": "No. IPTV is a delivery method used by licensed broadcasters and streaming services. Watching unlicensed streams can however break copyright law. See our full explainer for the details."
+    }
+  ]
+}

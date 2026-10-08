@@ -1,0 +1,19 @@
+{
+  "title": "IPTV Technical Guides: M3U, EPG, XMLTV & Formats",
+  "h1": "IPTV technical guides",
+  "navLabel": "Technical",
+  "description": "Plain-English explanations of how IPTV works under the hood: M3U playlists, EPG and XMLTV guides, tvg-id tags, stream formats and validation.",
+  "intro": "IPTV is just television delivered over an internet connection, but the file formats and acronyms around it (M3U, M3U8, EPG, XMLTV, HLS, tvg-id) trip people up. These guides explain each piece, show real examples and help you validate your own files.",
+  "order": 1,
+  "pillar": "technical/what-is-an-m3u-playlist",
+  "faq": [
+    {
+      "question": "What is the difference between M3U and M3U8?",
+      "answer": "M3U8 is simply an M3U playlist saved with UTF-8 encoding. In practice M3U8 is also the extension used for HLS (HTTP Live Streaming) manifests, which are a specialised form of playlist."
+    },
+    {
+      "question": "Do I need an EPG to use IPTV?",
+      "answer": "No. An EPG (electronic programme guide) only adds programme titles and times. Streams play without it, but most players look and feel much better with a matching XMLTV guide."
+    }
+  ]
+}
