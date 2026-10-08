@@ -1,0 +1,4 @@
+# Python dependencies for scripts/trends.py
+#   python -m pip install -r scripts/requirements.txt
+pytrends>=4.9
+pandas>=2.0

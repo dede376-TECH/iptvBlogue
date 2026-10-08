@@ -147,3 +147,8 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Keyword pipeline – raw harvest is regenerated; commit content/plan.json once it is reviewed
+data/keywords_trends.csv
+__pycache__/
+*.pyc

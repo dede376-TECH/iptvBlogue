@@ -10,13 +10,15 @@
  * value) and write the plan. Titles are drafts for a human to rewrite.
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { indexArticles, indexClusters, loadBlocklist, ROOT } from './lib/content-index';
 import { jaccard, phraseMatcher, slugify, titleCase, tokens } from './lib/text';
 
 const csvArg = process.argv.indexOf('--csv');
 const CSV =
-  csvArg > -1 ? join(ROOT, process.argv[csvArg + 1]!) : join(ROOT, 'data', 'keywords_trends.csv');
+  csvArg > -1
+    ? resolve(ROOT, process.argv[csvArg + 1]!)
+    : join(ROOT, 'data', 'keywords_trends.csv');
 const SEEDS = join(ROOT, 'data', 'seeds.json');
 const OUT_DIR = join(ROOT, 'content');
 const OUT = join(OUT_DIR, 'plan.json');
@@ -73,6 +75,51 @@ const TRANSACTIONAL = [
   'apk download',
   'download apk',
 ];
+
+/**
+ * Playlist/stream *source hunting* – people looking for a feed to consume rather than for an
+ * explanation. These are rejected regardless of the phrase blocklist, because the vocabulary is
+ * open-ended (every year, broadcaster and country spawns new variants). Each entry is a pair of
+ * token groups that must both appear (in any order).
+ */
+const FEED = String.raw`(?:m3u8?|playlists?|channel lists?|links?|urls?|streams?)`;
+const SOURCE_HUNTING: { reason: string; a: string; b: string }[] = [
+  { reason: 'free feed', a: String.raw`free|gratis|no subscription|without subscription`, b: FEED },
+  {
+    reason: 'feed repository',
+    a: String.raw`github|gitlab|reddit|telegram|pastebin|discord|forum|dropbox|mega`,
+    b: FEED,
+  },
+  { reason: 'dated feed', a: String.raw`20\d\d`, b: FEED },
+  {
+    reason: 'channel count',
+    a: String.raw`\d{1,3}(?:[,.]\d{3})+|\d+k\+?|\d{3,}\+? channels?`,
+    b: FEED,
+  },
+  {
+    reason: 'fresh feed',
+    a: String.raw`working|updated|daily|latest|new|fresh|download|list`,
+    b: String.raw`m3u8?|playlists?`,
+  },
+  {
+    reason: 'broadcaster feed',
+    a: String.raw`sky|bt sport|tnt sports?|bein|dazn|espn|hbo|netflix|disney|paramount|peacock|airtel|jio|tata|dstv|canal\+?|movistar|sling|directv|premier league|epl|nba|nfl|ufc|ppv|f1|formula 1`,
+    b: String.raw`iptv|m3u8?|playlists?`,
+  },
+  {
+    reason: 'regional feed',
+    a: String.raw`uk|usa?|united kingdom|united states|british|american|india|indian|pakistan|pakistani|arabic|arab|turkish|turkey|german|germany|french|france|spanish|spain|italian|italy|polish|poland|portugu[eê]s|brazil|latino|africa|nigeria|canada|canadian|australia`,
+    b: String.raw`m3u8?|playlists?|channel lists?`,
+  },
+];
+const sourceHunting = (() => {
+  const word = (alt: string) => String.raw`(?<![\p{L}\p{N}])(?:${alt})(?![\p{L}\p{N}])`;
+  const compiled = SOURCE_HUNTING.map(({ reason, a, b }) => ({
+    reason,
+    re: new RegExp(`${word(a)}.*${word(b)}|${word(b)}.*${word(a)}`, 'iu'),
+  }));
+  return (q: string) => compiled.filter((c) => c.re.test(q)).map((c) => c.reason);
+})();
 
 /** Topic rules evaluated in order; first match wins. */
 const CLUSTER_RULES: { cluster: string; re: RegExp }[] = [
@@ -252,6 +299,9 @@ function main() {
       const t = transactional(q);
       if (t.length)
         return (rejected.push({ query: q, reason: `transactional: ${t.join(', ')}` }), false);
+      const s = sourceHunting(q);
+      if (s.length)
+        return (rejected.push({ query: q, reason: `source-hunting: ${s.join(', ')}` }), false);
       return true;
     })
     .map(([q, a]) => {

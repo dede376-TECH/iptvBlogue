@@ -9,19 +9,25 @@
 # resellers. Keep neutral vocabulary ("iptv subscription", "piracy") OUT of this list so that
 # legality explainers can still discuss it; transactional modifiers are handled in plan.ts.
 
-# Free / pirate playlist seeking
+# Free / pirate playlist seeking (open-ended variants – github/reddit/years/channel counts/
+# broadcaster or country playlists – are caught by the SOURCE_HUNTING patterns in plan.ts)
 free iptv
 iptv free
 free m3u
 m3u free
 free playlist
 free playlists
+playlist free
+playlists free
 free channels list
 free iptv links
 iptv links
 m3u links
 iptv url list
 iptv github
+github iptv
+m3u github
+github m3u
 cracked
 crack
 pirated

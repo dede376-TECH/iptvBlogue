@@ -44,6 +44,10 @@ DEFAULT_SEEDS = ROOT / "data" / "seeds.json"
 DEFAULT_OUT = ROOT / "data" / "keywords_trends.csv"
 COLUMNS = ["query", "value", "seed", "type", "geo"]
 BREAKOUT_VALUE = 5000
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+)
 
 
 def load_seeds(path: Path) -> tuple[list[dict], list[str], str]:
@@ -128,7 +132,14 @@ def main() -> int:
     if args.limit:
         seeds = seeds[: args.limit]
 
-    pytrends = TrendReq(hl=args.hl, tz=0, timeout=(10, 30), retries=0)
+    # A browser-like User-Agent reduces (but does not eliminate) immediate 429s from Google.
+    pytrends = TrendReq(
+        hl=args.hl,
+        tz=0,
+        timeout=(10, 30),
+        retries=0,
+        requests_args={"headers": {"User-Agent": USER_AGENT, "Accept-Language": f"{args.hl},en;q=0.8"}},
+    )
     all_rows: list[dict] = []
     args.out.parent.mkdir(parents=True, exist_ok=True)
 
