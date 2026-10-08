@@ -14,32 +14,28 @@ const optional = CONSENT.analytics || CONSENT.ads;
 
 <PageLayout page={page}>
   <section id="preferences" aria-labelledby="preferences-title" class="not-prose card mt-8">
-    <h2 id="preferences-title" class="text-xl font-semibold text-slate-900">
+    <h2 id="preferences-title" class="section-title">
       Your preferences
     </h2>
     {optional ? (
       <>
-        <p class="mt-1 text-sm text-slate-600" data-consent-status>
+        <p class="meta" data-consent-status>
           No choice saved yet.
         </p>
         <form class="mt-4 space-y-3" onsubmit="return false">
           <label class="flex items-start gap-3">
             <input type="checkbox" checked disabled class="mt-1" />
             <span>
-              <span class="font-medium text-slate-900">Strictly necessary</span>
-              <span class="block text-sm text-slate-600">
-                Always on. Stores your cookie choice in this browser.
-              </span>
+              <span class="font-medium">Strictly necessary</span>
+              <span class="meta">Always on. Stores your cookie choice in this browser.</span>
             </span>
           </label>
           {CONSENT.analytics && (
             <label class="flex items-start gap-3">
               <input type="checkbox" data-consent-pref="analytics" class="mt-1" />
               <span>
-                <span class="font-medium text-slate-900">Analytics</span>
-                <span class="block text-sm text-slate-600">
-                  Google Analytics 4 usage statistics.
-                </span>
+                <span class="font-medium">Analytics</span>
+                <span class="meta">Google Analytics 4 usage statistics.</span>
               </span>
             </label>
           )}
@@ -47,8 +43,8 @@ const optional = CONSENT.analytics || CONSENT.ads;
             <label class="flex items-start gap-3">
               <input type="checkbox" data-consent-pref="ads" class="mt-1" />
               <span>
-                <span class="font-medium text-slate-900">Advertising</span>
-                <span class="block text-sm text-slate-600">
+                <span class="font-medium">Advertising</span>
+                <span class="meta">
                   Personalised ads and measurement. Unticking this is also the "Do Not Sell or Share
                   My Personal Information" choice.
                 </span>
@@ -69,7 +65,7 @@ const optional = CONSENT.analytics || CONSENT.ads;
         </form>
       </>
     ) : (
-      <p class="mt-2 text-sm text-slate-600">
+      <p class="mt-2 text-sm">
         Analytics and advertising are switched off. This site does not set optional cookies, and
         there is no choice to save. The "Do Not Sell or Share My Personal Information" request is
         already met, because no advertising cookies are used.

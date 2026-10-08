@@ -5,6 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
 import { getPublishedArticles } from '@/lib/content';
 import { articleUrl, authorUrl } from '@/lib/links';
+import { mdxComponents } from '@/components/mdx';
 import { breadcrumbSchema, buildSeo, formatDate, personSchema, truncate } from '@/lib/seo';
 
 export async function getStaticPaths() {
@@ -27,7 +28,7 @@ const meta = buildSeo({
   description: shortBio,
   path,
   image: avatar?.src,
-  imageAlt: `Photo of ${name}`,
+  imageAlt: name,
 });
 const schema = [
   personSchema({
@@ -43,57 +44,58 @@ const schema = [
 ---
 
 <BaseLayout meta={meta} schema={schema}>
-  <div class="container-prose py-8" data-area="author">
-    <Breadcrumbs items={breadcrumbs} class="mb-4" />
-    <header class="flex items-start gap-5">
-      {avatar && (
-        <Image
-          src={avatar}
-          alt={`Photo of ${name}`}
-          width={96}
-          height={96}
-          class="h-24 w-24 rounded-full"
-          loading="eager"
-        />
-      )}
-      <div>
-        <h1 class="text-3xl font-bold tracking-tight text-slate-900">{name}</h1>
-        <p class="mt-1 text-slate-600">{role}</p>
-        {credentials.length > 0 && (
-          <ul class="mt-2 flex flex-wrap gap-2 text-xs text-slate-600">
-            {credentials.map((c) => (
-              <li class="rounded bg-slate-100 px-2 py-0.5">{c}</li>
+  <div class="container page-pad" data-area="author">
+    <div class="reading">
+      <Breadcrumbs items={breadcrumbs} />
+      <header class="flex items-start gap-5">
+        {avatar && (
+          <Image
+            src={avatar}
+            alt=""
+            width={96}
+            height={96}
+            class="h-24 w-24 rounded-full"
+            loading="eager"
+          />
+        )}
+        <div>
+          <h1 class="article-title">{name}</h1>
+          <p class="lede">{role}</p>
+          {credentials.length > 0 && (
+            <ul class="mt-2 flex flex-wrap gap-2 text-xs">
+              {credentials.map((c) => (
+                <li class="chip">{c}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </header>
+
+      <div class="prose mt-6 max-w-none">
+        <Content components={mdxComponents} />
+      </div>
+
+      {articles.length > 0 && (
+        <section aria-labelledby="author-articles" class="related">
+          <h2 id="author-articles" class="section-title">
+            Articles by {name}
+          </h2>
+          <ul class="guide-grid">
+            {articles.map((article) => (
+              <li>
+                <article class="guide-card">
+                  <h3 class="guide-card-title">
+                    <a href={articleUrl(article.id)}>{article.data.title}</a>
+                  </h3>
+                  <p class="guide-card-meta">
+                    {formatDate(article.data.updatedAt ?? article.data.publishedAt)}
+                  </p>
+                </article>
+              </li>
             ))}
           </ul>
-        )}
-      </div>
-    </header>
-
-    <div class="prose prose-slate mt-6 max-w-none">
-      <Content />
+        </section>
+      )}
     </div>
-
-    {articles.length > 0 && (
-      <section aria-labelledby="author-articles" class="mt-10">
-        <h2 id="author-articles" class="text-xl font-semibold text-slate-900">
-          Articles by {name}
-        </h2>
-        <ul class="mt-4 space-y-3">
-          {articles.map((a) => (
-            <li>
-              <a
-                href={articleUrl(a.id)}
-                class="font-medium text-slate-900 hover:text-brand-700 hover:underline"
-              >
-                {a.data.title}
-              </a>
-              <span class="ml-2 text-xs text-slate-500">
-                {formatDate(a.data.updatedAt ?? a.data.publishedAt)}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )}
   </div>
 </BaseLayout>

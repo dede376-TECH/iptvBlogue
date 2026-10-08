@@ -1,0 +1,20 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  minutes?: number;
+  badge?: string;
+}
+
+const { href, title, description, minutes, badge } = Astro.props;
+---
+
+<article class="guide-card">
+  {badge && <p class="badge">{badge}</p>}
+  <h3 class="guide-card-title">
+    <a href={href}>{title}</a>
+  </h3>
+  <p class="guide-card-desc">{description}</p>
+  {minutes != null && <p class="guide-card-meta">{minutes} min read</p>}
+</article>

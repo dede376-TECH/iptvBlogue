@@ -68,9 +68,11 @@ async function run(q: string) {
   results.innerHTML = top
     .map(
       (r) => `
-      <li class="card">
-        <a class="font-semibold text-slate-900 hover:text-brand-700 hover:underline" href="${escapeHtml(r.url)}">${escapeHtml(r.meta.title ?? r.url)}</a>
-        <p class="mt-1 text-sm text-slate-600">${r.excerpt}</p>
+      <li>
+        <article class="guide-card">
+          <h2 class="guide-card-title"><a href="${escapeHtml(r.url)}">${escapeHtml(r.meta.title ?? r.url)}</a></h2>
+          <p class="guide-card-desc">${r.excerpt}</p>
+        </article>
       </li>`,
     )
     .join('');

@@ -15,23 +15,22 @@ const meta = buildSeo({
 ---
 
 <BaseLayout meta={meta}>
-  <div class="container-prose py-16">
-    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Page not found</h1>
-    <p class="mt-4 text-slate-700">
-      That page does not exist or has moved. Try the{' '}
-      <a href="/search/" class="underline">
-        search
-      </a>{' '}
-      or browse a topic:
-    </p>
-    <ul class="mt-6 grid gap-2 sm:grid-cols-2">
-      {clusters.map((c) => (
-        <li>
-          <a href={clusterUrl(c.id)} class="text-brand-700 underline">
-            {c.data.h1}
-          </a>
-        </li>
-      ))}
-    </ul>
+  <div class="container page-pad">
+    <div class="reading">
+      <h1 class="article-title">Page not found</h1>
+      <p class="lede">
+        That page does not exist or has moved. Try the <a href="/search/">search</a> or browse a
+        topic:
+      </p>
+      <ul class="guide-grid">
+        {clusters.map((c) => (
+          <li>
+            <a href={clusterUrl(c.id)} class="guide-card-title">
+              {c.data.h1}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </BaseLayout>

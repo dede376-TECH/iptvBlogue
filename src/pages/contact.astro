@@ -8,36 +8,24 @@ if (!page) throw new Error('Missing src/content/pages/contact.mdx');
 
 <PageLayout page={page}>
   <form class="not-prose card mt-8" action="" method="post">
-    <h2 class="text-xl font-semibold text-slate-900">Message</h2>
-    <p class="mt-2 text-sm text-slate-600">
+    <h2 class="section-title">Message</h2>
+    <p class="mt-2 text-sm">
       No role mailbox exists yet, because the domain has not been registered. This form does not
       send anything, and no personal email address is published. A generic role address will replace
       this note when the domain exists.
     </p>
     <fieldset disabled class="mt-4 space-y-3">
-      <label class="block text-sm font-medium text-slate-900">
+      <label class="field">
         Name
-        <input
-          name="name"
-          type="text"
-          class="mt-1 w-full rounded border border-slate-300 px-3 py-2"
-        />
+        <input name="name" type="text" />
       </label>
-      <label class="block text-sm font-medium text-slate-900">
+      <label class="field">
         Email
-        <input
-          name="email"
-          type="email"
-          class="mt-1 w-full rounded border border-slate-300 px-3 py-2"
-        />
+        <input name="email" type="email" />
       </label>
-      <label class="block text-sm font-medium text-slate-900">
+      <label class="field">
         Message
-        <textarea
-          name="message"
-          rows="5"
-          class="mt-1 w-full rounded border border-slate-300 px-3 py-2"
-        ></textarea>
+        <textarea name="message" rows="5"></textarea>
       </label>
       <button type="submit" class="btn-primary">
         Send

@@ -1,0 +1,65 @@
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<span class="cluster-icon" aria-hidden="true">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    {id === 'troubleshooting' ? (
+      <path
+        d="M14.7 6.3a4 4 0 0 0-5.6 5.6L4 17l3 3 5.1-5.1a4 4 0 0 0 5.6-5.6l-2.2 2.2-2.8-2.8 2-2.4z"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linejoin="round"
+      />
+    ) : id === 'setup' ? (
+      <path
+        d="M4 7h16v10H4zM8 21h8M12 17v4"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    ) : id === 'players' ? (
+      <path
+        d="M8 6v12l10-6L8 6z"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linejoin="round"
+      />
+    ) : id === 'legal-streaming' ? (
+      <path
+        d="M12 4v16M6 8h12M7 8l-2 12h14l-2-12"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    ) : id === 'cord-cutting' ? (
+      <path
+        d="M6 6l4 4M18 6l-4 4M8 14l-2 4M16 14l2 4M9 10h6"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+      />
+    ) : id === 'languages' ? (
+      <path
+        d="M4 6h9M8.5 6c0 6-3 9-5 10M6 12h5M13 20l4-10 4 10M15 16h4"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    ) : (
+      <path
+        d="M5 7h14M5 12h14M5 17h9"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+      />
+    )}
+  </svg>
+</span>
