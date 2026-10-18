@@ -11,7 +11,7 @@ secondaryKeywords:
 intent: troubleshooting
 geo: GLOBAL
 publishedAt: 2026-10-08
-updatedAt: 2026-10-08
+updatedAt: 2026-10-18
 author: screenwise
 pillar: true
 aiAssisted: true
@@ -36,9 +36,9 @@ howTo:
     - name: 'Compare with other apps and streams'
       text: 'Play a high-bitrate video in a mainstream streaming app on the same device. If that also stutters, fix the network or the device first.'
     - name: 'Check DNS and routing'
-      text: 'Switch the device to a public DNS resolver and retest. Some ISP resolvers route poorly to certain CDNs.'
+      text: 'Switch the device to a public DNS resolver. Try it, retest, and revert if nothing changes.'
     - name: 'Increase the player buffer'
-      text: 'In the player settings raise the buffer size (for example from the default to a mid or large value) and switch between hardware and software decoding.'
+      text: 'In the player settings raise the buffer size by one step, retest, and only then try the other decoding mode.'
     - name: 'Isolate the source'
       text: 'If only some channels buffer, note which ones and when. Problems at peak hours on specific channels point to the source server, not your setup.'
 faq:
@@ -56,6 +56,9 @@ related:
   - technical/what-is-an-m3u-playlist
   - setup/iptv-on-firestick
   - legal-streaming/is-iptv-legal
+corrections:
+  - date: 2026-10-18
+    note: 'Removed an unsourced claim about internet providers'' DNS resolvers from the step summary.'
 draft: false
 ---
 
