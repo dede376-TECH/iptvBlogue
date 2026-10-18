@@ -100,6 +100,7 @@ function minutes(article: Article): number {
                 description={pillar.data.description}
                 badge={cluster.data.navLabel}
                 minutes={minutes(pillar)}
+                image={pillar.data.cover}
               />
             </li>
           </ul>
@@ -120,6 +121,7 @@ function minutes(article: Article): number {
                   description={article.data.description}
                   badge={cluster.data.navLabel}
                   minutes={minutes(article)}
+                  image={article.data.cover}
                 />
               </li>
             ))}

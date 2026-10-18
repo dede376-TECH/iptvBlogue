@@ -7,7 +7,7 @@
  * Checks the built HTML in dist/ (what crawlers see) plus the MDX sources for word counts and
  * frontmatter consistency.
  */
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { parse as parseHtml, type HTMLElement } from 'node-html-parser';
 import {
@@ -453,6 +453,58 @@ function main() {
       else if (!fileExistsForPath(path))
         err(ref, 'broken-link', `Links to "${href}", which is not a built page`);
     }
+  }
+
+  // Images: screenshots only after hands-on testing, described alt text, labelled
+  // illustrations, no dev-only screenshot slots in the build, small WebP/AVIF sources.
+  const badAlt = /^(image|photo|picture) of\b/i;
+  for (const p of pages) {
+    const article = articles.find((a) => a.path === p.path);
+    const tested = (article?.frontmatter.testedOn as unknown[] | undefined)?.length ?? 0;
+    for (const fig of p.root.querySelectorAll('figure[data-figure-kind]')) {
+      const kind = fig.getAttribute('data-figure-kind');
+      if (kind === 'screenshot' && tested === 0)
+        err(p.path, 'screenshot', 'Screenshot on a page whose article has an empty testedOn');
+      if (kind === 'illustration' && !fig.querySelector('.figure-label'))
+        err(p.path, 'illustration', 'Illustration without its visible "Illustration" label');
+      for (const img of fig.querySelectorAll('img')) {
+        const alt = (img.getAttribute('alt') ?? '').trim();
+        if (!alt)
+          err(p.path, 'img-alt', `Figure image "${img.getAttribute('src')}" has an empty alt`);
+        else if (badAlt.test(alt))
+          err(
+            p.path,
+            'img-alt',
+            `Figure alt starts with "${alt.split(' ').slice(0, 2).join(' ')}"`,
+          );
+      }
+    }
+    if (p.root.querySelector('.diagram a'))
+      err(p.path, 'diagram', 'A link was rendered inside a diagram (wrap URLs in {"..."} in MDX)');
+    if (p.root.querySelector('[data-shot-slot]'))
+      err(p.path, 'screenshot-slot', 'Dev-only screenshot slot rendered in the production build');
+  }
+  const assetDir = join(process.cwd(), 'src', 'assets', 'articles');
+  const coverFiles = new Set(
+    articles
+      .map((a) => (a.frontmatter.cover as { src?: string } | undefined)?.src)
+      .filter((s): s is string => Boolean(s))
+      .map((s) => s.split('/').pop()!),
+  );
+  for (const f of walk(assetDir, [''])) {
+    const ref = relative(process.cwd(), f);
+    if (!/\.(webp|avif)$/i.test(f)) {
+      err(ref, 'image-format', 'Article images must be WebP or AVIF');
+      continue;
+    }
+    const kb = statSync(f).size / 1024;
+    const limit = coverFiles.has(f.split(sep).pop()!) ? 250 : 150;
+    if (kb > limit)
+      err(
+        ref,
+        'image-size',
+        `${Math.round(kb)} KB (max ${limit} KB${limit === 250 ? ' for a cover' : ''})`,
+      );
   }
 
   // Source TODOs in non-article content (pages, authors) – production gate only.

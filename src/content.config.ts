@@ -118,6 +118,23 @@ const articles = defineCollection({
         testedOn: z.array(z.string()).default([]),
         /** Official pages the article relies on. */
         sources: z.array(z.url()).default([]),
+        /**
+         * Header image, also used on hub cards and as the social image. Files live in
+         * src/assets/articles/<slug>/<name>.webp. Screenshots need a non-empty testedOn.
+         */
+        cover: z
+          .object({
+            src: image(),
+            alt: z
+              .string()
+              .trim()
+              .min(1)
+              .refine((s) => !/^(image|photo|picture) of\b/i.test(s), {
+                error: 'cover.alt must describe the content, not start with "image of"',
+              }),
+            kind: z.enum(['screenshot', 'illustration', 'diagram']),
+          })
+          .optional(),
         /** Changes to a published guide, shown in a Corrections block at the end. */
         corrections: z
           .array(z.object({ date: z.coerce.date(), note: z.string().min(1) }))
@@ -125,6 +142,9 @@ const articles = defineCollection({
       })
       .refine((d) => !d.imageAlt || d.image, {
         error: 'imageAlt requires image',
+      })
+      .refine((d) => d.cover?.kind !== 'screenshot' || d.testedOn.length > 0, {
+        error: 'A screenshot cover needs at least one testedOn entry',
       }),
 });
 

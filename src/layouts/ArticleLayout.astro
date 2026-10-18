@@ -4,7 +4,7 @@
  * dates, reading time), key takeaways, TOC, body, FAQ, author box, related posts and reserved
  * ad slots (max 3 per 1000 words, none above the fold on mobile).
  */
-import { Image } from 'astro:assets';
+import { Image, Picture } from 'astro:assets';
 import { render } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
@@ -75,8 +75,8 @@ const meta = buildSeo({
   description: data.description,
   path,
   type: 'article',
-  image: data.image?.src,
-  imageAlt: data.imageAlt,
+  image: data.cover?.src.src ?? data.image?.src,
+  imageAlt: data.cover?.alt ?? data.imageAlt,
   publishedAt,
   updatedAt,
   authorName: author.data.name,
@@ -160,7 +160,25 @@ const showEndAd = adBudget >= 2;
           )}
         </header>
 
-        {data.image && (
+        {data.cover && (
+          <figure class="figure cover not-prose" data-figure-kind={data.cover.kind}>
+            {data.cover.kind === 'illustration' && <span class="figure-label">Illustration</span>}
+            <Picture
+              src={data.cover.src}
+              alt={data.cover.alt}
+              formats={['avif', 'webp']}
+              fallbackFormat="webp"
+              widths={[640, 960, 1200]
+                .filter((w) => w < data.cover!.src.width)
+                .concat(Math.min(data.cover.src.width, 1400))}
+              sizes="(max-width: 768px) 100vw, 700px"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </figure>
+        )}
+
+        {!data.cover && data.image && (
           <Image
             src={data.image}
             alt={data.imageAlt ?? data.title}

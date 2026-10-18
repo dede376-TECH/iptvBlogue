@@ -70,14 +70,27 @@ Three layers can empty that queue. The network may be dropping or delaying packe
 
 HTTP Live Streaming, described in [RFC 8216](https://www.rfc-editor.org/rfc/rfc8216), is one common way a live channel is sent: the player fetches a playlist and then a sequence of media segments. If the next segment is late, playback has to wait. Other deliveries, such as a continuous MPEG transport stream, fail in the same plain way when the bytes stop arriving in time. The label on the file does not change the test order below.
 
-<Diagram caption="Playback stalls when the queue of downloaded video runs out." alt="A horizontal queue. Data enters on the left. The play point is on the right. A gap means the picture stops.">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" aria-hidden="true">
-  <rect x="40" y="48" width="560" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="2"></rect>
-  <rect x="52" y="60" width="360" height="40" rx="4" fill="currentColor" opacity="0.2"></rect>
-  <text x="60" y="86" fill="currentColor" font-size="16">Downloaded, waiting to play</text>
-  <text x="430" y="86" fill="currentColor" font-size="16">Gap</text>
-  <text x="40" y="140" fill="currentColor" font-size="14">New data arrives here</text>
-  <text x="430" y="140" fill="currentColor" font-size="14">Play point</text>
+<Diagram caption="The three layers a live picture passes through, and which step of this guide tests each one." alt="Four boxes left to right joined by arrows: source server, then network (internet provider, router, Wi-Fi), then device and player (buffer, decoder), then the screen. Under the source box: step 5. Under the network box: steps 1 to 3. Under the device and player box: step 4.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 170" aria-hidden="true">
+  <defs><marker id="bf-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="dg-head" d="M0 0 L10 5 L0 10 z"></path></marker></defs>
+  <rect class="dg-box" x="16" y="30" width="160" height="72" rx="10"></rect>
+  <text class="dg-text dg-strong" x="96" y="60" text-anchor="middle">Source server</text>
+  <text class="dg-small" x="96" y="82" text-anchor="middle">sends the channel</text>
+  <rect class="dg-box" x="208" y="30" width="180" height="72" rx="10"></rect>
+  <text class="dg-text dg-strong" x="298" y="60" text-anchor="middle">Network</text>
+  <text class="dg-small" x="298" y="82" text-anchor="middle">provider, router, Wi-Fi</text>
+  <rect class="dg-accent" x="420" y="30" width="180" height="72" rx="10"></rect>
+  <text class="dg-text dg-strong" x="510" y="60" text-anchor="middle">Device and player</text>
+  <text class="dg-small" x="510" y="82" text-anchor="middle">buffer, decoder</text>
+  <rect class="dg-box" x="632" y="42" width="72" height="48" rx="8"></rect>
+  <text class="dg-text" x="668" y="71" text-anchor="middle">Screen</text>
+  <path class="dg-line" d="M176 66 H204" marker-end="url(#bf-arrow)"></path>
+  <path class="dg-line" d="M388 66 H416" marker-end="url(#bf-arrow)"></path>
+  <path class="dg-line" d="M600 66 H628" marker-end="url(#bf-arrow)"></path>
+  <text class="dg-small" x="96" y="132" text-anchor="middle">Step 5</text>
+  <text class="dg-small" x="298" y="132" text-anchor="middle">Steps 1 to 3</text>
+  <text class="dg-small" x="510" y="132" text-anchor="middle">Step 4</text>
+  <text class="dg-small" x="16" y="160">A stall can start in any layer. Test from the screen back towards the source.</text>
 </svg>
 </Diagram>
 
@@ -146,6 +159,8 @@ DNS is the lookup from a name, such as the host in a stream address, to a numeri
 
 {/* VERIFY: where DNS is set on this device and router, and the exact menu labels in the current software */}
 
+<ScreenshotSlot id="buffer-dns-setting" device="Router or streaming device" what="The DNS setting screen with the current value visible, before any change" />
+
 <Steps>
 <Step title="Note the current behaviour">
 Count stalls on one channel for a few minutes before any DNS change.
@@ -168,9 +183,13 @@ There is no universal size. Players use seconds, milliseconds, "small / medium /
 
 {/* VERIFY: the buffer control's name, units and default on the player and version in front of you */}
 
+<ScreenshotSlot id="buffer-player-buffer" device="Any device with a player that has a buffer setting" what="The player buffer setting before and after raising it by one step" />
+
 Decoding is separate. Hardware decoding uses a chip on the device and usually costs less effort. Software decoding uses the main processor and can succeed on a stream the chip rejects, at the cost of heat and load. If the picture is green, blocky, or stuck on a black frame while the audio continues, the decoder is a more likely suspect than the buffer. If the image is fine until it pauses, the buffer or the network is more likely.
 
 {/* VERIFY: hardware and software decoder labels in this player; do not assume a menu path */}
+
+<ScreenshotSlot id="buffer-decoder-mode" device="Any device with a player that offers a decoder choice" what="The player option that switches between hardware and software decoding" />
 
 Menus differ by player and by version, so this article stays with the order of tests, not a catalogue of menus.
 

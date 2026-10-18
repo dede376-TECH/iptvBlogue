@@ -1,0 +1,26 @@
+---
+/**
+ * Placeholder for a screenshot that still has to be taken on a real device. Rendered in
+ * `astro dev` only; production builds output nothing. `pnpm review` lists every slot.
+ */
+interface Props {
+  id: string;
+  device: string;
+  what: string;
+}
+
+const { id, device, what } = Astro.props;
+const show = import.meta.env.DEV;
+---
+
+{show && (
+  <aside class="shot-slot not-prose" data-shot-slot={id}>
+    <p class="shot-slot-title">Screenshot to take: {id}</p>
+    <p>
+      <strong>Device:</strong> {device}
+    </p>
+    <p>
+      <strong>Capture:</strong> {what}
+    </p>
+  </aside>
+)}

@@ -73,6 +73,8 @@ Here is a made-up fragment, not a real listing and not a file you should publish
 </tv>
 ```
 
+<ScreenshotSlot id="xmltv-text-editor" device="Desktop computer" what="A short example XMLTV file open in a text editor, with one channel id and one programme visible" />
+
 The channel id is `example.news`. The programme repeats that same id in its channel attribute. That repetition is the join inside the guide file. If the programme pointed at `example.sport` and no channel used that id, the title would have nowhere to sit.
 
 The start value in the project's own description is a compact timestamp plus an offset, like the `+0000` above for UTC. `20261008180000` is 8 October 2026 at 18:00 in that offset. A wrong offset shifts every title by a fixed number of hours. The titles are not "missing". They are in the wrong column of the day.
@@ -91,21 +93,35 @@ The sample uses a made-up channel id and a fictional title. Do not copy a guide 
 
 The playlist that plays the picture is usually an M3U file. That format is explained in [what an M3U playlist is](/technical/what-is-an-m3u-playlist/). On the information line, `tvg-id` is a string the player can compare with the XMLTV channel id.
 
-<Diagram caption="The player joins a playlist line to a guide channel when the two ids match." alt="Two boxes. The left box is an M3U tvg-id set to example.news. The right box is an XMLTV channel id set to example.news. A line connects them.">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" aria-hidden="true">
-  <rect x="24" y="40" width="250" height="72" rx="8" fill="none" stroke="currentColor" stroke-width="2"></rect>
-  <text x="40" y="72" fill="currentColor" font-size="16">Playlist tvg-id</text>
-  <text x="40" y="94" fill="currentColor" font-size="16">example.news</text>
-  <rect x="366" y="40" width="250" height="72" rx="8" fill="none" stroke="currentColor" stroke-width="2"></rect>
-  <text x="382" y="72" fill="currentColor" font-size="16">XMLTV channel id</text>
-  <text x="382" y="94" fill="currentColor" font-size="16">example.news</text>
-  <path d="M274 76 H366" stroke="currentColor" stroke-width="2"></path>
+<Diagram caption="Programmes attach to a channel only when tvg-id and the XMLTV channel id are the same string." alt="Left column, M3U playlist, with two entries: tvg-id example.news and tvg-id ExampleSport. Right column, XMLTV guide, with channel id example.news and channel id example.sport, each with its programmes. A solid line labelled match joins example.news to example.news. A dashed line labelled no match joins ExampleSport to example.sport, so that channel's grid stays empty.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 250" aria-hidden="true">
+  <text class="dg-text dg-strong" x="20" y="24">M3U playlist</text>
+  <text class="dg-text dg-strong" x="420" y="24">XMLTV guide</text>
+  <rect class="dg-box" x="20" y="40" width="260" height="40" rx="8"></rect>
+  <text class="dg-mono" x="34" y="65">{'tvg-id="example.news"'}</text>
+  <rect class="dg-box" x="20" y="130" width="260" height="40" rx="8"></rect>
+  <text class="dg-mono" x="34" y="155">{'tvg-id="ExampleSport"'}</text>
+  <rect class="dg-accent" x="420" y="40" width="260" height="40" rx="8"></rect>
+  <text class="dg-mono" x="434" y="65">{'channel id="example.news"'}</text>
+  <rect class="dg-box" x="440" y="86" width="240" height="26" rx="6"></rect>
+  <text class="dg-small" x="452" y="104">programmes for example.news</text>
+  <rect class="dg-box" x="420" y="130" width="260" height="40" rx="8"></rect>
+  <text class="dg-mono" x="434" y="155">{'channel id="example.sport"'}</text>
+  <rect class="dg-box" x="440" y="176" width="240" height="26" rx="6"></rect>
+  <text class="dg-small" x="452" y="194">programmes for example.sport</text>
+  <path class="dg-line-accent" d="M280 60 H420"></path>
+  <text class="dg-small" x="350" y="52" text-anchor="middle">match</text>
+  <path class="dg-line dg-dash" d="M280 150 H420"></path>
+  <text class="dg-small" x="350" y="142" text-anchor="middle">no match</text>
+  <text class="dg-small" x="20" y="236">ExampleSport and example.sport are different strings, so that channel's grid stays empty.</text>
 </svg>
 </Diagram>
 
 If the playlist says `ExampleNews` and the guide says `example.news`, a player that compares the full string will not attach those programmes. The channel can still appear, because the playlist address is intact. Only the grid stays empty. Changing the on-screen name does not change the id. You edit `tvg-id`, or you edit the guide id, until they are the same.
 
 {/* VERIFY: whether this player compares ids case-sensitively and whether it falls back to the display name */}
+
+<ScreenshotSlot id="xmltv-guide-grid" device="Any device with a player that shows a guide" what="The programme guide with titles next to a channel whose tvg-id matches the guide" />
 
 Some playlist headers also carry a guide address, often `url-tvg` or a similar attribute. That tells the player which XMLTV file to fetch. A perfect id match does nothing if the player was never given the file. Check the address first, then the ids.
 

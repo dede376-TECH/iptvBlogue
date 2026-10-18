@@ -69,14 +69,27 @@ https://stream.invalid/live/news/index.m3u8
 
 Read it from the top. `#EXTM3U` says "this is an extended playlist". The next line is metadata for one channel. The line after that is the address the player should open. Then the pattern repeats: information, address, information, address.
 
-<Diagram caption="A channel entry is an information line followed immediately by an address." alt="Three stacked rows: a header, an information line named EXTINF, and a stream address. An arrow shows the player reading top to bottom.">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" aria-hidden="true">
-  <rect x="32" y="16" width="576" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="2"></rect>
-  <text x="48" y="42" fill="currentColor" font-size="16">1. Header: EXTM3U</text>
-  <rect x="32" y="72" width="576" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="2"></rect>
-  <text x="48" y="98" fill="currentColor" font-size="16">2. EXTINF: id, group, display name</text>
-  <rect x="32" y="128" width="576" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="2"></rect>
-  <text x="48" y="154" fill="currentColor" font-size="16">3. Address the player opens</text>
+<Diagram caption="One channel entry: an information line, then the address on the very next line." alt="An EXTINF line split into five labelled parts: the tag, the duration -1 meaning live, the attributes tvg-id and group-title, the comma, and the display name Example News. Below it, the next line holds the stream address, labelled as the address the player opens.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 210" aria-hidden="true">
+  <rect class="dg-box" x="10" y="20" width="78" height="34" rx="6"></rect>
+  <text class="dg-mono" x="49" y="42" text-anchor="middle">#EXTINF:</text>
+  <rect class="dg-box" x="92" y="20" width="32" height="34" rx="6"></rect>
+  <text class="dg-mono" x="108" y="42" text-anchor="middle">-1</text>
+  <rect class="dg-accent" x="128" y="20" width="320" height="34" rx="6"></rect>
+  <text class="dg-mono" x="288" y="42" text-anchor="middle">{'tvg-id="ExampleNews" group-title="News"'}</text>
+  <rect class="dg-box" x="452" y="20" width="24" height="34" rx="6"></rect>
+  <text class="dg-mono" x="464" y="42" text-anchor="middle">,</text>
+  <rect class="dg-box" x="480" y="20" width="150" height="34" rx="6"></rect>
+  <text class="dg-mono" x="555" y="42" text-anchor="middle">Example News</text>
+  <text class="dg-small" x="49" y="76" text-anchor="middle">Tag</text>
+  <text class="dg-small" x="108" y="76" text-anchor="middle">Duration</text>
+  <text class="dg-small" x="108" y="92" text-anchor="middle">-1 = live</text>
+  <text class="dg-small" x="288" y="76" text-anchor="middle">Attributes: guide id and group</text>
+  <text class="dg-small" x="464" y="76" text-anchor="middle">Comma</text>
+  <text class="dg-small" x="555" y="76" text-anchor="middle">Display name</text>
+  <rect class="dg-box" x="10" y="122" width="620" height="34" rx="6"></rect>
+  <text class="dg-mono" x="22" y="144">{'https://stream.invalid/live/news/index.m3u8'}</text>
+  <text class="dg-small" x="10" y="180">Next line, nothing in between: the address the player opens.</text>
 </svg>
 </Diagram>
 
@@ -159,6 +172,8 @@ A missing guide is a different fault from a stalling picture. Work through ids a
 
 You can check a file with a text editor. You do not need the television for the first pass.
 
+<ScreenshotSlot id="m3u-text-editor" device="Desktop computer" what="A short example playlist with made-up .invalid addresses open in a text editor, showing the header and one channel entry" />
+
 <Steps>
 <Step title="Confirm the encoding">
 Save as UTF-8 without a BOM. If an editor offers "UTF-8 with BOM", choose the one without it and save again.
@@ -181,6 +196,8 @@ A space at the end of an address can make the request fail. It will not show up 
 </Steps>
 
 {/* VERIFY: open the same file in a desktop media player and confirm the channel list loads, on the version you have */}
+
+<ScreenshotSlot id="m3u-desktop-player" device="Desktop computer" what="The same example playlist loaded in a desktop media player, showing the channel list" />
 
 A desktop player is a convenient second opinion because you can edit, save, and reload quickly. Pass that test before you copy the file to a television stick. Loading the same file on a Fire TV Stick is covered in [how to set up an IPTV player on Fire TV Stick](/setup/iptv-on-firestick/). If it loads on the desktop and not on the stick, suspect memory, a trimmed copy, or a different guide address, not the basic syntax you already checked.
 

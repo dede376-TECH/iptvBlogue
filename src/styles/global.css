@@ -966,8 +966,112 @@ a.guide-card-title {
   font-size: 0.8125rem;
   font-weight: 700;
 }
+.figure {
+  position: relative;
+  margin: var(--sw-space-5) 0;
+}
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--sw-border);
+  border-radius: var(--sw-radius);
+}
+.figure figcaption {
+  margin-top: var(--sw-space-2);
+  color: var(--sw-text-muted);
+  font-size: 0.875rem;
+}
+.figure.cover {
+  margin-top: var(--sw-space-5);
+}
+.figure-label {
+  position: absolute;
+  top: var(--sw-space-2);
+  left: var(--sw-space-2);
+  z-index: 1;
+  border-radius: var(--sw-radius-sm);
+  background: var(--sw-surface);
+  color: var(--sw-heading);
+  padding: 0.1rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.guide-card-media {
+  position: relative;
+  margin: calc(var(--sw-space-5) * -1) calc(var(--sw-space-5) * -1) var(--sw-space-2);
+}
+.guide-card-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--sw-radius) var(--sw-radius) 0 0;
+}
+.shot-slot {
+  margin: var(--sw-space-5) 0;
+  border: 2px dashed var(--sw-warning-border);
+  border-radius: var(--sw-radius);
+  background: var(--sw-warning-bg);
+  color: var(--sw-warning-text);
+  padding: var(--sw-space-3) var(--sw-space-4);
+  font-size: 0.875rem;
+}
+.shot-slot p {
+  margin: 0;
+}
+.shot-slot-title {
+  font-weight: 700;
+}
 .diagram {
   margin: var(--sw-space-5) 0;
+}
+.diagram-svg .dg-box {
+  fill: var(--sw-surface);
+  stroke: var(--sw-border);
+  stroke-width: 1.5;
+}
+.diagram-svg .dg-accent {
+  fill: var(--sw-band);
+  stroke: var(--sw-link);
+  stroke-width: 1.5;
+}
+.diagram-svg .dg-line {
+  fill: none;
+  stroke: var(--sw-text-muted);
+  stroke-width: 1.75;
+}
+.diagram-svg .dg-line-accent {
+  fill: none;
+  stroke: var(--sw-link);
+  stroke-width: 2;
+}
+.diagram-svg .dg-dash {
+  stroke-dasharray: 6 5;
+}
+.diagram-svg .dg-head {
+  fill: var(--sw-text-muted);
+}
+.diagram-svg .dg-head-accent {
+  fill: var(--sw-link);
+}
+.diagram-svg .dg-text {
+  fill: var(--sw-text);
+  font-family: var(--sw-font);
+  font-size: 14px;
+}
+.diagram-svg .dg-strong {
+  fill: var(--sw-heading);
+  font-weight: 650;
+}
+.diagram-svg .dg-small {
+  fill: var(--sw-text-muted);
+  font-family: var(--sw-font);
+  font-size: 12px;
+}
+.diagram-svg .dg-mono {
+  fill: var(--sw-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
 }
 .diagram-svg {
   overflow-x: auto;

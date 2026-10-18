@@ -37,6 +37,7 @@
     "plan": "tsx scripts/stubs.ts",
     "indexnow": "tsx scripts/indexnow.ts",
     "launch-check": "tsx scripts/launch-check.ts",
+    "review": "tsx scripts/review.ts",
     "verify": "pnpm run lint && pnpm run check && pnpm run build && pnpm run seo-check"
   },
   "dependencies": {
