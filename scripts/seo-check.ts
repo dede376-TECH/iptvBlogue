@@ -14,6 +14,7 @@ import {
   ARTICLES_DIR,
   indexArticles,
   indexClusters,
+  indexVisibleClusters,
   loadBlocklist,
   walk,
   type IndexedArticle,
@@ -420,6 +421,38 @@ function main() {
       err(a.path, 'hub-link', `Hub /${a.cluster}/ does not link to this article`);
     if (page && !page.links.includes(`/${a.cluster}/`))
       err(a.path, 'hub-link', `Article does not link back to its hub`);
+  }
+
+  // Source links: every site-relative link written in content must reach a built page, and
+  // never a topic that is hidden because it has no published article yet.
+  const visibleClusterIds = new Set(indexVisibleClusters().map((c) => c.id));
+  const hiddenClusterIds = [...clusterIds].filter((id) => !visibleClusterIds.has(id));
+  const sourceFiles = [
+    ...articles.filter((a) => !a.frontmatter.draft).map((a) => a.filePath),
+    ...walk(join(process.cwd(), 'src', 'content', 'pages'), ['.mdx', '.md']),
+    ...walk(join(process.cwd(), 'src', 'content', 'clusters'), ['.json']).filter((f) =>
+      visibleClusterIds.has(
+        f
+          .split(sep)
+          .pop()!
+          .replace(/\.json$/, ''),
+      ),
+    ),
+  ];
+  const linkPattern = /\]\((\/[^)\s]*)\)|href=["'](\/[^"']*)["']/g;
+  for (const file of sourceFiles) {
+    const ref = relative(process.cwd(), file);
+    for (const m of readFileSync(file, 'utf8').matchAll(linkPattern)) {
+      const href = (m[1] ?? m[2])!;
+      const { path } = normalizeLink(href, '/');
+      const hidden = hiddenClusterIds.find(
+        (id) => path === `/${id}/` || path.startsWith(`/${id}/`),
+      );
+      if (hidden)
+        err(ref, 'hidden-link', `Links to "${href}", a topic hidden until it has an article`);
+      else if (!fileExistsForPath(path))
+        err(ref, 'broken-link', `Links to "${href}", which is not a built page`);
+    }
   }
 
   // Source TODOs in non-article content (pages, authors) – production gate only.

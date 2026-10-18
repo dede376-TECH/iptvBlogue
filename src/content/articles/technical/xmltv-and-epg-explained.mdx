@@ -11,7 +11,7 @@ secondaryKeywords:
 intent: what-is
 geo: GLOBAL
 publishedAt: 2026-10-08
-updatedAt: 2026-10-08
+updatedAt: 2026-10-18
 author: screenwise
 pillar: false
 aiAssisted: true
@@ -34,8 +34,8 @@ faq:
     answer: 'The player found the video address and failed to match a programme to it. Check the guide address, then check that tvg-id and the XMLTV channel id are the same string.'
   - question: 'What do the start times look like?'
     answer: 'The XMLTV project describes a start attribute such as a compact date and time plus a numeric timezone offset. If the offset is wrong, programmes land in the wrong hour even when the titles are right.'
-  - question: 'Where is the guide on EPG not showing?'
-    answer: 'There is not a separate article with that title yet. Use the id checks on this page, then the troubleshooting section if the picture itself is the problem.'
+  - question: 'Can a channel play without a guide?'
+    answer: 'Yes. The guide is a separate file. A channel with a working address plays even when no programme data matches it; only the grid stays empty.'
 related:
   - technical/what-is-an-m3u-playlist
 draft: false
@@ -144,7 +144,7 @@ No match means the grid cannot attach. Make the two strings identical. A match w
 </Step>
 </Steps>
 
-There is not yet a separate Screenwise article titled "EPG not showing". The steps above are the guide-shaped version of that fault. If the picture itself stalls, that is a different fault, covered in [IPTV buffering: how to diagnose it](/troubleshooting/iptv-buffering-fix/) and the rest of the [troubleshooting guides](/troubleshooting/).
+The steps above cover a guide that stays empty. If the picture itself stalls, that is a different fault, covered in [IPTV buffering: how to diagnose it](/troubleshooting/iptv-buffering-fix/) and the rest of the [troubleshooting guides](/troubleshooting/).
 
 A player can also delay the first full grid until it has parsed a large file. On a small streaming stick that wait is noticeable. Give one update time to finish before you reload, clear data, and update again. Repeated updates do not repair a mismatched id.
 
@@ -180,4 +180,4 @@ If that programme exists in the file and not on screen, the player is failing to
 Keep a single channel as your test case. A grid with thousands of rows hides the one id you needed to compare.
 </Callout>
 
-Player-specific screens for the guide button belong in the [player guides](/players/) after someone has checked that version. Until then, the file itself is enough to tell a bad id from a player bug.
+Player screens for the guide differ by app and by version. The file itself is enough to tell a bad id from a player bug.

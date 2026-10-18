@@ -2,13 +2,13 @@
  * llms.txt – a plain-text map of the site for LLM crawlers (https://llmstxt.org).
  */
 import type { APIRoute } from 'astro';
-import { getClusters, getPublishedArticles } from '@/lib/content';
+import { getVisibleClusters, getPublishedArticles } from '@/lib/content';
 import { articleUrl, clusterUrl } from '@/lib/links';
 import { absoluteUrl } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
 export const GET: APIRoute = async () => {
-  const clusters = await getClusters();
+  const clusters = await getVisibleClusters();
   const articles = await getPublishedArticles();
 
   const lines: string[] = [

@@ -172,7 +172,7 @@ Decoding is separate. Hardware decoding uses a chip on the device and usually co
 
 {/* VERIFY: hardware and software decoder labels in this player; do not assume a menu path */}
 
-App-by-app notes belong in the [player guides](/players/), once a person has checked that player's current screens. This article stays with the order of tests, not a catalogue of menus.
+Menus differ by player and by version, so this article stays with the order of tests, not a catalogue of menus.
 
 <Callout type="tip">
 After each player change, watch the same channel for a few minutes. Then decide. A second change on top of an untested first change wastes the trial.
@@ -208,11 +208,11 @@ These devices often expose decoder choice inside the player rather than in the s
 
 If the television is smooth in a built-in broadcaster app and only stalls in the IPTV player, compare buffer and decoder in that player before factory-resetting the television.
 
-### Smart TVs (Samsung, LG)
+### Other smart TVs
 
 A television's built-in player is often less adjustable than a separate box. Buffer and decoder controls may be missing. If the only test you can run is Wi-Fi versus cable, do that, and compare with a phone on the same network.
 
-{/* VERIFY: whether this Samsung or LG model can install a player and whether it offers buffer controls */}
+{/* VERIFY: whether this smart TV model can install a player and whether it offers buffer controls, on the brand and software version in hand */}
 
 If the set cannot change buffer size, a stall that survives the wired test and the other-app test is unlikely to be fixed on that television. The useful conclusion is "this screen cannot hold a deeper queue", not another round of picture-mode tweaks.
 
@@ -221,6 +221,12 @@ If the set cannot change buffer size, a stall that survives the wired test and t
 A bad playlist can look like buffering. A blank line between a channel's metadata and its address, a cut-off URL, or a file saved in the wrong encoding can make the player wait forever for a segment that will never start. That wait is a spinner, which is easy to mistake for a weak Wi-Fi signal.
 
 Open the playlist in a text editor and check the failing channel's two lines: the information line, then the address, with nothing between them. The format rules are in [what an M3U playlist is](/technical/what-is-an-m3u-playlist/). If the address is intact and the same channel fails on a second device, you are back to the source, not the file layout.
+
+## Keep a short test log
+
+A few lines of notes make every step above more useful. For each test, write the time, the device, the channel, how it was connected, and what you changed. Then write what happened over the next few minutes: no stalls, an occasional stall, or constant spinning. Keep one row per change, never two changes in one row.
+
+The log stops you repeating a test you already ran. It also shows patterns that are easy to miss in the moment, such as stalls that only appear at the same hour or only on one device. If you contact a service you are allowed to use, the log gives them something concrete to check instead of a general complaint.
 
 ## Legal note
 

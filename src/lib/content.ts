@@ -26,6 +26,16 @@ export async function getClusters(): Promise<Cluster[]> {
   return all.sort((a, b) => a.data.order - b.data.order);
 }
 
+/**
+ * Clusters that have at least one published article. Empty clusters are hidden everywhere
+ * (nav, home, footer, hub pages, sitemap, llms.txt, search) and come back on their own.
+ */
+export async function getVisibleClusters(): Promise<Cluster[]> {
+  const [clusters, articles] = await Promise.all([getClusters(), getPublishedArticles()]);
+  const used = new Set(articles.map((a) => a.data.cluster));
+  return clusters.filter((c) => used.has(c.id));
+}
+
 export async function getArticlesByCluster(cluster: string): Promise<Article[]> {
   const all = await getPublishedArticles();
   return all.filter((a) => a.data.cluster === cluster);

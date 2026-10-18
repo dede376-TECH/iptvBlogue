@@ -1,9 +1,9 @@
 ---
 import HubLayout from '@/layouts/HubLayout.astro';
-import { getArticlesByCluster, getClusters } from '@/lib/content';
+import { getArticlesByCluster, getVisibleClusters } from '@/lib/content';
 
 export async function getStaticPaths() {
-  const clusters = await getClusters();
+  const clusters = await getVisibleClusters();
   return Promise.all(
     clusters.map(async (cluster) => ({
       params: { cluster: cluster.id },

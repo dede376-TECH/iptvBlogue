@@ -4,12 +4,12 @@
  */
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { getClusters, getPublishedArticles } from '@/lib/content';
+import { getVisibleClusters, getPublishedArticles } from '@/lib/content';
 import { renderOgPng, type OgInput } from '@/lib/og';
 import { SITE } from '@/lib/site';
 
 export async function getStaticPaths() {
-  const clusters = await getClusters();
+  const clusters = await getVisibleClusters();
   const articles = await getPublishedArticles();
   const authors = await getCollection('authors');
   const pages = await getCollection('pages');

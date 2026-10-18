@@ -1,15 +1,15 @@
 {
-  "title": "IPTV Troubleshooting: Buffering, EPG & Playlist Fixes",
+  "title": "IPTV Troubleshooting: Fix Buffering and Freezing",
   "h1": "IPTV troubleshooting guides",
   "navLabel": "Troubleshooting",
-  "description": "Step-by-step fixes for common IPTV problems: buffering and freezing, EPG not showing, playlists that will not load, audio sync and more.",
-  "intro": "Most IPTV problems come down to a handful of causes: network throughput, player buffer settings, malformed playlists or EPG mismatches. Each guide here walks through a diagnosis order so you fix the real cause instead of guessing.",
+  "description": "How to diagnose IPTV buffering and freezing in a set order: wired test, other apps, DNS, player buffer and decoder settings, then the source.",
+  "intro": "Buffering can start in three places: the network, the device and player, or the source. The guide here walks through tests in order, so you change one thing at a time and find the layer that is actually failing.",
   "order": 2,
   "pillar": "troubleshooting/iptv-buffering-fix",
   "faq": [
     {
       "question": "Why does IPTV buffer even on fast broadband?",
-      "answer": "Buffering is rarely about raw download speed. Wi-Fi interference, an undersized player buffer, DNS or ISP routing, and the source server itself are more common causes. Our buffering guide covers how to isolate each one."
+      "answer": "A speed test is a short burst to a nearby server. Wi-Fi, the player buffer, DNS and the source server can each cause stalls even when a speed test looks fine. The buffering guide tests them one at a time."
     }
   ]
 }

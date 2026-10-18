@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getClusters } from '@/lib/content';
+import { getVisibleClusters } from '@/lib/content';
 import { clusterUrl } from '@/lib/links';
 import { buildSeo } from '@/lib/seo';
 
-const clusters = await getClusters();
+const clusters = await getVisibleClusters();
 const meta = buildSeo({
   title: 'Page Not Found',
   description:

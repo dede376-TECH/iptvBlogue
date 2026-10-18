@@ -4,12 +4,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ClusterIcon from '@/components/ClusterIcon.astro';
 import GuideCard from '@/components/GuideCard.astro';
 import { mdxComponents } from '@/components/mdx';
-import { getClusters, getPublishedArticles } from '@/lib/content';
+import { getVisibleClusters, getPublishedArticles } from '@/lib/content';
 import { articleUrl, clusterUrl } from '@/lib/links';
 import { buildSeo, countWords, readingTimeMinutes, webPageSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
-const clusters = await getClusters();
+const clusters = await getVisibleClusters();
 const articles = await getPublishedArticles();
 const latest = articles.slice(0, 6);
 const home = await getEntry('pages', 'home');

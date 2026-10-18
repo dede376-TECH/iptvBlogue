@@ -6,7 +6,7 @@
 import '@/styles/global.css';
 import SEO from '@/components/SEO.astro';
 import JsonLd from '@/components/JsonLd.astro';
-import { getClusters } from '@/lib/content';
+import { getVisibleClusters } from '@/lib/content';
 import { getCollection } from 'astro:content';
 import { clusterUrl, pageUrl, FOOTER_PAGE_ORDER } from '@/lib/links';
 import { graph, organizationSchema, websiteSchema, type SeoMeta } from '@/lib/seo';
@@ -23,7 +23,7 @@ interface Props {
 
 const { meta, schema = [], template = 'default', bodyClass = '' } = Astro.props;
 
-const clusters = await getClusters();
+const clusters = await getVisibleClusters();
 const pages = await getCollection('pages');
 const footerPages = FOOTER_PAGE_ORDER.map((slug) => pages.find((p) => p.id === slug)).filter(
   (p): p is NonNullable<typeof p> => Boolean(p),

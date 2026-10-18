@@ -134,6 +134,12 @@ export function indexClusters(): IndexedCluster[] {
   });
 }
 
+/** Clusters with at least one non-draft article. Mirrors `getVisibleClusters()` in the site. */
+export function indexVisibleClusters(): IndexedCluster[] {
+  const used = new Set(indexArticles().map((a) => a.cluster));
+  return indexClusters().filter((c) => used.has(c.id));
+}
+
 /** Map of site-relative path -> ISO lastmod, used by the sitemap integration. */
 export function lastmodMap(): Map<string, string> {
   const map = new Map<string, string>();
@@ -145,7 +151,7 @@ export function lastmodMap(): Map<string, string> {
     const prev = clusterLatest.get(a.cluster);
     if (!prev || new Date(last) > new Date(prev)) clusterLatest.set(a.cluster, last);
   }
-  for (const c of indexClusters()) {
+  for (const c of indexVisibleClusters()) {
     const last = clusterLatest.get(c.id) ?? c.data.updatedAt;
     if (last) map.set(c.path, new Date(last).toISOString());
   }

@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap, { ChangeFreqEnum, type SitemapItem } from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
-import { indexClusters, lastmodMap } from './scripts/lib/content-index';
+import { indexVisibleClusters, lastmodMap } from './scripts/lib/content-index';
 import { env, isTemporaryHost, requireSiteUrl } from './scripts/lib/env';
 
 const SITE_URL = requireSiteUrl();
@@ -19,7 +19,7 @@ const NEEDS_CONSENT = Boolean(
  * topic cluster. Read from the filesystem so the config never depends on `astro:content`.
  */
 const lastmod = lastmodMap();
-const clusters = indexClusters().map((c) => c.id);
+const clusters = indexVisibleClusters().map((c) => c.id);
 
 function withLastmod(item: SitemapItem): SitemapItem {
   const path = new URL(item.url).pathname;
