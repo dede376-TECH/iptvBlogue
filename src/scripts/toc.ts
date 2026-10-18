@@ -39,7 +39,7 @@ if (targets.length > 0 && 'IntersectionObserver' in window) {
       const next = [...visible.entries()].sort((a, b) => a[1] - b[1])[0];
       if (next) mark(next[0]);
     },
-    { rootMargin: '-4.5rem 0px -55% 0px', threshold: [0, 1] },
+    { rootMargin: '-72px 0px -55% 0px', threshold: [0, 1] },
   );
   for (const el of targets) observer.observe(el);
 }

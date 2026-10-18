@@ -584,6 +584,7 @@ a.guide-card-title {
 .takeaways ul {
   margin: 0;
   padding-left: 1.15rem;
+  list-style: disc;
 }
 .takeaways li + li {
   margin-top: 0.35rem;
@@ -806,10 +807,13 @@ a.guide-card-title {
 .faq-item h4 {
   margin: 0;
   color: var(--sw-heading);
-  font-size: 1.05rem;
+  font-size: 1.125rem;
+  font-weight: 650;
+  line-height: 1.4;
 }
 .faq-item dd {
   margin: var(--sw-space-2) 0 0;
+  font-size: 1.0625rem;
 }
 .related {
   margin-block: var(--sw-space-7);
@@ -842,6 +846,8 @@ a.guide-card-title {
 }
 .fine-print a {
   color: var(--sw-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 .article-title {
   margin: 0;
