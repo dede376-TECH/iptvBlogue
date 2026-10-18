@@ -814,6 +814,27 @@ a.guide-card-title {
 .related {
   margin-block: var(--sw-space-7);
 }
+.review-notice {
+  margin: var(--sw-space-3) 0 0;
+  border-left: 3px solid var(--sw-warning-border);
+  border-radius: var(--sw-radius-sm);
+  background: var(--sw-warning-bg);
+  color: var(--sw-warning-text);
+  padding: var(--sw-space-2) var(--sw-space-3);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.corrections {
+  margin-block: var(--sw-space-6);
+}
+.corrections ul {
+  margin: var(--sw-space-3) 0 0;
+  padding-left: 1.15rem;
+  list-style: disc;
+}
+.corrections li + li {
+  margin-top: 0.35rem;
+}
 .fine-print {
   margin-top: var(--sw-space-6);
   color: var(--sw-text-muted);

@@ -51,6 +51,8 @@ const readingTime = readingTimeMinutes(wordCount);
 const lang = langForGeo(data.geo);
 const publishedAt = data.publishedAt;
 const updatedAt = data.updatedAt ?? data.publishedAt;
+const showUpdated = updatedAt.toISOString().slice(0, 10) !== publishedAt.toISOString().slice(0, 10);
+const approved = data.reviewStatus === 'approved';
 
 // hreflang: only when real variants are declared.
 const all = data.alternates.length ? await getPublishedArticles() : [];
@@ -107,8 +109,8 @@ const schema = [
     image: author.data.avatar?.src,
     sameAs: Object.values(author.data.links).filter((v): v is string => Boolean(v)),
   }),
-  faqSchema(data.faq),
-  data.howTo
+  approved ? faqSchema(data.faq) : undefined,
+  approved && data.howTo
     ? howToSchema({
         name: data.howTo.name ?? data.title,
         description: data.description,
@@ -143,7 +145,7 @@ const showEndAd = adBudget >= 2;
               Published{' '}
               <time datetime={publishedAt.toISOString()}>{formatDate(publishedAt, lang)}</time>
             </span>
-            {data.updatedAt && (
+            {showUpdated && (
               <span>
                 Updated{' '}
                 <time datetime={updatedAt.toISOString()}>{formatDate(updatedAt, lang)}</time>
@@ -151,6 +153,11 @@ const showEndAd = adBudget >= 2;
             )}
             <span>{readingTime} min read</span>
           </div>
+          {!approved && (
+            <p class="review-notice" role="note">
+              AI-assisted guide, not yet tested on a device.
+            </p>
+          )}
         </header>
 
         {data.image && (
@@ -183,6 +190,21 @@ const showEndAd = adBudget >= 2;
 
         <AuthorBox author={author} variant="full" />
         <RelatedPosts articles={related} />
+
+        {data.corrections.length > 0 && (
+          <section class="corrections" aria-labelledby="corrections-title">
+            <h2 id="corrections-title" class="section-title">
+              Corrections
+            </h2>
+            <ul>
+              {data.corrections.map((c) => (
+                <li>
+                  <time datetime={c.date.toISOString()}>{formatDate(c.date, lang)}</time>: {c.note}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <p class="fine-print">
           Part of <a href={clusterUrl(cluster.id)}>{cluster.data.h1}</a>. This article is

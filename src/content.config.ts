@@ -20,6 +20,8 @@ const clusters = defineCollection({
     pillar: z.string().optional(),
     updatedAt: z.coerce.date().optional(),
     faq: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
+    /** FAQPage structured data is emitted only when this is `approved`. */
+    reviewStatus: z.enum(['needs-human', 'approved']).default('needs-human'),
   }),
 });
 
@@ -107,12 +109,19 @@ const articles = defineCollection({
         index: z.boolean().default(true),
         /** True when a model drafted the body and a person still needs to review it. */
         aiAssisted: z.boolean().default(false),
-        /** `needs-human` blocks a real launch until someone checks the VERIFY notes. */
-        reviewStatus: z.enum(['needs-human', 'reviewed']).default('needs-human'),
+        /**
+         * `approved` only after hands-on testing on a device and a human review. Anything else
+         * shows the AI-assisted notice and suppresses HowTo / FAQPage structured data.
+         */
+        reviewStatus: z.enum(['needs-human', 'approved']).default('needs-human'),
         /** Devices and app versions a person actually tried. Empty until that happens. */
         testedOn: z.array(z.string()).default([]),
         /** Official pages the article relies on. */
         sources: z.array(z.url()).default([]),
+        /** Changes to a published guide, shown in a Corrections block at the end. */
+        corrections: z
+          .array(z.object({ date: z.coerce.date(), note: z.string().min(1) }))
+          .default([]),
       })
       .refine((d) => !d.imageAlt || d.image, {
         error: 'imageAlt requires image',

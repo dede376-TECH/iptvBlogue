@@ -68,7 +68,7 @@ const schema = [
     items: articles.map((a) => ({ name: a.data.title, path: articleUrl(a.id) })),
   }),
   breadcrumbSchema(breadcrumbs),
-  faqSchema(cluster.data.faq),
+  cluster.data.reviewStatus === 'approved' ? faqSchema(cluster.data.faq) : undefined,
 ].filter((s): s is Record<string, unknown> => Boolean(s));
 
 function minutes(article: Article): number {

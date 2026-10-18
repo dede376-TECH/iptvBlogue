@@ -253,8 +253,12 @@ function main() {
         err(p.path, 'schema', 'Article page without Article schema');
       if (!p.jsonLdTypes.has('Person'))
         err(p.path, 'schema', 'Article page without Person (author) schema');
-      if (p.ids.has('faq') && !p.jsonLdTypes.has('FAQPage'))
+      const approved =
+        articles.find((a) => a.path === p.path)?.frontmatter.reviewStatus === 'approved';
+      if (approved && p.ids.has('faq') && !p.jsonLdTypes.has('FAQPage'))
         err(p.path, 'schema', 'Visible FAQ without FAQPage schema');
+      if (!approved && (p.jsonLdTypes.has('FAQPage') || p.jsonLdTypes.has('HowTo')))
+        err(p.path, 'schema', 'FAQPage/HowTo schema on an article that is not approved');
       if (p.jsonLdTypes.has('FAQPage') && !p.ids.has('faq'))
         err(p.path, 'schema', 'FAQPage schema without visible FAQ');
     }
