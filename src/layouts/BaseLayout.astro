@@ -4,6 +4,9 @@
  * Navigation labels come from the content collections – nothing is hardcoded here.
  */
 import '@/styles/global.css';
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
+import inter600 from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
+import inter700 from '@fontsource/inter/files/inter-latin-700-normal.woff2?url';
 import SEO from '@/components/SEO.astro';
 import JsonLd from '@/components/JsonLd.astro';
 import { getVisibleClusters } from '@/lib/content';
@@ -49,6 +52,9 @@ if (__SCREENWISE_CONSENT__) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {[inter400, inter600, inter700].map((href) => (
+      <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
+    ))}
     <SEO meta={meta} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {!SITE.temporaryHost && <link rel="sitemap" href="/sitemap-index.xml" />}
