@@ -15,21 +15,22 @@ is kept for that move. Vercel reads `vercel.json` instead.
 
 ## Commands
 
-| Command                 | What it does                                                                                    |
-| ----------------------- | ----------------------------------------------------------------------------------------------- |
-| `pnpm dev`              | Dev server (drafts visible, search index absent)                                                |
-| `pnpm build`            | `astro build` → Pagefind → `ads.txt` (only if ads are allowed) → IndexNow (no-op unless on)     |
-| `pnpm build:prod`       | `pnpm build` + strict SEO gate + `launch-check`                                                 |
-| `pnpm check`            | `astro check`                                                                                   |
-| `pnpm lint` / `format`  | ESLint / Prettier                                                                               |
-| `pnpm seo-check`        | Quality gate on `dist/` (structural errors fail; unfinished articles warn)                      |
-| `pnpm seo-check:strict` | Production gate: unfinished articles, short pages and drafts fail                               |
-| `pnpm launch-check`     | Fails on placeholders, the previous brand, an empty `SITE_URL`, or ads on a non-commercial host |
-| `pnpm trends`           | `python scripts/trends.py` → `data/keywords_trends.csv` (see Keyword pipeline)                  |
-| `pnpm plan:build`       | CSV → `content/plan.json`                                                                       |
-| `pnpm plan`             | `content/plan.json` → draft MDX stubs                                                           |
-| `pnpm indexnow`         | Submit sitemap URLs to IndexNow (`--dry-run`, `--since`, `--url`)                               |
-| `pnpm verify`           | lint + check + build + seo-check                                                                |
+| Command                 | What it does                                                                                |
+| ----------------------- | ------------------------------------------------------------------------------------------- |
+| `pnpm dev`              | Dev server (drafts visible, search index absent)                                            |
+| `pnpm build`            | `astro build` → Pagefind → `ads.txt` (only if ads are allowed) → IndexNow (no-op unless on) |
+| `pnpm build:prod`       | `pnpm build` + strict SEO gate + `launch-check`                                             |
+| `pnpm check`            | `astro check`                                                                               |
+| `pnpm lint` / `format`  | ESLint / Prettier                                                                           |
+| `pnpm seo-check`        | Quality gate on `dist/` (structural errors fail; unfinished articles warn)                  |
+| `pnpm seo-check:strict` | Production gate: unfinished articles, short pages and drafts fail                           |
+| `pnpm launch-check`     | Fails on placeholders, needs-human or VERIFY markers, an empty `SITE_URL`, or ads on Hobby  |
+| `pnpm review`           | Review status per article; writes `docs/verify-checklist.md` and `docs/images-checklist.md` |
+| `pnpm trends`           | `python scripts/trends.py` → `data/keywords_trends.csv` (see Keyword pipeline)              |
+| `pnpm plan:build`       | CSV → `content/plan.json`                                                                   |
+| `pnpm plan`             | `content/plan.json` → draft MDX stubs                                                       |
+| `pnpm indexnow`         | Submit sitemap URLs to IndexNow (`--dry-run`, `--since`, `--url`)                           |
+| `pnpm verify`           | lint + check + build + seo-check                                                            |
 
 ## Content model
 
@@ -77,20 +78,46 @@ and is left out of the sitemap, so the temporary URL cannot compete with the dom
 `PUBLIC_ADSENSE_CLIENT` empty until the host allows commercial use. `pnpm launch-check` fails
 if a publisher id is set while that flag is not `true`.
 
-## Deploy: Vercel (now, temporary)
+## Review workflow
 
-Node 22 comes from `package.json` `engines` and `.nvmrc` (`22.12.0`). Vercel uses those; the
-project does not pin a second version in the dashboard.
+Guides are drafted with AI assistance. Each one stays `reviewStatus: needs-human` until a person
+has tested it, and the article page says "AI-assisted guide, not yet tested on a device".
+While a guide is not approved, it emits no HowTo or FAQPage structured data.
 
-1. Import the repository. Framework preset Astro. `vercel.json` sets the install command, `pnpm build`, and `dist`.
-2. Environment variables (Production):
+1. Run `pnpm review`. It prints each article's status, tested devices and VERIFY count, and
+   writes `docs/verify-checklist.md` (markers grouped by device or topic) and
+   `docs/images-checklist.md` (screenshots to take, with target file names).
+2. Work through the checklist on the device or source named. Correct the text, then delete the
+   `{/* VERIFY: … */}` comment. Use MDX comments only; HTML comments break MDX.
+3. Add the devices and software versions you used to `testedOn`.
+4. Replace each `<ScreenshotSlot>` with a `<Figure kind="screenshot">` once the screenshot exists
+   (WebP or AVIF, at most 150 KB, in `src/assets/articles/<slug>/`). Slots render only in
+   `pnpm dev`. `seo-check` fails on a screenshot while `testedOn` is empty.
+5. If a published fact changes, add an entry to `corrections` (`{ date, note }`) and bump
+   `updatedAt`. The article shows a Corrections section.
+6. Set `reviewStatus: approved`. `pnpm launch-check` fails while any article is `needs-human` or
+   still contains a VERIFY marker.
 
-   - `SITE_URL` = the `*.vercel.app` URL Vercel assigns (Project → Settings → Domains). Replace the slug in `.env.example` if it differs.
-   - `PUBLIC_HOSTING_COMMERCIAL` = `false`
-   - Leave `PUBLIC_GA4_ID`, `PUBLIC_ADSENSE_CLIENT`, `INDEXNOW_KEY` empty and `INDEXNOW_ENABLED` false.
+Topics with no published article are hidden everywhere and come back on their own.
 
-3. Do not add a custom domain until you are ready to remove the temporary noindex. While `SITE_URL` ends in `.vercel.app`, `vercel.json` must keep `X-Robots-Tag: noindex, nofollow`. `launch-check` fails if that header and the URL disagree.
-4. GitHub Actions: set the repository variable `SITE_URL` to the same origin. The workflow file does not contain a URL. The build job stops if the variable is empty.
+## Deploy on Vercel
+
+- Build command: `pnpm build`. Output: `dist`. `vercel.json` sets these and the install command.
+- Node 22, from `package.json` `engines` and `.nvmrc` (`22.12.0`). No version is pinned in the dashboard.
+- Environment variables (Production): `SITE_URL` = the production `*.vercel.app` URL (currently
+  `https://screenwise-one.vercel.app`), `PUBLIC_HOSTING_COMMERCIAL=false`. Leave `PUBLIC_GA4_ID`,
+  `PUBLIC_ADSENSE_CLIENT` and `INDEXNOW_KEY` empty and `INDEXNOW_ENABLED=false`.
+- **No ads, no GA4 and no affiliate links on Vercel Hobby.** Its terms do not allow commercial use.
+- While `SITE_URL` ends in `.vercel.app`, every page is noindexed (meta robots and the
+  `X-Robots-Tag` header in `vercel.json`). Do not add a custom domain until you are ready to lift it.
+- When the GitHub repository is connected to the Vercel project, each push to `main` deploys.
+- GitHub Actions: set the repository variable `SITE_URL` to the same origin. If it is empty, CI
+  falls back to the reserved host `https://ci.screenwise.invalid` for that run only. The build scripts refuse that host on Vercel
+  and without `SCREENWISE_CI_FALLBACK=1`, and `launch-check` fails on it.
+
+CI runs lint, format check, `astro check`, `pnpm build` and the standard `seo-check` on every
+branch. Lighthouse CI runs after it and does not block. The strict SEO gate and `launch-check`
+run only in `pnpm build:prod`.
 
 ## Deploy: Cloudflare Pages (later)
 
@@ -102,11 +129,12 @@ When the domain exists and the plan allows the site to be indexed:
 4. Set `PUBLIC_HOSTING_COMMERCIAL=true` only if that Cloudflare plan allows advertising. Then add `PUBLIC_ADSENSE_CLIENT`. `ads.txt` is generated at build time and is omitted while the client id is empty.
 5. IndexNow: set `INDEXNOW_KEY` and `INDEXNOW_ENABLED=true` on the production build only.
 
-`pnpm build:prod` is the production command. It runs the strict SEO gate and `launch-check`, so unfinished sample articles fail it on purpose.
+`pnpm build:prod` is the production command. It runs the strict SEO gate and `launch-check`, so it fails on purpose while any article is `needs-human` or still has VERIFY markers.
 
 ## Content policy (hard rules)
 
 Informational only. Never link to playlists, resellers or unlicensed services. Never invent
-statistics, prices, reviews, quotes or channel counts. Every article is human-edited with
-original screenshots or tests and cited sources. `data/blocklist.txt` is enforced by both the
+statistics, prices, reviews, quotes or channel counts. Articles are AI-assisted drafts that cite
+their sources; one is marked approved only after hands-on testing and human review (see Review
+workflow). Screenshots come only from that testing. `data/blocklist.txt` is enforced by both the
 keyword plan and the SEO gate. See `/editorial-policy/` and `.cursorrules`.

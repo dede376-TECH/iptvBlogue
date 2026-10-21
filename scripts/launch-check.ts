@@ -9,7 +9,7 @@
  */
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
-import { env, isTemporaryHost, requireSiteUrl } from './lib/env';
+import { env, isCiFallbackHost, isTemporaryHost, requireSiteUrl } from './lib/env';
 
 const ROOT = process.cwd();
 
@@ -89,7 +89,12 @@ function main() {
   let site = '';
   try {
     site = requireSiteUrl();
-    check(true, `SITE_URL is set (${site})`);
+    check(
+      !isCiFallbackHost(site),
+      isCiFallbackHost(site)
+        ? `SITE_URL is the CI-only fallback (${site})`
+        : `SITE_URL is set (${site})`,
+    );
   } catch (error) {
     check(false, error instanceof Error ? error.message : 'SITE_URL is empty');
   }

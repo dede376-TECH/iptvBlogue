@@ -55,7 +55,24 @@ export function requireSiteUrl(): string {
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
     throw new Error(`SITE_URL must be http(s): ${url}`);
   }
+  if (isCiFallbackHost(url) && (env('SCREENWISE_CI_FALLBACK') !== '1' || env('VERCEL'))) {
+    throw new Error(
+      `SITE_URL ${url} is the CI-only fallback. It is accepted only when SCREENWISE_CI_FALLBACK=1 in GitHub Actions, never on Vercel or in a production build.`,
+    );
+  }
   return url;
+}
+
+/**
+ * CI uses a reserved `.invalid` host when the SITE_URL repository variable is empty. The host
+ * can never resolve, so a build made with it cannot be deployed by mistake.
+ */
+export function isCiFallbackHost(siteUrl: string): boolean {
+  try {
+    return new URL(siteUrl).hostname.toLowerCase().endsWith('.invalid');
+  } catch {
+    return false;
+  }
 }
 
 /** True for the temporary Vercel host. Those URLs are noindexed so they never compete with the domain. */
