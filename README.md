@@ -8,7 +8,7 @@ playlists or unlicensed services.** The git repository name is unchanged.
 ## Stack
 
 Astro 7 (static, `trailingSlash: always`) · TypeScript strict · Tailwind CSS 4 · MDX ·
-Pagefind · Satori/resvg OG images · pnpm · Node 22.12+
+Pagefind · Satori/resvg OG images · pnpm · Node 22.22.3+
 
 Hosting today is Vercel (temporary). Cloudflare Pages is the later target; `public/_headers`
 is kept for that move. Vercel reads `vercel.json` instead.
@@ -111,7 +111,9 @@ Topics with no published article are hidden everywhere and come back on their ow
 ## Deploy on Vercel
 
 - Build command: `pnpm build`. Output: `dist`. `vercel.json` sets these and the install command.
-- Node 22, from `package.json` `engines` and `.nvmrc` (`22.12.0`). No version is pinned in the dashboard.
+- Node 22, from `package.json` `engines` (`^22.22.3`) and `.nvmrc` (`22.23.2`). No version is
+  pinned in the dashboard. `.npmrc` sets `engine-strict=true`, so an older Node makes
+  `pnpm install` fail: the ESLint Astro plugin needs at least 22.22.3.
 - Environment variables (Production): `SITE_URL` = the production `*.vercel.app` URL (currently
   `https://screenwise-one.vercel.app`), `PUBLIC_HOSTING_COMMERCIAL=false`. Leave `PUBLIC_GA4_ID`,
   `PUBLIC_ADSENSE_CLIENT` and `INDEXNOW_KEY` empty and `INDEXNOW_ENABLED=false`.

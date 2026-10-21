@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Screenwise — plain-English informational IPTV guides. Static Astro site, SEO-first.",
   "engines": {
-    "node": ">=22.12.0",
+    "node": "^22.22.3",
     "pnpm": ">=9"
   },
   "packageManager": "pnpm@10.15.1",
