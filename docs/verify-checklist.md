@@ -8,13 +8,13 @@ and `testedOn` filled in. `pnpm launch-check` fails while any marker or `needs-h
 
 ## Articles
 
-| Article                              | Review status | Tested on | VERIFY |
-| ------------------------------------ | ------------- | --------- | ------ |
-| /legal-streaming/is-iptv-legal/      | needs-human   | none      | 13     |
-| /setup/iptv-on-firestick/            | needs-human   | none      | 11     |
-| /technical/what-is-an-m3u-playlist/  | needs-human   | none      | 3      |
-| /technical/xmltv-and-epg-explained/  | needs-human   | none      | 3      |
-| /troubleshooting/iptv-buffering-fix/ | needs-human   | none      | 7      |
+| Article | Review status | Tested on | VERIFY |
+| --- | --- | --- | --- |
+| /legal-streaming/is-iptv-legal/ | needs-human | none | 13 |
+| /setup/iptv-on-firestick/ | needs-human | none | 11 |
+| /technical/what-is-an-m3u-playlist/ | needs-human | none | 3 |
+| /technical/xmltv-and-epg-explained/ | needs-human | none | 3 |
+| /troubleshooting/iptv-buffering-fix/ | needs-human | none | 7 |
 
 ## Legal review (13)
 

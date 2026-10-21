@@ -1,0 +1,3203 @@
+{
+  "generatedAt": "2026-10-21T19:42:51.315Z",
+  "source": "data/keywords_trends.csv",
+  "scoring": {
+    "formula": "3 × distinct seeds + 2 × distinct geos + 2 if in top + 1 if in rising",
+    "note": "Google Trends values are relative to each request (0-100, or growth % for rising). They are not search volume and are not used for ranking."
+  },
+  "stats": {
+    "rows": 388,
+    "uniqueQueries": 116,
+    "planned": 32,
+    "skipped": 62,
+    "skippedByReason": {
+      "head term": 4,
+      "blocklist": 9,
+      "source-hunting": 11,
+      "names a website": 1,
+      "brand or marketplace": 8,
+      "bare hardware name": 5,
+      "transactional": 4,
+      "installer app name": 1,
+      "possible service or app brand (whitelist to keep)": 5,
+      "merged duplicate of": 14
+    },
+    "perCluster": {
+      "players": {
+        "items": 13,
+        "pillars": 4,
+        "satellites": 2,
+        "standalone": 7,
+        "keywords": 50
+      },
+      "setup": {
+        "items": 5,
+        "pillars": 1,
+        "satellites": 3,
+        "standalone": 1,
+        "keywords": 17
+      },
+      "technical": {
+        "items": 7,
+        "pillars": 2,
+        "satellites": 5,
+        "standalone": 0,
+        "keywords": 10
+      },
+      "troubleshooting": {
+        "items": 5,
+        "pillars": 0,
+        "satellites": 2,
+        "standalone": 3,
+        "keywords": 13
+      },
+      "legal-streaming": {
+        "items": 2,
+        "pillars": 0,
+        "satellites": 1,
+        "standalone": 1,
+        "keywords": 7
+      }
+    }
+  },
+  "items": [
+    {
+      "title": "TiviMate Explained in Plain English",
+      "slug": "tivimate",
+      "cluster": "players",
+      "targetKeyword": "tivimate",
+      "secondaryKeywords": [
+        "tivimate app",
+        "tivimate pro",
+        "iptv tivimate",
+        "tivimate code",
+        "what is tivimate",
+        "tivimate windows",
+        "tivimate apk",
+        "tivimate epg",
+        "tivimate premium",
+        "tivimate android"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "pillar",
+      "entity": "tivimate",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 16,
+      "scoreParts": {
+        "seeds": 3,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "tivimate",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 12
+        },
+        {
+          "query": "tivimate",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 500
+        },
+        {
+          "query": "tivimate",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 14
+        },
+        {
+          "query": "tivimate",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "US",
+          "value": 300
+        },
+        {
+          "query": "tivimate reddit",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 26
+        },
+        {
+          "query": "tivimate reddit",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 40
+        },
+        {
+          "query": "tivimate reddit",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 26
+        },
+        {
+          "query": "tivimate reddit",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 60
+        },
+        {
+          "query": "tivimate",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 34
+        },
+        {
+          "query": "tivimate",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 500
+        },
+        {
+          "query": "tivimate",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 42
+        },
+        {
+          "query": "tivimate",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 450
+        },
+        {
+          "query": "tivimate app",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 36
+        },
+        {
+          "query": "tivimate app",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 37
+        },
+        {
+          "query": "tivimate app",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 40
+        },
+        {
+          "query": "tivimate pro",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 20
+        },
+        {
+          "query": "tivimate pro",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 60
+        },
+        {
+          "query": "tivimate pro",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 16
+        },
+        {
+          "query": "tivimate pro",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 70
+        },
+        {
+          "query": "iptv tivimate",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "iptv tivimate",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 92
+        },
+        {
+          "query": "iptv tivimate",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 40
+        },
+        {
+          "query": "tivimate code",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 34
+        },
+        {
+          "query": "tivimate code",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 300
+        },
+        {
+          "query": "tivimate code",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 28
+        },
+        {
+          "query": "tivimate code",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 120
+        },
+        {
+          "query": "what is tivimate",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 12
+        },
+        {
+          "query": "what is tivimate",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 60
+        },
+        {
+          "query": "what is tivimate",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 15
+        },
+        {
+          "query": "what is tivimate",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 50
+        },
+        {
+          "query": "tivimate windows",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 10
+        },
+        {
+          "query": "tivimate windows",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 110
+        },
+        {
+          "query": "tivimate windows",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 8
+        },
+        {
+          "query": "tivimate windows",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 110
+        },
+        {
+          "query": "tivimate apk",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 31
+        },
+        {
+          "query": "tivimate apk",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 23
+        },
+        {
+          "query": "tivimate epg",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 17
+        },
+        {
+          "query": "tivimate epg",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 15
+        },
+        {
+          "query": "tivimate premium",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 45
+        },
+        {
+          "query": "tivimate premium",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 48
+        },
+        {
+          "query": "tivimate android",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 22
+        },
+        {
+          "query": "tivimate android",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 16
+        },
+        {
+          "query": "download tivimate",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 25
+        },
+        {
+          "query": "download tivimate",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 21
+        },
+        {
+          "query": "tivimate playlist",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 16
+        },
+        {
+          "query": "tivimate playlist",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 16
+        },
+        {
+          "query": "tivimate companion",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 14
+        },
+        {
+          "query": "tivimate companion",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 17
+        },
+        {
+          "query": "tivimate iptv",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 14
+        },
+        {
+          "query": "tivimate iptv",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "US",
+          "value": 300
+        },
+        {
+          "query": "tivimate player",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 35
+        },
+        {
+          "query": "tivimate player",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 40
+        },
+        {
+          "query": "tivimate for windows",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 130
+        },
+        {
+          "query": "tivimate for windows",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 160
+        },
+        {
+          "query": "tivimate free",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 23
+        },
+        {
+          "query": "tivimate login",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 8
+        },
+        {
+          "query": "tivimate account",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 11
+        },
+        {
+          "query": "tivimate pc",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 250
+        },
+        {
+          "query": "tivimate website",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 39750
+        }
+      ]
+    },
+    {
+      "title": "IPTV Player Explained in Plain English",
+      "slug": "iptv-player",
+      "cluster": "players",
+      "targetKeyword": "iptv player",
+      "secondaryKeywords": [
+        "tivimate iptv player",
+        "best iptv player",
+        "iptv stream player",
+        "iptv player app",
+        "iptv player apk",
+        "windows iptv player",
+        "iptv pro player",
+        "neutro iptv player",
+        "televizo iptv player",
+        "iptv smart player"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 16,
+      "scoreParts": {
+        "seeds": 3,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv player",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 23
+        },
+        {
+          "query": "iptv player",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 40
+        },
+        {
+          "query": "iptv player",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 31
+        },
+        {
+          "query": "iptv player",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "US",
+          "value": 40
+        },
+        {
+          "query": "iptv player",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 29
+        },
+        {
+          "query": "iptv player",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 60
+        },
+        {
+          "query": "iptv player",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 24
+        },
+        {
+          "query": "iptv player",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "tivimate iptv player",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 29
+        },
+        {
+          "query": "tivimate iptv player",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 70
+        },
+        {
+          "query": "tivimate iptv player",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 24
+        },
+        {
+          "query": "tivimate iptv player",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "tivimate iptv player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 34
+        },
+        {
+          "query": "tivimate iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 500
+        },
+        {
+          "query": "tivimate iptv player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 42
+        },
+        {
+          "query": "tivimate iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 450
+        },
+        {
+          "query": "best iptv player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 96
+        },
+        {
+          "query": "best iptv player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "best iptv player 2022",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 126300
+        },
+        {
+          "query": "iptv stream player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 25
+        },
+        {
+          "query": "iptv stream player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 80
+        },
+        {
+          "query": "iptv stream player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 24
+        },
+        {
+          "query": "iptv player app",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 49
+        },
+        {
+          "query": "iptv player app",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 51
+        },
+        {
+          "query": "iptv player apk",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 34
+        },
+        {
+          "query": "iptv player apk",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 33
+        },
+        {
+          "query": "windows iptv player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 34
+        },
+        {
+          "query": "windows iptv player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 28
+        },
+        {
+          "query": "iptv pro player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 59
+        },
+        {
+          "query": "iptv pro player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 300
+        },
+        {
+          "query": "neutro iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 26850
+        },
+        {
+          "query": "neutro iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 26550
+        },
+        {
+          "query": "televizo iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 81150
+        },
+        {
+          "query": "televizo iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 2350
+        },
+        {
+          "query": "iptv smart player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 48
+        },
+        {
+          "query": "smart iptv player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 55
+        },
+        {
+          "query": "iptv player android",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 32
+        },
+        {
+          "query": "iptv player download",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 33
+        },
+        {
+          "query": "vu iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 900
+        },
+        {
+          "query": "ibo iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 20050
+        },
+        {
+          "query": "hot iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 1700
+        },
+        {
+          "query": "smartone iptv player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 2200
+        },
+        {
+          "query": "iptv smart player pro",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 450
+        }
+      ]
+    },
+    {
+      "title": "IPTV Smarters Explained in Plain English",
+      "slug": "iptv-smarters",
+      "cluster": "players",
+      "targetKeyword": "iptv smarters",
+      "secondaryKeywords": [
+        "iptv smarters pro",
+        "iptv smarters player",
+        "smarters",
+        "iptv smarters player pro",
+        "smarters iptv",
+        "iptv smarters player lite",
+        "smarters pro"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "pillar",
+      "entity": "smarters",
+      "mergedFrom": [
+        "smarters pro"
+      ],
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 16,
+      "scoreParts": {
+        "seeds": 3,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv smarters",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 54
+        },
+        {
+          "query": "iptv smarters",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 40
+        },
+        {
+          "query": "iptv smarters",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 64
+        },
+        {
+          "query": "iptv smarters",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "US",
+          "value": 80
+        },
+        {
+          "query": "iptv smarters",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 11
+        },
+        {
+          "query": "iptv smarters",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "iptv smarters",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 72
+        },
+        {
+          "query": "iptv smarters",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 120
+        },
+        {
+          "query": "iptv smarters",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 81
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 19
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 90
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 29
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "US",
+          "value": 170
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 350
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 250
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 26
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 350
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 25
+        },
+        {
+          "query": "iptv smarters pro",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 300
+        },
+        {
+          "query": "iptv smarters player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 73
+        },
+        {
+          "query": "iptv smarters player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 130
+        },
+        {
+          "query": "iptv smarters player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 82
+        },
+        {
+          "query": "smarters",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 20
+        },
+        {
+          "query": "smarters",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 120
+        },
+        {
+          "query": "iptv smarters player pro",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 25
+        },
+        {
+          "query": "iptv smarters player pro",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 300
+        },
+        {
+          "query": "smarters iptv",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 55
+        },
+        {
+          "query": "iptv smarters player lite",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 303750
+        },
+        {
+          "query": "smarters pro",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 26
+        },
+        {
+          "query": "smarters pro",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 350
+        },
+        {
+          "query": "smarters pro",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 25
+        },
+        {
+          "query": "smarters pro",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 300
+        }
+      ]
+    },
+    {
+      "title": "M3U Player Explained in Plain English",
+      "slug": "m3u-player",
+      "cluster": "players",
+      "targetKeyword": "m3u player",
+      "secondaryKeywords": [
+        "m3u playlist player",
+        "iptv player m3u playlist",
+        "m3u iptv player",
+        "iptv player m3u",
+        "m3u iptv",
+        "iptv m3u playlist"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "pillar",
+      "entity": "m3u",
+      "mergedFrom": [
+        "m3u iptv",
+        "iptv m3u playlist"
+      ],
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 13,
+      "scoreParts": {
+        "seeds": 2,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "m3u player",
+          "seed": "m3u playlist",
+          "type": "top",
+          "geo": "GB",
+          "value": 31
+        },
+        {
+          "query": "m3u player",
+          "seed": "m3u playlist",
+          "type": "rising",
+          "geo": "GB",
+          "value": 70
+        },
+        {
+          "query": "m3u player",
+          "seed": "m3u playlist",
+          "type": "top",
+          "geo": "US",
+          "value": 24
+        },
+        {
+          "query": "m3u player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 27
+        },
+        {
+          "query": "m3u player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 29
+        },
+        {
+          "query": "m3u playlist player",
+          "seed": "m3u playlist",
+          "type": "top",
+          "geo": "GB",
+          "value": 31
+        },
+        {
+          "query": "m3u playlist player",
+          "seed": "m3u playlist",
+          "type": "rising",
+          "geo": "GB",
+          "value": 80
+        },
+        {
+          "query": "m3u playlist player",
+          "seed": "m3u playlist",
+          "type": "top",
+          "geo": "US",
+          "value": 24
+        },
+        {
+          "query": "iptv player m3u playlist",
+          "seed": "m3u playlist",
+          "type": "top",
+          "geo": "GB",
+          "value": 20
+        },
+        {
+          "query": "iptv player m3u playlist",
+          "seed": "m3u playlist",
+          "type": "rising",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "iptv player m3u playlist",
+          "seed": "m3u playlist",
+          "type": "top",
+          "geo": "US",
+          "value": 12
+        },
+        {
+          "query": "m3u iptv player",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 27
+        },
+        {
+          "query": "iptv player m3u",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 29
+        },
+        {
+          "query": "m3u iptv",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 27
+        },
+        {
+          "query": "m3u iptv",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 29
+        },
+        {
+          "query": "iptv m3u playlist",
+          "seed": "m3u playlist",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "title": "IPTV Firestick: Setup Guide",
+      "slug": "iptv-firestick",
+      "cluster": "setup",
+      "targetKeyword": "iptv firestick",
+      "secondaryKeywords": [
+        "iptv on firestick",
+        "best iptv firestick",
+        "iptv firestick uk",
+        "iptv firestick vpn",
+        "best iptv player for firestick",
+        "iptv app firestick"
+      ],
+      "intent": "how-to",
+      "geo": "GLOBAL",
+      "role": "pillar",
+      "entity": "firestick",
+      "internalLinkTargets": [
+        "/setup/",
+        "/setup/iptv-on-firestick/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 13,
+      "scoreParts": {
+        "seeds": 2,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv firestick reddit",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 23
+        },
+        {
+          "query": "iptv firestick 2022",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 18
+        },
+        {
+          "query": "iptv firestick 2023",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 9
+        },
+        {
+          "query": "iptv firestick 2022",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 618300
+        },
+        {
+          "query": "iptv firestick 2023",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 18700
+        },
+        {
+          "query": "iptv firestick reddit",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 300
+        },
+        {
+          "query": "iptv firestick 2022",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 26
+        },
+        {
+          "query": "iptv firestick 2023",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 14
+        },
+        {
+          "query": "iptv firestick 2022",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "US",
+          "value": 851400
+        },
+        {
+          "query": "iptv firestick 2023",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "US",
+          "value": 462900
+        },
+        {
+          "query": "iptv on firestick",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "iptv on firestick",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "best iptv firestick",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 61
+        },
+        {
+          "query": "best iptv firestick",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 78
+        },
+        {
+          "query": "iptv firestick uk",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 40
+        },
+        {
+          "query": "iptv firestick 2022 uk",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 6
+        },
+        {
+          "query": "iptv firestick 2023 uk",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 4
+        },
+        {
+          "query": "iptv firestick 2023 uk",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 138650
+        },
+        {
+          "query": "iptv firestick 2022 uk",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 11400
+        },
+        {
+          "query": "iptv firestick uk",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 50
+        },
+        {
+          "query": "iptv firestick vpn",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 17
+        },
+        {
+          "query": "iptv firestick vpn",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 40
+        },
+        {
+          "query": "best iptv player for firestick 2022",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 87750
+        },
+        {
+          "query": "best iptv player for firestick 2023",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 30950
+        },
+        {
+          "query": "best iptv player for firestick 2023",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 76200
+        },
+        {
+          "query": "best iptv player for firestick 2022",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 65750
+        },
+        {
+          "query": "iptv app firestick",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 41
+        }
+      ]
+    },
+    {
+      "title": "IPTV Apple TV App: Setup Guide",
+      "slug": "iptv-apple-tv-app",
+      "cluster": "setup",
+      "targetKeyword": "iptv apple tv app",
+      "secondaryKeywords": [
+        "iptv apple tv",
+        "best iptv player for apple tv"
+      ],
+      "intent": "how-to",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/setup/",
+        "/setup/iptv-on-firestick/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 13,
+      "scoreParts": {
+        "seeds": 2,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv apple tv app",
+          "seed": "iptv apple tv",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "iptv apple tv app",
+          "seed": "iptv apple tv",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "iptv apple tv reddit",
+          "seed": "iptv apple tv",
+          "type": "top",
+          "geo": "GB",
+          "value": 33
+        },
+        {
+          "query": "iptv apple tv reddit",
+          "seed": "iptv apple tv",
+          "type": "rising",
+          "geo": "GB",
+          "value": 450
+        },
+        {
+          "query": "best iptv player for apple tv",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 450
+        }
+      ]
+    },
+    {
+      "title": "TiviMate Firestick: Setup Guide",
+      "slug": "tivimate-firestick",
+      "cluster": "setup",
+      "targetKeyword": "tivimate firestick",
+      "secondaryKeywords": [
+        "tivimate on firestick",
+        "firestick tivimate"
+      ],
+      "intent": "how-to",
+      "geo": "GLOBAL",
+      "role": "satellite",
+      "entity": "tivimate",
+      "pillarSlug": "tivimate",
+      "internalLinkTargets": [
+        "/setup/",
+        "/setup/iptv-on-firestick/",
+        "/players/tivimate/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 13,
+      "scoreParts": {
+        "seeds": 2,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "tivimate firestick",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 12
+        },
+        {
+          "query": "tivimate firestick",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "GB",
+          "value": 500
+        },
+        {
+          "query": "tivimate firestick",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "US",
+          "value": 14
+        },
+        {
+          "query": "tivimate firestick",
+          "seed": "iptv firestick",
+          "type": "rising",
+          "geo": "US",
+          "value": 300
+        },
+        {
+          "query": "tivimate firestick",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 60
+        },
+        {
+          "query": "tivimate on firestick",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 30
+        },
+        {
+          "query": "tivimate on firestick",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 27
+        },
+        {
+          "query": "firestick tivimate",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "GB",
+          "value": 78
+        }
+      ]
+    },
+    {
+      "title": "Ibo Player Explained in Plain English",
+      "slug": "ibo-player",
+      "cluster": "players",
+      "targetKeyword": "ibo player",
+      "secondaryKeywords": [
+        "ibo player pro"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 11,
+      "scoreParts": {
+        "seeds": 2,
+        "geos": 2,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "ibo player",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 44550
+        },
+        {
+          "query": "ibo player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 9950
+        },
+        {
+          "query": "ibo player",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 11250
+        },
+        {
+          "query": "ibo player pro",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 169950
+        },
+        {
+          "query": "ibo player pro",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 114850
+        }
+      ]
+    },
+    {
+      "title": "XMLTV File Explained in Plain English",
+      "slug": "xmltv-file",
+      "cluster": "technical",
+      "targetKeyword": "xmltv file",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "pillar",
+      "entity": "xmltv",
+      "internalLinkTargets": [
+        "/technical/",
+        "/technical/what-is-an-m3u-playlist/",
+        "/technical/xmltv-and-epg-explained/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 10,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "xmltv file",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "GB",
+          "value": 31
+        },
+        {
+          "query": "xmltv file",
+          "seed": "xmltv",
+          "type": "rising",
+          "geo": "GB",
+          "value": 60
+        },
+        {
+          "query": "xmltv file",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "US",
+          "value": 62
+        }
+      ]
+    },
+    {
+      "title": "IPTV Stream Explained in Plain English",
+      "slug": "iptv-stream",
+      "cluster": "players",
+      "targetKeyword": "iptv stream",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 10,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv stream",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 24
+        },
+        {
+          "query": "iptv stream",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 80
+        },
+        {
+          "query": "iptv stream",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 24
+        }
+      ]
+    },
+    {
+      "title": "IPTV Buffering: Causes and Fixes",
+      "slug": "iptv-buffering",
+      "cluster": "troubleshooting",
+      "targetKeyword": "iptv buffering",
+      "secondaryKeywords": [
+        "iptv buffering issues",
+        "iptv buffering on firestick"
+      ],
+      "intent": "troubleshooting",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/troubleshooting/",
+        "/troubleshooting/iptv-buffering-fix/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 10,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv buffering reddit",
+          "seed": "iptv buffering",
+          "type": "top",
+          "geo": "GB",
+          "value": 85
+        },
+        {
+          "query": "iptv buffering reddit",
+          "seed": "iptv buffering",
+          "type": "rising",
+          "geo": "GB",
+          "value": 550
+        },
+        {
+          "query": "iptv buffering reddit",
+          "seed": "iptv buffering",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "iptv buffering reddit",
+          "seed": "iptv buffering",
+          "type": "rising",
+          "geo": "US",
+          "value": 190
+        },
+        {
+          "query": "iptv buffering issues",
+          "seed": "iptv buffering",
+          "type": "top",
+          "geo": "GB",
+          "value": 30
+        },
+        {
+          "query": "iptv buffering issues",
+          "seed": "iptv buffering",
+          "type": "top",
+          "geo": "US",
+          "value": 71
+        },
+        {
+          "query": "iptv buffering on firestick",
+          "seed": "iptv buffering",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "iptv buffering on firestick",
+          "seed": "iptv buffering",
+          "type": "top",
+          "geo": "US",
+          "value": 51
+        }
+      ]
+    },
+    {
+      "title": "IPTV EPG Source Explained in Plain English",
+      "slug": "iptv-epg-source",
+      "cluster": "technical",
+      "targetKeyword": "iptv epg source",
+      "secondaryKeywords": [
+        "iptv epg url",
+        "iptv epg github"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "pillar",
+      "entity": "epg",
+      "internalLinkTargets": [
+        "/technical/",
+        "/technical/what-is-an-m3u-playlist/",
+        "/technical/xmltv-and-epg-explained/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 10,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv epg source",
+          "seed": "iptv epg",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "iptv epg source",
+          "seed": "iptv epg",
+          "type": "rising",
+          "geo": "GB",
+          "value": 250
+        },
+        {
+          "query": "iptv epg source",
+          "seed": "iptv epg",
+          "type": "top",
+          "geo": "US",
+          "value": 88
+        },
+        {
+          "query": "iptv epg source",
+          "seed": "iptv epg",
+          "type": "rising",
+          "geo": "US",
+          "value": 80
+        },
+        {
+          "query": "iptv epg url",
+          "seed": "iptv epg",
+          "type": "top",
+          "geo": "GB",
+          "value": 79
+        },
+        {
+          "query": "iptv epg url",
+          "seed": "iptv epg",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "iptv epg github",
+          "seed": "iptv epg",
+          "type": "top",
+          "geo": "GB",
+          "value": 39
+        },
+        {
+          "query": "iptv epg github",
+          "seed": "iptv epg",
+          "type": "rising",
+          "geo": "GB",
+          "value": 1850
+        }
+      ]
+    },
+    {
+      "title": "IPTV Not Working? How to Fix It",
+      "slug": "iptv-not-working",
+      "cluster": "troubleshooting",
+      "targetKeyword": "iptv not working",
+      "secondaryKeywords": [
+        "iptv smarters pro not working",
+        "smart iptv not working",
+        "why is iptv not working",
+        "iptv not working with vpn",
+        "why is my iptv not working"
+      ],
+      "intent": "troubleshooting",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/troubleshooting/",
+        "/troubleshooting/iptv-buffering-fix/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 10,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv not working 2022",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "GB",
+          "value": 27
+        },
+        {
+          "query": "iptv not working 2023",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "GB",
+          "value": 20
+        },
+        {
+          "query": "iptv not working 2022",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "GB",
+          "value": 326800
+        },
+        {
+          "query": "iptv not working 2023",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "GB",
+          "value": 238000
+        },
+        {
+          "query": "iptv not working 2022",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "US",
+          "value": 28
+        },
+        {
+          "query": "iptv not working 2023",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "US",
+          "value": 22
+        },
+        {
+          "query": "iptv not working 2022",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "US",
+          "value": 333300
+        },
+        {
+          "query": "iptv not working 2023",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "US",
+          "value": 259100
+        },
+        {
+          "query": "iptv smarters pro not working",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "iptv smarters pro not working",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "GB",
+          "value": 600
+        },
+        {
+          "query": "iptv smarters pro not working",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "iptv smarters pro not working",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "US",
+          "value": 1050
+        },
+        {
+          "query": "smart iptv not working",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "GB",
+          "value": 40
+        },
+        {
+          "query": "smart iptv not working",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "US",
+          "value": 27
+        },
+        {
+          "query": "why is iptv not working",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "GB",
+          "value": 65
+        },
+        {
+          "query": "why is iptv not working",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "GB",
+          "value": 140
+        },
+        {
+          "query": "iptv not working with vpn",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "GB",
+          "value": 24
+        },
+        {
+          "query": "iptv not working with vpn",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "GB",
+          "value": 190
+        },
+        {
+          "query": "why is my iptv not working",
+          "seed": "iptv not working",
+          "type": "top",
+          "geo": "GB",
+          "value": 37
+        },
+        {
+          "query": "why is my iptv not working",
+          "seed": "iptv not working",
+          "type": "rising",
+          "geo": "GB",
+          "value": 140
+        }
+      ]
+    },
+    {
+      "title": "Kodi IPTV Simple Explained in Plain English",
+      "slug": "kodi-iptv-simple",
+      "cluster": "players",
+      "targetKeyword": "kodi iptv simple",
+      "secondaryKeywords": [
+        "kodi iptv",
+        "kodi iptv client"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "pillar",
+      "entity": "kodi",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 10,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "kodi iptv simple",
+          "seed": "kodi iptv",
+          "type": "top",
+          "geo": "GB",
+          "value": 93
+        },
+        {
+          "query": "kodi iptv simple",
+          "seed": "kodi iptv",
+          "type": "top",
+          "geo": "US",
+          "value": 80
+        },
+        {
+          "query": "kodi iptv reddit",
+          "seed": "kodi iptv",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "kodi iptv reddit",
+          "seed": "kodi iptv",
+          "type": "rising",
+          "geo": "US",
+          "value": 300
+        },
+        {
+          "query": "kodi iptv client",
+          "seed": "kodi iptv",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "title": "TiviMate Fire TV: Setup Guide",
+      "slug": "tivimate-fire-tv",
+      "cluster": "setup",
+      "targetKeyword": "tivimate fire tv",
+      "secondaryKeywords": [
+        "tivimate apple tv"
+      ],
+      "intent": "how-to",
+      "geo": "GLOBAL",
+      "role": "satellite",
+      "entity": "tivimate",
+      "pillarSlug": "tivimate",
+      "internalLinkTargets": [
+        "/setup/",
+        "/setup/iptv-on-firestick/",
+        "/players/tivimate/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 10,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "tivimate fire tv",
+          "seed": "tivimate",
+          "type": "top",
+          "geo": "US",
+          "value": 8
+        },
+        {
+          "query": "tivimate apple tv",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 180
+        }
+      ]
+    },
+    {
+      "title": "Is IPTV Legal in UK? What Copyright Guidance Says",
+      "slug": "is-iptv-legal-in-uk",
+      "cluster": "legal-streaming",
+      "targetKeyword": "is iptv legal in uk",
+      "secondaryKeywords": [
+        "is iptv legal in canada",
+        "is iptv legal uk",
+        "is iptv legal in usa",
+        "is iptv legal in the uk",
+        "is iptv legal in the us"
+      ],
+      "intent": "legal",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/legal-streaming/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 10,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "is iptv legal in uk",
+          "seed": "is iptv legal",
+          "type": "top",
+          "geo": "US",
+          "value": 6
+        },
+        {
+          "query": "is iptv legal in uk",
+          "seed": "is iptv legal",
+          "type": "rising",
+          "geo": "US",
+          "value": 950
+        },
+        {
+          "query": "is iptv legal in canada",
+          "seed": "is iptv legal",
+          "type": "top",
+          "geo": "US",
+          "value": 11
+        },
+        {
+          "query": "is iptv legal in canada",
+          "seed": "is iptv legal",
+          "type": "rising",
+          "geo": "US",
+          "value": 180
+        },
+        {
+          "query": "is iptv legal uk",
+          "seed": "is iptv legal",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "is iptv legal in usa",
+          "seed": "is iptv legal",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "is iptv legal in the uk",
+          "seed": "is iptv legal",
+          "type": "top",
+          "geo": "GB",
+          "value": 11
+        },
+        {
+          "query": "is iptv legal in the us",
+          "seed": "is iptv legal",
+          "type": "top",
+          "geo": "US",
+          "value": 16
+        }
+      ]
+    },
+    {
+      "title": "IPTV App Explained in Plain English",
+      "slug": "iptv-app",
+      "cluster": "players",
+      "targetKeyword": "iptv app",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 9,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": false
+      },
+      "sources": [
+        {
+          "query": "iptv app",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "GB",
+          "value": 49
+        },
+        {
+          "query": "iptv app",
+          "seed": "iptv player",
+          "type": "top",
+          "geo": "US",
+          "value": 54
+        }
+      ]
+    },
+    {
+      "title": "XMLTV EPG Explained in Plain English",
+      "slug": "xmltv-epg",
+      "cluster": "technical",
+      "targetKeyword": "xmltv epg",
+      "secondaryKeywords": [
+        "xmltv epg url"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "satellite",
+      "entity": "xmltv",
+      "pillarSlug": "xmltv-file",
+      "internalLinkTargets": [
+        "/technical/",
+        "/technical/what-is-an-m3u-playlist/",
+        "/technical/xmltv-file/",
+        "/technical/xmltv-and-epg-explained/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 9,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": true,
+        "rising": false
+      },
+      "sources": [
+        {
+          "query": "xmltv epg",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "GB",
+          "value": 100
+        },
+        {
+          "query": "xmltv epg",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "US",
+          "value": 100
+        },
+        {
+          "query": "xmltv epg url",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "GB",
+          "value": 26
+        },
+        {
+          "query": "xmltv epg url",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "US",
+          "value": 21
+        }
+      ]
+    },
+    {
+      "title": "Stremio Explained in Plain English",
+      "slug": "stremio",
+      "cluster": "players",
+      "targetKeyword": "stremio",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 8,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "stremio",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 63900
+        },
+        {
+          "query": "stremio",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 71250
+        }
+      ]
+    },
+    {
+      "title": "Televizo Explained in Plain English",
+      "slug": "televizo",
+      "cluster": "players",
+      "targetKeyword": "televizo",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 8,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "televizo",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 80300
+        },
+        {
+          "query": "televizo",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 2150
+        }
+      ]
+    },
+    {
+      "title": "Smarters Player Lite Explained in Plain English",
+      "slug": "smarters-player-lite",
+      "cluster": "players",
+      "targetKeyword": "smarters player lite",
+      "secondaryKeywords": [
+        "smarter player lite"
+      ],
+      "intent": "what-is",
+      "geo": "GLOBAL",
+      "role": "satellite",
+      "entity": "smarters",
+      "pillarSlug": "iptv-smarters",
+      "internalLinkTargets": [
+        "/players/",
+        "/players/iptv-smarters/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 8,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "smarters player lite",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "GB",
+          "value": 10050
+        },
+        {
+          "query": "smarters player lite",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 306450
+        },
+        {
+          "query": "smarter player lite",
+          "seed": "iptv player",
+          "type": "rising",
+          "geo": "US",
+          "value": 47300
+        }
+      ]
+    },
+    {
+      "title": "TiviMate Error Code 404: What It Means and How to Fix It",
+      "slug": "tivimate-error-code-404",
+      "cluster": "troubleshooting",
+      "targetKeyword": "tivimate error code 404",
+      "secondaryKeywords": [
+        "error code 403 tivimate"
+      ],
+      "intent": "troubleshooting",
+      "geo": "GLOBAL",
+      "role": "satellite",
+      "entity": "tivimate",
+      "pillarSlug": "tivimate",
+      "internalLinkTargets": [
+        "/troubleshooting/",
+        "/troubleshooting/iptv-buffering-fix/",
+        "/players/tivimate/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 8,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 2,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "tivimate error code 404",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 18300
+        },
+        {
+          "query": "tivimate error code 404",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 120
+        },
+        {
+          "query": "error code 403 tivimate",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 200
+        }
+      ]
+    },
+    {
+      "title": "IPTV Buffering Every 10 Seconds: Causes and Fixes",
+      "slug": "iptv-buffering-every-10-seconds",
+      "cluster": "troubleshooting",
+      "targetKeyword": "iptv buffering every 10 seconds",
+      "secondaryKeywords": [],
+      "intent": "troubleshooting",
+      "geo": "GB",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/troubleshooting/",
+        "/troubleshooting/iptv-buffering-fix/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 8,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": true,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "iptv buffering every 10 seconds",
+          "seed": "iptv buffering",
+          "type": "top",
+          "geo": "GB",
+          "value": 9
+        },
+        {
+          "query": "iptv buffering every 10 seconds",
+          "seed": "iptv buffering",
+          "type": "rising",
+          "geo": "GB",
+          "value": 81250
+        }
+      ]
+    },
+    {
+      "title": "XMLTV URL Explained in Plain English",
+      "slug": "xmltv-url",
+      "cluster": "technical",
+      "targetKeyword": "xmltv url",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "US",
+      "role": "satellite",
+      "entity": "xmltv",
+      "pillarSlug": "xmltv-file",
+      "internalLinkTargets": [
+        "/technical/",
+        "/technical/what-is-an-m3u-playlist/",
+        "/technical/xmltv-file/",
+        "/technical/xmltv-and-epg-explained/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 7,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": true,
+        "rising": false
+      },
+      "sources": [
+        {
+          "query": "xmltv url",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "US",
+          "value": 46
+        }
+      ]
+    },
+    {
+      "title": "IPTV Apps Explained in Plain English",
+      "slug": "iptv-apps",
+      "cluster": "players",
+      "targetKeyword": "iptv apps",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "GB",
+      "role": "standalone",
+      "internalLinkTargets": [
+        "/players/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 7,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": true,
+        "rising": false
+      },
+      "sources": [
+        {
+          "query": "iptv apps",
+          "seed": "iptv firestick",
+          "type": "top",
+          "geo": "GB",
+          "value": 15
+        }
+      ]
+    },
+    {
+      "title": "XMLTV Grabber Explained in Plain English",
+      "slug": "xmltv-grabber",
+      "cluster": "technical",
+      "targetKeyword": "xmltv grabber",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "US",
+      "role": "satellite",
+      "entity": "xmltv",
+      "pillarSlug": "xmltv-file",
+      "internalLinkTargets": [
+        "/technical/",
+        "/technical/what-is-an-m3u-playlist/",
+        "/technical/xmltv-file/",
+        "/technical/xmltv-and-epg-explained/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 7,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": true,
+        "rising": false
+      },
+      "sources": [
+        {
+          "query": "xmltv grabber",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "US",
+          "value": 13
+        }
+      ]
+    },
+    {
+      "title": "XMLTV Download Explained in Plain English",
+      "slug": "xmltv-download",
+      "cluster": "technical",
+      "targetKeyword": "xmltv download",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "US",
+      "role": "satellite",
+      "entity": "xmltv",
+      "pillarSlug": "xmltv-file",
+      "internalLinkTargets": [
+        "/technical/",
+        "/technical/what-is-an-m3u-playlist/",
+        "/technical/xmltv-file/",
+        "/technical/xmltv-and-epg-explained/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 7,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": true,
+        "rising": false
+      },
+      "sources": [
+        {
+          "query": "xmltv download",
+          "seed": "xmltv",
+          "type": "top",
+          "geo": "US",
+          "value": 19
+        }
+      ]
+    },
+    {
+      "title": "How to Create M3U Playlist",
+      "slug": "create-m3u-playlist",
+      "cluster": "technical",
+      "targetKeyword": "create m3u playlist",
+      "secondaryKeywords": [],
+      "intent": "how-to",
+      "geo": "US",
+      "role": "satellite",
+      "entity": "m3u",
+      "pillarSlug": "m3u-player",
+      "internalLinkTargets": [
+        "/technical/",
+        "/technical/what-is-an-m3u-playlist/",
+        "/players/m3u-player/",
+        "/technical/xmltv-and-epg-explained/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 7,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": true,
+        "rising": false
+      },
+      "sources": [
+        {
+          "query": "create m3u playlist",
+          "seed": "m3u playlist",
+          "type": "top",
+          "geo": "US",
+          "value": 11
+        }
+      ]
+    },
+    {
+      "title": "Is TiviMate Legal? What Copyright Guidance Says",
+      "slug": "is-tivimate-legal",
+      "cluster": "legal-streaming",
+      "targetKeyword": "is tivimate legal",
+      "secondaryKeywords": [],
+      "intent": "legal",
+      "geo": "US",
+      "role": "satellite",
+      "entity": "tivimate",
+      "pillarSlug": "tivimate",
+      "internalLinkTargets": [
+        "/legal-streaming/",
+        "/legal-streaming/is-iptv-legal/",
+        "/players/tivimate/"
+      ],
+      "status": "planned",
+      "score": 6,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "is tivimate legal",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 400
+        }
+      ]
+    },
+    {
+      "title": "TiviMate User Agent Explained in Plain English",
+      "slug": "tivimate-user-agent",
+      "cluster": "players",
+      "targetKeyword": "tivimate user agent",
+      "secondaryKeywords": [],
+      "intent": "what-is",
+      "geo": "US",
+      "role": "satellite",
+      "entity": "tivimate",
+      "pillarSlug": "tivimate",
+      "internalLinkTargets": [
+        "/players/",
+        "/players/tivimate/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 6,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "tivimate user agent",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "US",
+          "value": 250
+        }
+      ]
+    },
+    {
+      "title": "TiviMate Parser Exception: What It Means and How to Fix It",
+      "slug": "tivimate-parser-exception",
+      "cluster": "troubleshooting",
+      "targetKeyword": "tivimate parser exception",
+      "secondaryKeywords": [],
+      "intent": "troubleshooting",
+      "geo": "GB",
+      "role": "satellite",
+      "entity": "tivimate",
+      "pillarSlug": "tivimate",
+      "internalLinkTargets": [
+        "/troubleshooting/",
+        "/troubleshooting/iptv-buffering-fix/",
+        "/players/tivimate/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 6,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "tivimate parser exception",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 34300
+        }
+      ]
+    },
+    {
+      "title": "TiviMate Companion iPhone: Setup Guide",
+      "slug": "tivimate-companion-iphone",
+      "cluster": "setup",
+      "targetKeyword": "tivimate companion iphone",
+      "secondaryKeywords": [
+        "tivimate companion on iphone"
+      ],
+      "intent": "how-to",
+      "geo": "GB",
+      "role": "satellite",
+      "entity": "tivimate",
+      "pillarSlug": "tivimate",
+      "internalLinkTargets": [
+        "/setup/",
+        "/setup/iptv-on-firestick/",
+        "/players/tivimate/",
+        "/legal-streaming/is-iptv-legal/"
+      ],
+      "status": "planned",
+      "score": 6,
+      "scoreParts": {
+        "seeds": 1,
+        "geos": 1,
+        "top": false,
+        "rising": true
+      },
+      "sources": [
+        {
+          "query": "tivimate companion iphone",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 170
+        },
+        {
+          "query": "tivimate companion on iphone",
+          "seed": "tivimate",
+          "type": "rising",
+          "geo": "GB",
+          "value": 27150
+        }
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "query": "iptv",
+      "reason": "head term"
+    },
+    {
+      "query": "m3u playlist free",
+      "reason": "blocklist: playlist free"
+    },
+    {
+      "query": "uk m3u playlist",
+      "reason": "source-hunting: regional feed"
+    },
+    {
+      "query": "github m3u playlist",
+      "reason": "blocklist: github m3u"
+    },
+    {
+      "query": "m3u playlist reddit",
+      "reason": "source-hunting: feed repository"
+    },
+    {
+      "query": "iptv m3u playlist uk",
+      "reason": "source-hunting: regional feed"
+    },
+    {
+      "query": "iptv m3u playlist reddit",
+      "reason": "source-hunting: feed repository"
+    },
+    {
+      "query": "sky m3u playlist",
+      "reason": "source-hunting: broadcaster feed"
+    },
+    {
+      "query": "iptv m3u playlist 2025",
+      "reason": "source-hunting: dated feed"
+    },
+    {
+      "query": "iptv m3u playlist 2024",
+      "reason": "source-hunting: dated feed"
+    },
+    {
+      "query": "free m3u playlist 2023",
+      "reason": "blocklist: free m3u"
+    },
+    {
+      "query": "10,000 m3u playlist",
+      "reason": "source-hunting: channel count"
+    },
+    {
+      "query": "airtel iptv m3u playlist",
+      "reason": "source-hunting: broadcaster feed"
+    },
+    {
+      "query": "free m3u playlist",
+      "reason": "blocklist: free m3u"
+    },
+    {
+      "query": "free iptv m3u playlist",
+      "reason": "blocklist: free iptv"
+    },
+    {
+      "query": "iptv m3u playlist github",
+      "reason": "source-hunting: feed repository"
+    },
+    {
+      "query": "m3u playlist usa",
+      "reason": "source-hunting: regional feed"
+    },
+    {
+      "query": "public iptv epg bevy.be",
+      "reason": "names a website"
+    },
+    {
+      "query": "the crew iptv not working",
+      "reason": "brand or marketplace: the crew"
+    },
+    {
+      "query": "typhoon labs iptv not working",
+      "reason": "brand or marketplace: typhoon labs"
+    },
+    {
+      "query": "the crew iptv not working 2022",
+      "reason": "brand or marketplace: the crew"
+    },
+    {
+      "query": "1st class iptv not working",
+      "reason": "brand or marketplace: 1st class"
+    },
+    {
+      "query": "the crew iptv not working 2023",
+      "reason": "brand or marketplace: the crew"
+    },
+    {
+      "query": "best iptv",
+      "reason": "head term"
+    },
+    {
+      "query": "iptv uk",
+      "reason": "head term"
+    },
+    {
+      "query": "free iptv",
+      "reason": "blocklist: free iptv"
+    },
+    {
+      "query": "amazon firestick",
+      "reason": "bare hardware name"
+    },
+    {
+      "query": "fire stick",
+      "reason": "bare hardware name"
+    },
+    {
+      "query": "firestick 4k max",
+      "reason": "bare hardware name"
+    },
+    {
+      "query": "iptv service",
+      "reason": "transactional: service"
+    },
+    {
+      "query": "iptv smart tv club",
+      "reason": "brand or marketplace: smart tv club"
+    },
+    {
+      "query": "firestick",
+      "reason": "bare hardware name"
+    },
+    {
+      "query": "downloader",
+      "reason": "installer app name"
+    },
+    {
+      "query": "g2g",
+      "reason": "brand or marketplace: g2g"
+    },
+    {
+      "query": "z2u",
+      "reason": "brand or marketplace: z2u"
+    },
+    {
+      "query": "tivimate lifetime subscription",
+      "reason": "transactional: subscription"
+    },
+    {
+      "query": "tivimate subscription",
+      "reason": "transactional: subscription"
+    },
+    {
+      "query": "onn 4k pro",
+      "reason": "bare hardware name"
+    },
+    {
+      "query": "tivimate price",
+      "reason": "transactional: price"
+    },
+    {
+      "query": "smart iptv",
+      "reason": "possible service or app brand (whitelist to keep)"
+    },
+    {
+      "query": "free iptv player",
+      "reason": "blocklist: free iptv"
+    },
+    {
+      "query": "iptv pro",
+      "reason": "possible service or app brand (whitelist to keep)"
+    },
+    {
+      "query": "iptvx",
+      "reason": "possible service or app brand (whitelist to keep)"
+    },
+    {
+      "query": "hot iptv",
+      "reason": "possible service or app brand (whitelist to keep)"
+    },
+    {
+      "query": "github iptv",
+      "reason": "blocklist: github iptv"
+    },
+    {
+      "query": "iptv reddit",
+      "reason": "head term"
+    },
+    {
+      "query": "uhf iptv",
+      "reason": "possible service or app brand (whitelist to keep)"
+    },
+    {
+      "query": "iptv github",
+      "reason": "blocklist: iptv github"
+    },
+    {
+      "query": "iptv buffering reddit",
+      "reason": "merged duplicate of \"iptv buffering\" (year or site name removed)"
+    },
+    {
+      "query": "iptv not working 2022",
+      "reason": "merged duplicate of \"iptv not working\" (year or site name removed)"
+    },
+    {
+      "query": "iptv not working 2023",
+      "reason": "merged duplicate of \"iptv not working\" (year or site name removed)"
+    },
+    {
+      "query": "iptv firestick 2022 uk",
+      "reason": "merged duplicate of \"iptv firestick uk\" (year or site name removed)"
+    },
+    {
+      "query": "iptv firestick 2023 uk",
+      "reason": "merged duplicate of \"iptv firestick uk\" (year or site name removed)"
+    },
+    {
+      "query": "iptv firestick reddit",
+      "reason": "merged duplicate of \"iptv firestick\" (year or site name removed)"
+    },
+    {
+      "query": "iptv firestick 2022",
+      "reason": "merged duplicate of \"iptv firestick\" (year or site name removed)"
+    },
+    {
+      "query": "iptv firestick 2023",
+      "reason": "merged duplicate of \"iptv firestick\" (year or site name removed)"
+    },
+    {
+      "query": "tivimate reddit",
+      "reason": "merged duplicate of \"tivimate\" (year or site name removed)"
+    },
+    {
+      "query": "iptv apple tv reddit",
+      "reason": "merged duplicate of \"iptv apple tv\" (year or site name removed)"
+    },
+    {
+      "query": "best iptv player 2022",
+      "reason": "merged duplicate of \"best iptv player\" (year or site name removed)"
+    },
+    {
+      "query": "best iptv player for firestick 2022",
+      "reason": "merged duplicate of \"best iptv player for firestick\" (year or site name removed)"
+    },
+    {
+      "query": "best iptv player for firestick 2023",
+      "reason": "merged duplicate of \"best iptv player for firestick\" (year or site name removed)"
+    },
+    {
+      "query": "kodi iptv reddit",
+      "reason": "merged duplicate of \"kodi iptv\" (year or site name removed)"
+    }
+  ]
+}

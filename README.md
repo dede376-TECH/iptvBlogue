@@ -53,6 +53,14 @@ pnpm plan:build                                     # CSV → content/plan.json 
 pnpm plan -- --limit 5                              # plan → draft MDX stubs for a human to write
 ```
 
+`plan.ts` also skips brand and marketplace names (`data/blocklist-brands.txt`), head terms and
+bare hardware names (unless listed in `data/whitelist.txt`), strips years 2019-2025 and
+community-site modifiers before merging duplicates, folds each entity (xmltv, epg, m3u, tivimate,
+smarters, kodi, firestick) into one pillar plus satellites with `mergedFrom`, and writes
+per-cluster stats and a `skipped` list with reasons. Items are ranked by a score built from
+distinct seeds, distinct geos and top versus rising. Google Trends values are relative to each
+request, not search volume, so they are recorded but never used for ranking.
+
 Google Trends rate-limits aggressively (HTTP 429). `trends.py` backs off exponentially, flushes
 the CSV after every seed and can be resumed. `plan.ts` rejects blocklisted phrases, transactional
 modifiers and source-hunting patterns, and records the reason in `plan.json`.

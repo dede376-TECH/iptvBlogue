@@ -1,0 +1,18 @@
+# Brand blocklist – one lowercase phrase per line. Whole-word match, case-insensitive.
+#
+# Reseller/provider brands and account marketplaces. A query that names one is never planned,
+# and the name must never appear in the visible text of a page.
+#
+# Used by:
+#   scripts/plan.ts   -> skips queries and secondary keywords that contain any phrase
+#   scripts/seo-check -> fails if any phrase appears in the visible text of a built page
+
+# Provider / reseller brands
+the crew
+typhoon labs
+1st class
+smart tv club
+
+# Account and key marketplaces
+z2u
+g2g

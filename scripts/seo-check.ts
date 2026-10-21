@@ -171,7 +171,10 @@ function main() {
   const clusters = indexClusters();
   const clusterIds = new Set(clusters.map((c) => c.id));
   const articles = indexArticles({ includeDrafts: true });
-  const blocklist = loadBlocklist();
+  const blocklist = [
+    ...loadBlocklist(),
+    ...loadBlocklist(join(process.cwd(), 'data', 'blocklist-brands.txt')),
+  ];
   const banned = phraseMatcher(blocklist);
 
   const htmlFiles = walk(DIST, ['.html']).filter(

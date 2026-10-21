@@ -1,0 +1,5 @@
+# Whitelist – one lowercase query per line.
+#
+# scripts/plan.ts skips head terms ("iptv", "best iptv") and bare hardware names ("firestick",
+# "roku") because they are too broad to answer in one informational guide. Add a query here
+# only when there is a clear, specific guide to write for it.

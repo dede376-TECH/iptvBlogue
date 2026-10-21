@@ -93,6 +93,17 @@ export function titleCase(input: string): string {
     ['firestick', 'Firestick'],
     ['kodi', 'Kodi'],
     ['lg', 'LG'],
+    ['smarters', 'Smarters'],
+    ['url', 'URL'],
+    ['urls', 'URLs'],
+    ['xciptv', 'XCIPTV'],
+    ['gse', 'GSE'],
+    ['mpeg', 'MPEG'],
+    ['vod', 'VOD'],
+    ['4k', '4K'],
+    ['hd', 'HD'],
+    ['iphone', 'iPhone'],
+    ['ipad', 'iPad'],
   ]);
   return input
     .split(/\s+/)
